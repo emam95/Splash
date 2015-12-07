@@ -1,4 +1,6 @@
-package splash.model;
+package splash.controller;
+
+import splash.model.*;
 
 public class GUIMgr {
 
@@ -8,6 +10,10 @@ public class GUIMgr {
      *
      * @param drawable
      */
+    public Tool getSelectedTool() {
+        return splash.model.ResourceManager.getTools().get(0);
+    }
+
     public void startDrawing(Drawable drawable) {
         throw new UnsupportedOperationException();
     }

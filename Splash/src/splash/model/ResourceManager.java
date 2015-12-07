@@ -9,7 +9,7 @@ public class ResourceManager {
     private static ArrayList<Tool> tools = new ArrayList<>();
     private static HashMap<String, Class<? extends Brush>> brushes = new HashMap<>();
 
-    public ArrayList<Tool> getTools() {
+    public static ArrayList<Tool> getTools() {
         return tools;
     }
 
