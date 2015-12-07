@@ -3,27 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package splash;
+package splash.ui;
 
+import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
-/**
- * FXML Controller class
- *
- * @author MEmam
- */
+
 public class FXMLDocumentController implements Initializable {
 
     @FXML
     private Pane DrawingPanel;
-
-    /**
-     * Initializes the controller class.
-     */
+        
+    private void handleButtonAction(ActionEvent event) {
+        
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

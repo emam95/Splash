@@ -8,7 +8,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<<<<<<< HEAD:Splash/src/splash/FXMLDocument.fxml
 <AnchorPane id="AnchorPane" prefHeight="884.0" prefWidth="905.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="splash.FXMLDocumentController">
    <children>
       <Pane fx:id="DrawingPanel" layoutX="20.0" layoutY="49.0" prefHeight="733.0" prefWidth="674.0" />
@@ -51,11 +50,4 @@
         </menus>
       </MenuBar>
    </children>
-=======
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40" fx:controller="splash.ui.FXMLDocumentController">
-    <children>
-        <Button fx:id="button" layoutX="126" layoutY="90" onAction="#handleButtonAction" text="Click Me!" />
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-    </children>
->>>>>>> 01e3c181e776eeb7fd4db39bd52867ac0fc40563:Splash/src/splash/ui/FXMLDocument.fxml
 </AnchorPane>

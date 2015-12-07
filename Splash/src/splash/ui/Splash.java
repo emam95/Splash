@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package splash;
+package splash.ui;
 
+import java.nio.file.Paths;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 
@@ -22,6 +24,10 @@ public class Splash extends Application {
         
         stage.setScene(scene);
         stage.show();
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        Alert al = new Alert(Alert.AlertType.INFORMATION);
+        al.setContentText(Paths.get("").toAbsolutePath().toString());
+        al.show();
     }
 
     /**
