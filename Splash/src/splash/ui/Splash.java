@@ -24,10 +24,10 @@ public class Splash extends Application {
 
         stage.setScene(scene);
         stage.show();
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
-        Alert al = new Alert(Alert.AlertType.INFORMATION);
-        al.setContentText(Paths.get("").toAbsolutePath().toString());
-        al.show();
+        //System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        //Alert al = new Alert(Alert.AlertType.INFORMATION);
+        //al.setContentText(Paths.get("").toAbsolutePath().toString());
+        //al.show();
     }
 
     /**

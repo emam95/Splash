@@ -5,12 +5,15 @@
  */
 package splash.controller;
 
+import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -23,19 +26,17 @@ import javafx.scene.layout.VBox;
 public class FXMLDocumentController implements Initializable {
 
     @FXML
-    private Pane DrawingPanel;
-    @FXML
-    private ToolBar tools1;
-    @FXML
-    private ToolBar tools2;
-    @FXML
-    private VBox LayersPanel;
-    @FXML
-    private Button addLayerBtn;
-    @FXML
-    private Button delLayerBtn;
-    @FXML
     private ColorPicker colorPicker;
+    @FXML
+    private ListView<?> layersList;
+    @FXML
+    private ListView<?> toolsList;
+    @FXML
+    private Button newLayBtn;
+    @FXML
+    private Button delLayBtn;
+    @FXML
+    private Canvas drawingCanvas;
 
     /**
      * Initializes the controller class.
@@ -43,6 +44,8 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
     }    
+
     
 }

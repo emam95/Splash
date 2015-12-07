@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -8,46 +10,69 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="884.0" prefWidth="905.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="splash.controller.FXMLDocumentController">
+<AnchorPane id="AnchorPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="splash.controller.FXMLDocumentController">
    <children>
-      <Pane fx:id="DrawingPanel" layoutX="20.0" layoutY="49.0" prefHeight="733.0" prefWidth="674.0" />
-      <ToolBar fx:id="tools1" layoutX="20.0" layoutY="784.0" prefHeight="40.0" prefWidth="872.0">
-        <items>
-          <Button mnemonicParsing="false" text="1" />
-            <Button mnemonicParsing="false" text="2" />
-        </items>
-      </ToolBar>
-      <ToolBar fx:id="tools2" layoutX="20.0" layoutY="824.0" prefHeight="40.0" prefWidth="872.0" />
-      <VBox fx:id="LayersPanel" layoutX="700.0" layoutY="248.0" prefHeight="491.0" prefWidth="193.0">
-         <children>
-            <Label alignment="CENTER" prefHeight="28.0" prefWidth="193.0" text="Layers">
-               <font>
-                  <Font name="Segoe UI Bold" size="22.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <Button fx:id="addLayerBtn" layoutX="716.0" layoutY="748.0" mnemonicParsing="false" text="Add Layer" />
-      <Button fx:id="delLayerBtn" layoutX="807.0" layoutY="748.0" mnemonicParsing="false" text="Delete Layer" />
-      <ColorPicker fx:id="colorPicker" layoutX="701.0" layoutY="203.0" prefHeight="33.0" prefWidth="192.0" />
-      <MenuBar layoutX="20.0" layoutY="14.0" prefHeight="25.0" prefWidth="872.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
+      <BorderPane prefHeight="884.0" prefWidth="905.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <bottom>
+            <ListView fx:id="toolsList" orientation="HORIZONTAL" prefHeight="79.0" prefWidth="905.0" BorderPane.alignment="CENTER" />
+         </bottom>
+         <right>
+            <VBox prefHeight="780.0" prefWidth="236.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TitledPane animated="false" prefHeight="351.0" prefWidth="236.0" text="untitled">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ColorPicker fx:id="colorPicker" layoutX="55.0" layoutY="21.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+                  <TitledPane animated="false" prefHeight="372.0" prefWidth="236.0" text="Layers">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="layersList" layoutX="1.1999999999999993" layoutY="11.2" prefHeight="342.0" prefWidth="234.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                     <font>
+                        <Font name="Segoe UI" size="14.0" />
+                     </font>
+                  </TitledPane>
+                  <HBox alignment="CENTER" prefHeight="59.0" prefWidth="236.0" spacing="30.0">
+                     <children>
+                        <Button fx:id="newLayBtn" mnemonicParsing="false" text="New Layer" />
+                        <Button fx:id="delLayBtn" mnemonicParsing="false" text="Delete Layer" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </right>
+         <center>
+            <Canvas fx:id="drawingCanvas" height="781.0" width="672.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>
