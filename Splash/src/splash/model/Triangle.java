@@ -1,6 +1,5 @@
-package PaintClassDiagram;
-
-import splash.model.Polygon;
+package splash.model;
 
 public class Triangle extends Polygon {
+    
 }

@@ -3,29 +3,14 @@ package splash.model;
 import java.awt.Image;
 import java.awt.Point;
 
-public class Tool {
+public abstract class Tool {
 
-    private String drawablename;
-    private Image thumb;
-
-    public void getDrawablename() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     *
-     * @param drawablename
-     */
-    public void setDrawablename(int drawablename) {
-        throw new UnsupportedOperationException();
-    }
+    private Image thumb;       
 
     /**
      *
      * @param startpoint
      */
-    public void startDrawing(Point startpoint) {
-        throw new UnsupportedOperationException();
-    }
+    public abstract void initFunction(Point startpoint);
 
 }
