@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package splash;
+package splash.ui;
 
 import java.awt.event.MouseEvent;
 import java.net.URL;
