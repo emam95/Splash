@@ -10,8 +10,12 @@ public class GUIMgr {
      *
      * @param drawable
      */
-    public Tool getSelectedTool() {
+    public static Tool getSelectedTool() {
         return splash.model.ResourceManager.getTools().get(0);
+    }
+
+    public static void notifyRegionUpdate(int x, int y, int w, int h) {
+
     }
 
     public void startDrawing(Drawable drawable) {

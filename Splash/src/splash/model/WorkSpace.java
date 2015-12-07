@@ -1,11 +1,12 @@
 package splash.model;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Stack;
 import javafx.scene.canvas.GraphicsContext;
 
 public class WorkSpace {
-
+    private BufferedImage bitmap = null; // untill a new project is created
     private GraphicsContext graphics;
     private ArrayList<Layer> layers;
     private Stack<State> paststates;
@@ -61,4 +62,15 @@ public class WorkSpace {
         throw new UnsupportedOperationException();
     }
 
+    public BufferedImage getBitmapToDraw()
+    {
+        return bitmap;
+    }
+    
+    public void createNewProject(int width,int height)
+    {
+        bitmap = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        layers = new ArrayList<>();
+        splash.controller.GUIMgr.notifyRegionUpdate(0, 0, width, height);
+    }
 }
