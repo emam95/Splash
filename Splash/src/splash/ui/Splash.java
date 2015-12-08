@@ -21,6 +21,8 @@ public class Splash extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
 
         Scene scene = new Scene(root);
+        
+        stage.setTitle("Splash");
 
         stage.setScene(scene);
         stage.show();

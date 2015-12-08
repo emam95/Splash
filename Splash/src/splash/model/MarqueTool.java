@@ -12,10 +12,17 @@ import java.awt.Point;
  * @author Hesham
  */
 public class MarqueTool extends Tool{
+    
+    public MarqueTool()
+    {
+        id = "Marque";
+    }
 
     @Override
     public void initFunction(Point startpoint) {
         // TODO: handle free selection (flooding)
     }
+    
+
     
 }

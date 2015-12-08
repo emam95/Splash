@@ -17,6 +17,7 @@ public class DrawableTool extends Tool {
 
     public DrawableTool(String drawableName) {
         this.drawableName = drawableName;
+        this.id = drawableName;
     }
 
     public String getDrawableName() {
