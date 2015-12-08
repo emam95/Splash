@@ -1,10 +1,15 @@
 package splash.controller;
 
-import java.awt.Color;
-import java.awt.Point;
+import javafx.scene.paint.Color;
 import splash.model.*;
 
 public class GUIMgr {
+
+    private static FXMLDocumentController cont = null;
+
+    public static void init(FXMLDocumentController controller) {
+        cont = controller;
+    }
 
     public static void clearDrawingArea() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -21,25 +26,27 @@ public class GUIMgr {
      * @param drawable
      */
     public static Tool getSelectedTool() {
-        return splash.model.ResourceManager.getTools().get(0);
+        return new DrawableTool("Rectangle");// For testing
     }
 
     public static Color getPixel(int x, int y) {
-        //return gc.getpixelreader().getpixel
-        return null;
-
+        return cont.getPixel(x, y);
     }
 
     public static void setPixel(int x, int y, Color col) {
-
+        cont.setPixel(x, y, col);
     }
 
-    public void startDrawing(Drawable drawable, Point startpoint) {
-
-    }
-
-    public void newProject(int width, int height) {
+    public static void newProject(int width, int height) {
         workspace = new WorkSpace(width, height);
+    }
+
+    public static boolean isDrawing() {
+        return workspace.isDrawing();
+    }
+
+    public static void clearPixel(int x, int y) {
+        setPixel(x, y, null);
     }
 
     public void newLayer() {
@@ -62,12 +69,12 @@ public class GUIMgr {
         throw new UnsupportedOperationException();
     }
 
-    public void startDrawing(int x, int y, Tool tool) {
-        workspace.startDrawing(x, y, tool);
+    public void startDrawing(int x, int y, Tool tool, Color col) {
+        workspace.startDrawing(x, y, tool, col);
     }
 
-    public void mouseOffset(int x, int y) {
-        workspace.mouseOffset(x, y);
+    public void mouseMoved(int x, int y) {
+        workspace.mouseMoved(x, y);
     }
 
     public void finishDrawing() {

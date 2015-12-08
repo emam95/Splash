@@ -1,9 +1,8 @@
 package splash.model;
 
-import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.lang.reflect.Type;
 import java.util.HashMap;
+import javafx.scene.paint.Color;
 
 public class BitmapDrawable implements Drawable {
 
@@ -76,12 +75,12 @@ public class BitmapDrawable implements Drawable {
     }
 
     @Override
-    public void startDrawing(Point start) {
+    public void startDrawing(Point start, Color col) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void mouseOffset(Point offset) {
+    public void mouseMoved(Point offset) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

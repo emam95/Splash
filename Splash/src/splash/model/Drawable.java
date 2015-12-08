@@ -1,8 +1,8 @@
 package splash.model;
 
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
+import javafx.scene.paint.Color;
 
 public interface Drawable {
 
@@ -32,15 +32,17 @@ public interface Drawable {
 
     void setWidth(int val);
 
-    void setHeight(int val);        
+    void setHeight(int val);
 
     Point getCenter();
 
     State getState();
 
     State updateState();
-    
-    void startDrawing(Point start);
-    void mouseOffset(Point offset);
+
+    void startDrawing(Point start, Color col);
+
+    void mouseMoved(Point offset);
+
     void finishDrawing();
 }

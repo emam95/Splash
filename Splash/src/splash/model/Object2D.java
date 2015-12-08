@@ -1,16 +1,13 @@
 package splash.model;
 
-import java.awt.Color;
-import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.lang.reflect.Type;
 import java.util.HashMap;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public abstract class Object2D implements Drawable {
 
     private Point size;
-    Color color;
+    private Color color;
     private boolean isFilled;
     int width;
     int height;
@@ -82,24 +79,24 @@ public abstract class Object2D implements Drawable {
     public Point getCenter() {
         return new Point(getWidth() / 2, getHeight() / 2);
     }
-    
-    
+
     // Realtime drawing
-    
     Point dstart = null;
     Point cpos = null;
 
     @Override
-    public void startDrawing(Point start) {
+    public void startDrawing(Point start, Color col) {
         dstart = cpos = start;
+        setColor(col);
+        System.out.println(start.getX() + "," + start.getY() + "2dobj|");
     }
 
     @Override
-    public void mouseOffset(Point offset) {
+    public void mouseMoved(Point newpos) {
         if (dstart != null) {
-            cpos.move(offset.x, offset.y);
-            setWidth(Math.abs(cpos.x - dstart.x));
-            setHeight(Math.abs(cpos.y - dstart.y));
+            cpos = newpos;
+            setWidth(Math.abs(cpos.getX() - dstart.getY()));
+            setHeight(Math.abs(cpos.getY() - dstart.getY()));
         }
     }
 
@@ -107,13 +104,26 @@ public abstract class Object2D implements Drawable {
     public void finishDrawing() {
         dstart = cpos = null;
     }
-    
-    public Point getDrawingStartPoint()
-    {
+
+    public Point getDrawingStartPoint() {
         return dstart;
     }
-    public Point getCurrentDrawingPos()
-    {
+
+    public Point getCurrentDrawingPos() {
         return cpos;
+    }
+
+    /**
+     * @return the color
+     */
+    public Color getColor() {
+        return color;
+    }
+
+    /**
+     * @param color the color to set
+     */
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

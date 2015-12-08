@@ -5,10 +5,9 @@
  */
 package splash.model;
 
-import java.awt.Color;
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.awt.Rectangle;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -16,8 +15,14 @@ import java.awt.Rectangle;
  */
 public abstract class Layer {
 
+    private final int x, y;
     BufferedImage bitmap;
     private int id;
+
+    public Layer(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
     public abstract void undo();
 
@@ -27,6 +32,7 @@ public abstract class Layer {
         return this.id;
     }
     static int idseed = 0;
+
     /**
      *
      * @param id
@@ -68,10 +74,23 @@ public abstract class Layer {
         return new Rectangle(0, 0, bitmap.getWidth(), bitmap.getHeight());
     }
 
-    Color getPixel(int x, int y) {
-        return new Color(bitmap.getRGB(x, y), true);
+    Color getPixel(int sx, int sy) {
+        java.awt.Color awcol = new java.awt.Color(bitmap.getRGB(sx - x, sy - y), true);
+        int r, g, b, a;
+        r = awcol.getRed();
+        g = awcol.getGreen();
+        b = awcol.getBlue();
+        a = awcol.getAlpha();
+        return new Color(r / 255.0, g / 255.0, b / 255.0, a / 255);
     }
-
+    int getX()
+    {
+        return x;
+    }
+    int getY()
+    {
+        return y;
+    }
     BufferedImage getBitmap() {
         return bitmap;
     }

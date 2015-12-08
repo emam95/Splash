@@ -1,7 +1,7 @@
 package splash.model;
 
-import java.awt.Point;
 import java.awt.image.BufferedImage;
+import javafx.scene.paint.Color;
 
 public class Ellipse extends Object2D {
 
@@ -44,6 +44,11 @@ public class Ellipse extends Object2D {
 
     @Override
     public void setHeight(int val) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void startDrawing(Point start, Color col) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

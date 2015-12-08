@@ -1,10 +1,8 @@
 package splash.model;
 
-import java.awt.Point;
-
 public class Rectangle extends Polygon {
 
-    public Rectangle(int w, int h) {
-        super(new Point(0, 0), new Point(0, 0), new Point(0, 0), new Point(0, 0));
+    public Rectangle() {
+        super.setPoints(new Point(0, 0), new Point(1, 0), new Point(0, 1), new Point(1, 1));
     }
 }

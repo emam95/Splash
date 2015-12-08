@@ -1,10 +1,9 @@
 package splash.model;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Stack;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import splash.controller.GUIMgr;
 
 public class WorkSpace {
@@ -31,10 +30,7 @@ public class WorkSpace {
     }
 
     public void addLayer(Layer layer) {
-        if (layers.isEmpty()) {
-            selectedlayer = layer;
-        }
-        layers.add(layer);
+        layers.add(selectedlayer = layer);
     }
 
     /**
@@ -77,37 +73,36 @@ public class WorkSpace {
     public Selection intersect(int[] ids) {
         throw new UnsupportedOperationException();
     }
-
-    public void createNewProject(int width, int height) {
-        layers = new ArrayList<>();
-        GUIMgr.clearDrawingArea();
-    }
     Tool drawingtool = null;
     boolean drawing = false;
     boolean moving = false;
     ObjectLayer activelayer;
 
-    public void startDrawing(int x, int y, Tool tool) {
+    public void startDrawing(int x, int y, Tool tool, Color col) {
         drawingtool = tool;
         drawing = true;
-        tool.startDrawing(x, y);
+        tool.startDrawing(x, y, col);        
     }
 
-    public void mouseOffset(int ox, int oy) {
+    public void mouseMoved(int ox, int oy) {
         if (drawing) {
             java.awt.Rectangle prect = selectedlayer.getRect();
-            drawingtool.mouseOffset(ox, oy);
+            drawingtool.mouseMoved(ox, oy);
             java.awt.Rectangle nrect = selectedlayer.getRect();
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
                     if (prect.contains(x, y) || nrect.contains(x, y)) {
                         for (Layer layer : layers) {
-                            Color col = layer.getPixel(x, y);
-                            if (col.getAlpha() == 255) {
-                                // TODO: implement color blending
-                                GUIMgr.setPixel(x, y, col);
-                                break;
+                            if (layer.getRect().contains(x, y)) {
+                                Color col = layer.getPixel(x, y);
+                                double op = col.getOpacity();
+                                if (Math.abs(col.getOpacity() - 1) < 1e-9) {
+                                    // TODO: implement color blending
+                                    GUIMgr.setPixel(x, y, col);
+                                    break;
+                                }
                             }
+                            GUIMgr.clearPixel(x, y);
                         }
                     }
                 }
@@ -124,5 +119,9 @@ public class WorkSpace {
 
     public void finishMoving() {
         moving = false;
+    }
+
+    public boolean isDrawing() {
+        return drawing;
     }
 }

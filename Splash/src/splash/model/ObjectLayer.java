@@ -1,16 +1,15 @@
 package splash.model;
 
-import java.awt.Point;
+import javafx.scene.paint.Color;
 
 public class ObjectLayer extends Layer {
 
-    int x, y;
     private final Object2D content;
     private int id;
 
     public ObjectLayer(int x, int y, Object2D drawable) {
-        this.x = x;
-        this.y = y;
+        super(x, y);
+        System.out.println(x + "," + y + "lc");
         content = drawable;
         this.id = idseed++;
     }
@@ -51,8 +50,7 @@ public class ObjectLayer extends Layer {
      */
     @Override
     public void transform(Point diff) {
-        x += diff.x;
-        y += diff.y;
+        // TODO handle move
     }
 
     @Override
@@ -72,16 +70,19 @@ public class ObjectLayer extends Layer {
 
     Point startp, cpoint;
 
-    public void startDrawing(int x, int y) {
-        content.startDrawing(new Point(x, y));
+    public void startDrawing(int x, int y, Color col) {
+        System.out.println(x + "," + y + "layer|");
+        content.startDrawing(new Point(x, y), col);
         redraw();
     }
 
-    public void mouseOffset(int x, int y) {
-        content.mouseOffset(new Point(x, y));
+    public void mouseMoved(int x, int y) {
+        content.mouseMoved(new Point(x, y));
         redraw();
-        this.x = Math.min(content.getDrawingStartPoint().x, content.getCurrentDrawingPos().x);
-        this.y = Math.min(content.getDrawingStartPoint().y, content.getCurrentDrawingPos().y);
+        //this.x = Math.min(content.getDrawingStartPoint().getX(), content.getCurrentDrawingPos().getX());
+        //this.y = Math.min(content.getDrawingStartPoint().getY(), content.getCurrentDrawingPos().getY());
+        System.out.println(content.getDrawingStartPoint().getX() + "," + content.getDrawingStartPoint().getY());
+        System.out.println("lp" + x + "," + y);
     }
 
     public void finishDrawing() {
@@ -89,6 +90,6 @@ public class ObjectLayer extends Layer {
     }
 
     public java.awt.Rectangle getRect() {
-        return new java.awt.Rectangle(x, y, content.getWidth(), content.getHeight());
+        return new java.awt.Rectangle(getX(), getY(), content.getWidth(), content.getHeight());
     }
 }

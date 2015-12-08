@@ -5,16 +5,17 @@
  */
 package splash.model;
 
-import java.awt.Point;
+;
+
+import javafx.scene.paint.Color;
 
 /**
  *
  * @author Hesham
  */
 public class PointerTool extends Tool {
-    
-    public PointerTool()
-    {
+
+    public PointerTool() {
         id = "Pointer";
     }
 
@@ -24,12 +25,12 @@ public class PointerTool extends Tool {
     }
 
     @Override
-    public void startDrawing(int x, int y) {
+    public void startDrawing(int x, int y, Color col) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void mouseOffset(int x, int y) {
+    public void mouseMoved(int x, int y) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

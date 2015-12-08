@@ -5,16 +5,19 @@
  */
 package splash.model;
 
-import java.awt.Point;
+;
+
+import javafx.scene.paint.Color;
 
 /**
  *
  * @author Hesham
  */
-public class MarqueTool extends Tool{
-    
-    public MarqueTool()
-    {
+
+
+public class MarqueTool extends Tool {
+
+    public MarqueTool() {
         id = "Marque";
     }
 
@@ -24,12 +27,12 @@ public class MarqueTool extends Tool{
     }
 
     @Override
-    public void startDrawing(int x, int y) {
+    public void startDrawing(int x, int y, Color col) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void mouseOffset(int x, int y) {
+    public void mouseMoved(int x, int y) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -37,7 +40,5 @@ public class MarqueTool extends Tool{
     public void finishDrawing() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 
-    
 }

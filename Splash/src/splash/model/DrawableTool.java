@@ -5,13 +5,16 @@
  */
 package splash.model;
 
-import java.awt.Point;
+;
+import javafx.scene.paint.Color;
 import splash.controller.GUIMgr;
 
 /**
  *
  * @author Hesham
  */
+
+
 public class DrawableTool extends Tool {
 
     ObjectLayer activelayer;
@@ -32,19 +35,20 @@ public class DrawableTool extends Tool {
     }
 
     @Override
-    public void startDrawing(int x, int y) {
+    public void startDrawing(int x, int y, Color col) {
         Drawable dr = DrawableFactory.createDrawable(drawableName);
         if (dr instanceof Object2D) {
             activelayer = new ObjectLayer(x, y, (Object2D) dr);
             GUIMgr.getWorkSpace().addLayer(activelayer);
-            activelayer.startDrawing(x, y);
+            activelayer.startDrawing(x, y, col);
+            System.out.println("Layerxystart" + activelayer.getX() + "," + activelayer.getY());
         }
         // TODO: implement free hand tools
     }
 
     @Override
-    public void mouseOffset(int x, int y) {
-        activelayer.mouseOffset(x, y);
+    public void mouseMoved(int x, int y) {
+        activelayer.mouseMoved(x, y);
     }
 
     @Override
