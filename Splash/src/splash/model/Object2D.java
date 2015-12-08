@@ -86,16 +86,16 @@ public abstract class Object2D implements Drawable {
 
     @Override
     public void startDrawing(Point start, Color col) {
+        System.out.println("Start point="+start.toString());
         dstart = cpos = start;
         setColor(col);
-        System.out.println(start.getX() + "," + start.getY() + "2dobj|");
     }
 
     @Override
     public void mouseMoved(Point newpos) {
         if (dstart != null) {
             cpos = newpos;
-            setWidth(Math.abs(cpos.getX() - dstart.getY()));
+            setWidth(Math.abs(cpos.getX() - dstart.getX()));
             setHeight(Math.abs(cpos.getY() - dstart.getY()));
         }
     }

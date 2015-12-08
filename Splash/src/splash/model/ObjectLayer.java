@@ -7,9 +7,7 @@ public class ObjectLayer extends Layer {
     private final Object2D content;
     private int id;
 
-    public ObjectLayer(int x, int y, Object2D drawable) {
-        super(x, y);
-        System.out.println(x + "," + y + "lc");
+    public ObjectLayer(Object2D drawable) {
         content = drawable;
         this.id = idseed++;
     }
@@ -71,7 +69,6 @@ public class ObjectLayer extends Layer {
     Point startp, cpoint;
 
     public void startDrawing(int x, int y, Color col) {
-        System.out.println(x + "," + y + "layer|");
         content.startDrawing(new Point(x, y), col);
         redraw();
     }
@@ -79,10 +76,8 @@ public class ObjectLayer extends Layer {
     public void mouseMoved(int x, int y) {
         content.mouseMoved(new Point(x, y));
         redraw();
-        //this.x = Math.min(content.getDrawingStartPoint().getX(), content.getCurrentDrawingPos().getX());
-        //this.y = Math.min(content.getDrawingStartPoint().getY(), content.getCurrentDrawingPos().getY());
-        System.out.println(content.getDrawingStartPoint().getX() + "," + content.getDrawingStartPoint().getY());
-        System.out.println("lp" + x + "," + y);
+        setX(Math.min(x, content.getDrawingStartPoint().getX()));
+        setY(Math.min(y, content.getDrawingStartPoint().getY()));
     }
 
     public void finishDrawing() {

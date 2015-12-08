@@ -15,14 +15,9 @@ import javafx.scene.paint.Color;
  */
 public abstract class Layer {
 
-    private final int x, y;
+    private int x = 0, y = 0;
     BufferedImage bitmap;
     private int id;
-
-    public Layer(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
 
     public abstract void undo();
 
@@ -83,14 +78,23 @@ public abstract class Layer {
         a = awcol.getAlpha();
         return new Color(r / 255.0, g / 255.0, b / 255.0, a / 255);
     }
-    int getX()
-    {
+
+    int getX() {
         return x;
     }
-    int getY()
-    {
+
+    int getY() {
         return y;
     }
+
+    void setX(int val) {
+        x = val;
+    }
+
+    void setY(int val) {
+        y = val;
+    }
+
     BufferedImage getBitmap() {
         return bitmap;
     }

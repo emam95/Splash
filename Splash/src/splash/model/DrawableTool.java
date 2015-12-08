@@ -38,10 +38,11 @@ public class DrawableTool extends Tool {
     public void startDrawing(int x, int y, Color col) {
         Drawable dr = DrawableFactory.createDrawable(drawableName);
         if (dr instanceof Object2D) {
-            activelayer = new ObjectLayer(x, y, (Object2D) dr);
+            activelayer = new ObjectLayer((Object2D) dr);
             GUIMgr.getWorkSpace().addLayer(activelayer);
-            activelayer.startDrawing(x, y, col);
-            System.out.println("Layerxystart" + activelayer.getX() + "," + activelayer.getY());
+            activelayer.setX(x);
+            activelayer.setY(y);
+            activelayer.startDrawing(x, y, col);            
         }
         // TODO: implement free hand tools
     }

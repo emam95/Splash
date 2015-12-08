@@ -33,12 +33,6 @@ public class Polygon extends Object2D {
         java.awt.Color col = new java.awt.Color(Helper.getARGB(getColor()), true);
         gpx.setColor(col);
         gpx.fillRect(0, 0, width, height);
-        /*        for (int i = 0; i < getWidth(); i++) {
-            for (int j = 0; j < getHeight(); j++) {
-                int rgb = output.getRGB(i, j);
-                System.out.println(i + "," + j + "=" + Integer.toHexString(rgb));
-            }
-        }*/
         return output;
     }
 
@@ -50,6 +44,7 @@ public class Polygon extends Object2D {
         int cx = getCenter().getX();
         float rf = val / getWidth();
         width = val;
+        //System.out.println("Width=" + val);
         /*for (int i = 0; i < xs.length; i++) {
             int nx = xs[i];
             int dist = nx - cx;
@@ -66,6 +61,7 @@ public class Polygon extends Object2D {
         int cy = getCenter().getY();
         float rf = val / getHeight();
         height = val;
+        //System.out.println("Height=" + val);
         /*for (int i = 0; i < xs.length; i++) {
             int ny = ys[i];
             int dist = ny - cy;

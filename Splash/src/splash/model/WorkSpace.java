@@ -81,14 +81,16 @@ public class WorkSpace {
     public void startDrawing(int x, int y, Tool tool, Color col) {
         drawingtool = tool;
         drawing = true;
-        tool.startDrawing(x, y, col);        
+        tool.startDrawing(x, y, col);
     }
 
     public void mouseMoved(int ox, int oy) {
         if (drawing) {
             java.awt.Rectangle prect = selectedlayer.getRect();
+            //System.out.println("P"+prect.getX() + "," + prect.getY() + "|" + prect.getWidth() + "," + prect.getHeight());
             drawingtool.mouseMoved(ox, oy);
             java.awt.Rectangle nrect = selectedlayer.getRect();
+            //System.out.println("N"+nrect.getX() + "," + nrect.getY() + "|" + nrect.getWidth() + "," + nrect.getHeight());
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
                     if (prect.contains(x, y) || nrect.contains(x, y)) {
