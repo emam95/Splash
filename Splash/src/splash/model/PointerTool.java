@@ -12,6 +12,11 @@ import java.awt.Point;
  * @author Hesham
  */
 public class PointerTool extends Tool {
+    
+    public PointerTool()
+    {
+        id = "Pointer";
+    }
 
     @Override
     public void initFunction(Point startpoint) {

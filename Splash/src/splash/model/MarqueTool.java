@@ -12,6 +12,11 @@ import java.awt.Point;
  * @author Hesham
  */
 public class MarqueTool extends Tool{
+    
+    public MarqueTool()
+    {
+        id = "Marque";
+    }
 
     @Override
     public void initFunction(Point startpoint) {
@@ -32,5 +37,7 @@ public class MarqueTool extends Tool{
     public void finishDrawing() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+
     
 }
