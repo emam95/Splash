@@ -45,6 +45,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Canvas drawingCanvas;
     
+    private ArrayList<Tool> tools;
+    
 
     /**
      * Initializes the controller class.
@@ -54,13 +56,22 @@ public class FXMLDocumentController implements Initializable {
         // TODO
         ObservableList<String> items =FXCollections.observableArrayList();
         ResourceManager.loadTools();
-        ArrayList<Tool> tools = ResourceManager.getTools();
+        tools = ResourceManager.getTools();
         for(Tool tool : tools)
         {
             items.add(tool.getId());
         }
         toolsList.setItems(items);
-    }    
+    }
 
-    
+    public Tool toolSelected()
+    {
+        String id = toolsList.getSelectionModel().getSelectedItem();
+        for(Tool tool: tools)
+        {
+            if(tool.getId().equals(id))
+                return tool;
+        }
+        return null;
+    }
 }
