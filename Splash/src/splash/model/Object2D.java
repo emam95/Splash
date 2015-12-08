@@ -85,8 +85,7 @@ public abstract class Object2D implements Drawable {
     Point cpos = null;
 
     @Override
-    public void startDrawing(Point start, Color col) {
-        System.out.println("Start point="+start.toString());
+    public void startDrawing(Point start, Color col) {        
         dstart = cpos = start;
         setColor(col);
     }

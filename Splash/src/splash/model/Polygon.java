@@ -44,7 +44,6 @@ public class Polygon extends Object2D {
         int cx = getCenter().getX();
         float rf = val / getWidth();
         width = val;
-        //System.out.println("Width=" + val);
         /*for (int i = 0; i < xs.length; i++) {
             int nx = xs[i];
             int dist = nx - cx;
@@ -60,8 +59,7 @@ public class Polygon extends Object2D {
         }
         int cy = getCenter().getY();
         float rf = val / getHeight();
-        height = val;
-        //System.out.println("Height=" + val);
+        height = val;        
         /*for (int i = 0; i < xs.length; i++) {
             int ny = ys[i];
             int dist = ny - cy;

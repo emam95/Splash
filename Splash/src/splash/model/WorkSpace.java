@@ -1,6 +1,6 @@
 package splash.model;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Stack;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -10,7 +10,7 @@ public class WorkSpace {
 
     int width, height;
     private GraphicsContext graphics;
-    private ArrayList<Layer> layers = new ArrayList<>();
+    private LinkedList<Layer> layers = new LinkedList<>();
     private Layer selectedlayer;
     private Stack<State> paststates;
     private Stack<State> futstates;
@@ -25,19 +25,20 @@ public class WorkSpace {
         return this.graphics;
     }
 
-    public ArrayList<Layer> getLayers() {
-        return this.layers;
+    public Layer[] getLayers() {
+        Layer[] ar = new Layer[layers.size()];
+        return this.layers.toArray(ar);
     }
 
     public void addLayer(Layer layer) {
-        layers.add(selectedlayer = layer);
+        layers.addFirst(selectedlayer = layer);
     }
 
     /**
      *
      * @param layers
      */
-    public void setLayers(ArrayList<Layer> layers) {
+    public void setLayers(LinkedList<Layer> layers) {
         this.layers = layers;
     }
 
@@ -83,32 +84,46 @@ public class WorkSpace {
         drawing = true;
         tool.startDrawing(x, y, col);
     }
+    Thread th = null;
+    boolean lock = false;
 
     public void mouseMoved(int ox, int oy) {
         if (drawing) {
-            java.awt.Rectangle prect = selectedlayer.getRect();
-            //System.out.println("P"+prect.getX() + "," + prect.getY() + "|" + prect.getWidth() + "," + prect.getHeight());
-            drawingtool.mouseMoved(ox, oy);
-            java.awt.Rectangle nrect = selectedlayer.getRect();
-            //System.out.println("N"+nrect.getX() + "," + nrect.getY() + "|" + nrect.getWidth() + "," + nrect.getHeight());
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
-                    if (prect.contains(x, y) || nrect.contains(x, y)) {
-                        for (Layer layer : layers) {
-                            if (layer.getRect().contains(x, y)) {
-                                Color col = layer.getPixel(x, y);
-                                double op = col.getOpacity();
-                                if (Math.abs(col.getOpacity() - 1) < 1e-9) {
-                                    // TODO: implement color blending
-                                    GUIMgr.setPixel(x, y, col);
-                                    break;
+            if (lock) {
+                return;
+            }            
+            lock = true;
+            (th = new Thread() {
+                @Override
+                public void run() {
+                    java.awt.Rectangle prect = selectedlayer.getRect();
+                    drawingtool.mouseMoved(ox, oy);
+                    java.awt.Rectangle nrect = selectedlayer.getRect();
+                    for (int x = 0; x < width; x++) {
+                        for (int y = 0; y < height; y++) {
+                            if (prect.contains(x, y) || nrect.contains(x, y)) {
+                                boolean found = false;
+                                for (Layer layer : layers) {
+                                    if (layer.getRect().contains(x, y)) {
+                                        Color col = layer.getPixel(x, y);
+                                        if (col.getOpacity() == 1) {
+                                            // TODO: implement color blending
+                                            GUIMgr.setPixel(x, y, col);
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (!found) {
+                                    GUIMgr.clearPixel(x, y);
                                 }
                             }
-                            GUIMgr.clearPixel(x, y);
                         }
                     }
+                    System.out.println("Drew");
+                    lock = false;
                 }
-            }
+            }).start();
         } else if (moving) {
 
         }

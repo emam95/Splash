@@ -26,8 +26,7 @@ public class Splash extends Application {
         stage.setTitle("Splash");
 
         stage.setScene(scene);
-        stage.show();
-        //System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        stage.show();        
         //Alert al = new Alert(Alert.AlertType.INFORMATION);
         //al.setContentText(Paths.get("").toAbsolutePath().toString());
         //al.show();
