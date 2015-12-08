@@ -1,27 +1,30 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package splash.model;
 
+import java.awt.Color;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.awt.Rectangle;
 
-public class Layer {
+/**
+ *
+ * @author Hesham
+ */
+public abstract class Layer {
 
-    private Drawable content;
+    BufferedImage bitmap;
     private int id;
 
-    /**
-     *
-     * @param target
-     */
-    public void draw(WorkSpace target) {
-        throw new UnsupportedOperationException();
+    public Layer(int id) {
     }
 
-    public void undo() {
-        throw new UnsupportedOperationException();
-    }
+    public abstract void undo();
 
-    public void redo() {
-        throw new UnsupportedOperationException();
-    }
+    public abstract void redo();
 
     public int getId() {
         return this.id;
@@ -35,48 +38,46 @@ public class Layer {
         this.id = id;
     }
 
-    public Drawable getDrawable() {
-        throw new UnsupportedOperationException();
-    }
+    public abstract void resizeX(int newwidth);
 
-    /**
-     *
-     * @param scale
-     */
-    public void resize(float scale) {
-        throw new UnsupportedOperationException();
-    }
+    public abstract void resizeY(int newheight);
 
     /**
      *
      * @param diff
      */
-    public void transform(Point diff) {
-        throw new UnsupportedOperationException();
-    }
+    public abstract void transform(Point diff);
 
     /**
      *
      * @param rad
      */
-    public void rotate(float rad) {
-        throw new UnsupportedOperationException();
-    }
+    public abstract void rotate(float rad);
 
     /**
      *
      * @param target
      */
-    public void erase(Point target) {
-        throw new UnsupportedOperationException();
-    }
+    public abstract void erase(Point target);
 
     /**
      *
      * @param point
      * @return
      */
-    public Selection getSelection(Point point) {
-        throw new UnsupportedOperationException();
+    public abstract Selection getSelection(Point point);
+
+    public abstract void startDrawing(int x, int y, Tool tool);
+
+    public abstract void mouseOffset(int x, int y);
+
+    public abstract void finishDrawing();
+
+    public Rectangle getRect() {
+        return new Rectangle(0, 0, bitmap.getWidth(), bitmap.getHeight());
+    }
+
+    Color getPixel(int x, int y) {
+        return new Color(bitmap.getRGB(x, y), true);
     }
 }

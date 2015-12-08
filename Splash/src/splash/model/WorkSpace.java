@@ -1,17 +1,26 @@
 package splash.model;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Stack;
 import javafx.scene.canvas.GraphicsContext;
+import splash.controller.GUIMgr;
 
 public class WorkSpace {
-    private BufferedImage bitmap = null; // untill a new project is created
+
+    int width, height;
     private GraphicsContext graphics;
-    private ArrayList<Layer> layers;
+    private ArrayList<Layer> layers = new ArrayList<>();
+    private Layer selectedlayer;
     private Stack<State> paststates;
     private Stack<State> futstates;
     private Selection selection;
+
+    public WorkSpace(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
 
     public GraphicsContext getGraphics() {
         return this.graphics;
@@ -19,6 +28,13 @@ public class WorkSpace {
 
     public ArrayList<Layer> getLayers() {
         return this.layers;
+    }
+
+    public void addLayer(Layer layer) {
+        if (layers.isEmpty()) {
+            selectedlayer = layer;
+        }
+        layers.add(layer);
     }
 
     /**
@@ -62,15 +78,50 @@ public class WorkSpace {
         throw new UnsupportedOperationException();
     }
 
-    public BufferedImage getBitmapToDraw()
-    {
-        return bitmap;
-    }
-    
-    public void createNewProject(int width,int height)
-    {
-        bitmap = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+    public void createNewProject(int width, int height) {
         layers = new ArrayList<>();
-        splash.controller.GUIMgr.notifyRegionUpdate(0, 0, width, height);
+        GUIMgr.clearDrawingArea();
+    }
+    Tool drawingtool = null;
+    boolean drawing = false;
+    boolean moving = false;
+
+    public void startDrawing(int x, int y, Tool tool) {
+        drawingtool = tool;
+        drawing = true;
+        selectedlayer.startDrawing(x, y, tool);
+    }
+
+    public void mouseOffset(int ox, int oy) {
+        if (drawing) {
+            java.awt.Rectangle prect = selectedlayer.getRect();
+            selectedlayer.mouseOffset(ox, oy);
+            java.awt.Rectangle nrect = selectedlayer.getRect();
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    if (prect.contains(x, y) || nrect.contains(x, y)) {
+                        for (Layer layer : layers) {
+                            Color col = layer.getPixel(x, y);
+                            if (col.getAlpha() == 255) {
+                                // TODO: implement color blending
+                                GUIMgr.setPixel(x, y, col);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        } else if (moving) {
+            
+        }
+    }
+
+    public void finishDrawing() {
+        selectedlayer.finishDrawing();
+        drawing = false;
+    }
+
+    public void finishMoving() {
+        moving = false;
     }
 }

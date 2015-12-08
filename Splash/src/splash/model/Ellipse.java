@@ -1,12 +1,11 @@
 package splash.model;
 
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 
 public class Ellipse extends Object2D {
 
     private Point center;
-    private float width;
-    private float height;
     private int attribute;
 
     public Point getCenter() {
@@ -21,30 +20,6 @@ public class Ellipse extends Object2D {
         this.center = center;
     }
 
-    public float getWidth() {
-        return this.width;
-    }
-
-    /**
-     *
-     * @param width
-     */
-    public void setWidth(float width) {
-        this.width = width;
-    }
-
-    public float getHeight() {
-        return this.height;
-    }
-
-    /**
-     *
-     * @param height
-     */
-    public void setHeight(float height) {
-        this.height = height;
-    }
-
     public void getAttribute() {
         throw new UnsupportedOperationException();
     }
@@ -56,4 +31,20 @@ public class Ellipse extends Object2D {
     public void setAttribute(int attribute) {
         this.attribute = attribute;
     }
+
+    @Override
+    public BufferedImage getBitmap() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setWidth(int par0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setHeight(int val) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

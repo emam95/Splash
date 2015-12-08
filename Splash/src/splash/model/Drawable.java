@@ -1,7 +1,7 @@
 package splash.model;
 
 import java.awt.Point;
-import java.lang.reflect.Type;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 public interface Drawable {
@@ -9,10 +9,11 @@ public interface Drawable {
     /**
      *
      * @param target
+     * @return
      */
-    void draw(WorkSpace target);
+    BufferedImage getBitmap();
 
-    HashMap<String, Type> getEditableList();
+    HashMap<String, Class<?>> getEditableList();
 
     /**
      *
@@ -21,26 +22,25 @@ public interface Drawable {
      */
     Error[] updateProperties(HashMap<String, Object> modrec);
 
-    Point getTopLeft();
-
-    Point getSize();
-
     /**
      *
      * @param val
      */
-    void setTopLeft(Point val);
+    int getWidth();
 
-    /**
-     *
-     * @param val
-     */
-    void setSize(Point val);
+    int getHeight();
 
-    Point getCener();
+    void setWidth(int val);
+
+    void setHeight(int val);        
+
+    Point getCenter();
 
     State getState();
 
     State updateState();
-
+    
+    void startDrawing(Point start);
+    void mouseOffset(Point offset);
+    void finishDrawing();
 }
