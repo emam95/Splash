@@ -31,6 +31,7 @@ public class Polygon extends Object2D {
     public BufferedImage getBitmap() {
         BufferedImage output = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics gpx = output.getGraphics();
+        gpx.setColor(color);
         gpx.fillPolygon(xs, ys, xs.length);
         return output;
     }

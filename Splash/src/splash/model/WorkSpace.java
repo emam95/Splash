@@ -85,17 +85,18 @@ public class WorkSpace {
     Tool drawingtool = null;
     boolean drawing = false;
     boolean moving = false;
+    ObjectLayer activelayer;
 
     public void startDrawing(int x, int y, Tool tool) {
         drawingtool = tool;
         drawing = true;
-        selectedlayer.startDrawing(x, y, tool);
+        tool.startDrawing(x, y);
     }
 
     public void mouseOffset(int ox, int oy) {
         if (drawing) {
             java.awt.Rectangle prect = selectedlayer.getRect();
-            selectedlayer.mouseOffset(ox, oy);
+            drawingtool.mouseOffset(ox, oy);
             java.awt.Rectangle nrect = selectedlayer.getRect();
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
@@ -112,12 +113,12 @@ public class WorkSpace {
                 }
             }
         } else if (moving) {
-            
+
         }
     }
 
     public void finishDrawing() {
-        selectedlayer.finishDrawing();
+        drawingtool.finishDrawing();
         drawing = false;
     }
 

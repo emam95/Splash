@@ -8,11 +8,11 @@ public class ObjectLayer extends Layer {
     private final Object2D content;
     private int id;
 
-    public ObjectLayer(int id, int x, int y, Object2D drawable) {
-        super(id);
+    public ObjectLayer(int x, int y, Object2D drawable) {
         this.x = x;
         this.y = y;
         content = drawable;
+        this.id = idseed++;
     }
 
     public void redraw() {
@@ -72,13 +72,11 @@ public class ObjectLayer extends Layer {
 
     Point startp, cpoint;
 
-    @Override
-    public void startDrawing(int x, int y, Tool tool) {
+    public void startDrawing(int x, int y) {
         content.startDrawing(new Point(x, y));
         redraw();
     }
 
-    @Override
     public void mouseOffset(int x, int y) {
         content.mouseOffset(new Point(x, y));
         redraw();
@@ -86,7 +84,6 @@ public class ObjectLayer extends Layer {
         this.y = Math.min(content.getDrawingStartPoint().y, content.getCurrentDrawingPos().y);
     }
 
-    @Override
     public void finishDrawing() {
         redraw();
     }

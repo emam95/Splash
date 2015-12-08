@@ -11,7 +11,7 @@ public class DrawableFactory {
      * @param type
      * @return
      */
-    public Drawable createDrawable(String type) {
+    public static Drawable createDrawable(String type) {
         if (Drawables.containsKey(type)) {
             try {
                 return Drawables.get(type).newInstance();

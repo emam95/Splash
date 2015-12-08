@@ -10,7 +10,11 @@ public class GUIMgr {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private WorkSpace workspace = null;
+    public static WorkSpace getWorkSpace() {
+        return workspace;
+    }
+
+    private static WorkSpace workspace = null;
 
     /**
      *
@@ -58,4 +62,15 @@ public class GUIMgr {
         throw new UnsupportedOperationException();
     }
 
+    public void startDrawing(int x, int y, Tool tool) {
+        workspace.startDrawing(x, y, tool);
+    }
+
+    public void mouseOffset(int x, int y) {
+        workspace.mouseOffset(x, y);
+    }
+
+    public void finishDrawing() {
+        workspace.finishDrawing();
+    }
 }

@@ -10,7 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 public abstract class Object2D implements Drawable {
 
     private Point size;
-    private Color color;
+    Color color;
     private boolean isFilled;
     int width;
     int height;

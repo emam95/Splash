@@ -19,9 +19,6 @@ public abstract class Layer {
     BufferedImage bitmap;
     private int id;
 
-    public Layer(int id) {
-    }
-
     public abstract void undo();
 
     public abstract void redo();
@@ -29,7 +26,7 @@ public abstract class Layer {
     public int getId() {
         return this.id;
     }
-
+    static int idseed = 0;
     /**
      *
      * @param id
@@ -67,17 +64,15 @@ public abstract class Layer {
      */
     public abstract Selection getSelection(Point point);
 
-    public abstract void startDrawing(int x, int y, Tool tool);
-
-    public abstract void mouseOffset(int x, int y);
-
-    public abstract void finishDrawing();
-
     public Rectangle getRect() {
         return new Rectangle(0, 0, bitmap.getWidth(), bitmap.getHeight());
     }
 
     Color getPixel(int x, int y) {
         return new Color(bitmap.getRGB(x, y), true);
+    }
+
+    BufferedImage getBitmap() {
+        return bitmap;
     }
 }

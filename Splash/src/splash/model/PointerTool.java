@@ -18,4 +18,19 @@ public class PointerTool extends Tool {
         // TODO: Handle move
     }
 
+    @Override
+    public void startDrawing(int x, int y) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseOffset(int x, int y) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void finishDrawing() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
