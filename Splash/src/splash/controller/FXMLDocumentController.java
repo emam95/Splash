@@ -81,6 +81,10 @@ public class FXMLDocumentController implements Initializable {
         }
         return null;
     }
+    
+    public int layerSelected() {
+        return Integer.parseInt(layersList.getSelectionModel().getSelectedItem());
+    }
 
     private void canvasMousePressed(MouseEvent ev) {
         if (!GUIMgr.isDrawing()) {
