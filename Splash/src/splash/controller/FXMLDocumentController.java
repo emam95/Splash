@@ -63,6 +63,7 @@ public class FXMLDocumentController implements Initializable {
         }
         toolsList.setItems(items);
         colorPicker.setValue(Color.BLACK);
+        toolsList.getSelectionModel().select(0);
         
 
         // events
