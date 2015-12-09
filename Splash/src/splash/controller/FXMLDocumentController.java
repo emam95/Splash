@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import splash.model.Helper;
 import splash.model.ResourceManager;
@@ -61,6 +62,7 @@ public class FXMLDocumentController implements Initializable {
         // events
         drawingCanvas.setOnMousePressed(this::canvasMousePressed);
         drawingCanvas.setOnMouseMoved(this::canvasMouseMoved);
+        
     }
 
     public Tool toolSelected() {

@@ -30,6 +30,8 @@ public class Splash extends Application {
         //Alert al = new Alert(Alert.AlertType.INFORMATION);
         //al.setContentText(Paths.get("").toAbsolutePath().toString());
         //al.show();
+        
+        
     }
 
     /**
