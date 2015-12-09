@@ -93,10 +93,16 @@ public class WorkSpace {
     }
     Tool drawingtool = null;
     boolean drawing = false;
-    boolean moving = false;
     ObjectLayer activelayer;
+    long redrawrestraint = 50;
+    long lastmousemove = 0;
 
+    //Thread th;
     public void redrawRegion(java.awt.Rectangle prect, java.awt.Rectangle srect, boolean primaryrectonly) {
+        /*  if (th!=null && th.isAlive()) {
+            return;
+        }
+        (th=new Thread(() -> {*/
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (prect.contains(x, y) || (!primaryrectonly && srect.contains(x, y))) {
@@ -118,6 +124,7 @@ public class WorkSpace {
                 }
             }
         }
+        //})).start();
     }
 
     public void startDrawing(int x, int y, Tool tool, Color col) {
@@ -127,23 +134,23 @@ public class WorkSpace {
     }
 
     public void mouseMoved(int ox, int oy) {
-        if (drawing) {
-            java.awt.Rectangle prect = selectedlayer.getRect();
+        if (drawing && selectedlayer != null) {
+            if (System.currentTimeMillis() - lastmousemove < redrawrestraint) {
+                return;
+            }
+            lastmousemove = System.currentTimeMillis();
+            SW.start();
+            final java.awt.Rectangle prect = selectedlayer.getRect();
             drawingtool.mouseMoved(ox, oy);
-            java.awt.Rectangle nrect = selectedlayer.getRect();
+            final java.awt.Rectangle nrect = selectedlayer.getRect();
             redrawRegion(prect, nrect, false);
-        } else if (moving) {
-
+            redrawrestraint = SW.getElapsed() * 2;
         }
     }
 
     public void finishDrawing() {
         drawingtool.finishDrawing();
         drawing = false;
-    }
-
-    public void finishMoving() {
-        moving = false;
     }
 
     public boolean isDrawing() {

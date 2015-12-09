@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 
 public abstract class Tool {
 
+    static Tool lastselected = null;
     private Image thumb;
     protected String id;
 
@@ -18,6 +19,19 @@ public abstract class Tool {
 
     public String getId() {
         return this.id;
+    }
+
+    public void select() {
+        if (lastselected != null) {
+            lastselected.unselect();
+        }
+        lastselected = this;
+    }
+
+    public void unselect() {
+    }
+
+    public void notifyLayerChanged() {
     }
 
     public abstract void startDrawing(int x, int y, Color col);

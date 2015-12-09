@@ -44,6 +44,7 @@ public class ResourceManager {
         // Predefined tools
         tools.add(new PointerTool());
         tools.add(new MarqueTool());
+        tools.add(new ResizeTool());
         // Shape based tools
         Iterator<String> it = DrawableFactory.Drawables.keySet().iterator();
         while (it.hasNext()) {
