@@ -1,6 +1,7 @@
 package splash.model;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class Polygon extends Object2D {
@@ -28,7 +29,7 @@ public class Polygon extends Object2D {
     public BufferedImage getBitmap() {
         int w = getWidth(), h = getHeight();
         BufferedImage output = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-        Graphics gpx = output.getGraphics();
+        Graphics2D gpx = output.createGraphics();
         java.awt.Color col = new java.awt.Color(Helper.getARGB(getColor()), true);
         gpx.setColor(col);
         gpx.fillPolygon(xs, ys, Math.min(xs.length, ys.length));
