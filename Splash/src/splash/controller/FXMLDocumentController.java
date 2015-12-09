@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -20,6 +21,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import splash.model.Helper;
+import splash.model.Layer;
+import splash.model.ObjectLayer;
+import splash.model.RawLayer;
 import splash.model.ResourceManager;
 import splash.model.Tool;
 
@@ -33,7 +37,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ColorPicker colorPicker;
     @FXML
-    private ListView<?> layersList;
+    private ListView<String> layersList;
     @FXML
     private ListView<String> toolsList;
     @FXML
@@ -42,7 +46,7 @@ public class FXMLDocumentController implements Initializable {
     private Button delLayBtn;
     @FXML
     private Canvas drawingCanvas;
-
+    
     private ArrayList<Tool> tools;
 
     /**
@@ -94,4 +98,29 @@ public class FXMLDocumentController implements Initializable {
     void setPixel(int x, int y, Color col) {
         drawingCanvas.getGraphicsContext2D().getPixelWriter().setArgb(x, y, Helper.getARGB(col));
     }    
+
+    @FXML
+    private void addLayer(ActionEvent e) {
+        Layer l = new RawLayer();
+        GUIMgr.getWorkSpace().addLayer(l);
+        refreshLayers();
+    }
+
+    @FXML
+    private void removeLayer(ActionEvent e) {
+        String id = layersList.getSelectionModel().getSelectedItem();
+        GUIMgr.getWorkSpace().removeLayer(Integer.parseInt(id));
+        refreshLayers();
+    }
+    
+    public void refreshLayers()
+    {
+        ObservableList<String> items = FXCollections.observableArrayList();
+        Layer[] layers = GUIMgr.getWorkSpace().getLayers();
+        for (Layer layer : layers) {
+            items.add(String.valueOf(layer.getId()));
+        }
+        layersList.setItems(items);
+
+    }
 }

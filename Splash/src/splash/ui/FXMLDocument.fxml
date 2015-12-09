@@ -12,7 +12,7 @@
 
 <AnchorPane id="AnchorPane" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="splash.controller.FXMLDocumentController">
    <children>
-      <BorderPane prefHeight="884.0" prefWidth="905.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="884.0" prefWidth="905.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <VBox prefHeight="85.0" prefWidth="908.0" BorderPane.alignment="CENTER">
                <children>
@@ -63,10 +63,10 @@
                         <Font name="Segoe UI" size="14.0" />
                      </font>
                   </TitledPane>
-                  <HBox alignment="CENTER" prefHeight="59.0" prefWidth="236.0" spacing="30.0">
+                  <HBox alignment="CENTER" prefHeight="59.0" prefWidth="236.0" spacing="30.0" style="-fx-background-color: grey;">
                      <children>
-                        <Button fx:id="newLayBtn" mnemonicParsing="false" text="New Layer" />
-                        <Button fx:id="delLayBtn" mnemonicParsing="false" text="Delete Layer" />
+                        <Button fx:id="newLayBtn" mnemonicParsing="false" onAction="#addLayer" text="New Layer" />
+                        <Button fx:id="delLayBtn" mnemonicParsing="false" onAction="#removeLayer" text="Delete Layer" />
                      </children>
                   </HBox>
                </children>
@@ -76,7 +76,7 @@
             <AnchorPane prefHeight="614.0" prefWidth="669.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
                   <Canvas fx:id="drawingCanvas" height="625.0" width="669.0" AnchorPane.bottomAnchor="174.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <Separator layoutY="599.0" prefHeight="0.0" prefWidth="668.0" />
+                  <Separator layoutY="599.0" prefHeight="0.0" prefWidth="668.0" style="-fx-background-color: grey;" />
                   <AnchorPane layoutX="-1.0" layoutY="599.0" prefHeight="200.0" prefWidth="670.0" style="-fx-background-color: grey;" />
                </children>
             </AnchorPane>

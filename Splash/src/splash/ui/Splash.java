@@ -26,6 +26,7 @@ public class Splash extends Application {
         stage.setTitle("Splash");
 
         stage.setScene(scene);
+        //stage.setResizable(false);
         stage.show();        
         //Alert al = new Alert(Alert.AlertType.INFORMATION);
         //al.setContentText(Paths.get("").toAbsolutePath().toString());
