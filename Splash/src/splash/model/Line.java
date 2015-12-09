@@ -7,7 +7,7 @@ package splash.model;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import javafx.scene.paint.Color;
 
@@ -16,9 +16,9 @@ import javafx.scene.paint.Color;
  * @author Hesham
  */
 public class Line extends Object2D {
-    
+
     Point p;
-    float thickness = 1;
+    float thickness = 2;
 
     @Override
     public void startDrawing(Point start, Color col) {
@@ -26,7 +26,7 @@ public class Line extends Object2D {
         p = new Point(0, 0);
         setColor(col);
     }
-    
+
     @Override
     public void mouseMoved(Point newpos) {
         if (dstart != null) {
@@ -34,16 +34,29 @@ public class Line extends Object2D {
             p = cpos.subtract(dstart);
         }
     }
-    
+
     @Override
     public BufferedImage getBitmap() {
-        BufferedImage output = new BufferedImage(Math.max(1, 10), Math.max(1, 10), BufferedImage.TYPE_INT_ARGB);
-        Graphics2D gpx = (Graphics2D)output.getGraphics();
+        int ox = 0, oy = 0;
+        if (p.getX() < 0) {
+            ox = p.getX() * -1;
+            p.setX(0);
+        }
+        if (p.getY() < 0) {
+            oy = p.getY() * -1;
+            p.setY(0);
+        }
+        BufferedImage output = new BufferedImage(Math.max(1, Math.max(ox, p.getX())), Math.max(1, Math.max(oy, p.getY())), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D gpx = (Graphics2D) output.getGraphics();
         java.awt.Color col = new java.awt.Color(Helper.getARGB(getColor()), true);
-        gpx.setColor(col);        
-        gpx.setStroke(new BasicStroke(10));
-        gpx.draw(new Line2D.Float(0,0,10,10));
-        System.out.println(p.toString());
+        if (thickness > 1) {
+            gpx.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        }
+        gpx.setColor(col);
+        gpx.setStroke(new BasicStroke(thickness));
+        gpx.drawLine(ox, oy, p.getX(), p.getY());
+        width = output.getWidth();
+        height = output.getHeight();
         return output;
     }
 }

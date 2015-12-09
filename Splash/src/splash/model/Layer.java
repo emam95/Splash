@@ -18,11 +18,11 @@ public abstract class Layer {
     private int x = 0, y = 0;
     BufferedImage bitmap;
     private int id;
-    
-    public Layer()
-    {
+
+    public Layer() {
         setId(idseed++);
     }
+
     public abstract void undo();
 
     public abstract void redo();
@@ -74,6 +74,9 @@ public abstract class Layer {
     }
 
     Color getPixel(int sx, int sy) {
+        if (bitmap == null) {
+            return null;
+        }
         java.awt.Color awcol = new java.awt.Color(bitmap.getRGB(sx - x, sy - y), true);
         int r, g, b, a;
         r = awcol.getRed();
