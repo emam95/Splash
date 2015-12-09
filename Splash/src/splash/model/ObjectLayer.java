@@ -45,10 +45,6 @@ public class ObjectLayer extends Layer {
      *
      * @param diff
      */
-    @Override
-    public void transform(Point diff) {
-        // TODO handle move
-    }
 
     @Override
     public void rotate(float rad) {

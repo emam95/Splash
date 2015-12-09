@@ -48,7 +48,10 @@ public abstract class Layer {
      *
      * @param diff
      */
-    public abstract void transform(Point diff);
+    public void transform(Point diff) {
+        x += diff.getX();
+        y += diff.getY();
+    }
 
     /**
      *
@@ -102,7 +105,11 @@ public abstract class Layer {
         y = val;
     }
 
-    BufferedImage getBitmap() {
+    public BufferedImage getBitmap() {
         return bitmap;
+    }
+
+    public void transformTo(Point p) {
+        transform(p.subtract(x, y));
     }
 }

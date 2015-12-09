@@ -25,6 +25,10 @@ public class WorkSpace {
         return this.graphics;
     }
 
+    public Layer getSelectedLayer() {
+        return selectedlayer;
+    }
+
     public Layer[] getLayers() {
         Layer[] ar = new Layer[layers.size()];
         return this.layers.toArray(ar);
@@ -36,6 +40,9 @@ public class WorkSpace {
     }
 
     public void removeLayer(int id) {
+        if (selectedlayer.getId() == id) {
+            selectedlayer = null;
+        }
         for (Layer layer : layers) {
             if (layer.getId() == id) {
                 layers.remove(layer);

@@ -8,11 +8,14 @@ package splash.model;
 ;
 
 import javafx.scene.paint.Color;
+import splash.controller.GUIMgr;
 
 /**
  *
  * @author Hesham
  */
+
+
 public class PointerTool extends Tool {
 
     public PointerTool() {
@@ -23,20 +26,28 @@ public class PointerTool extends Tool {
     public void initFunction(Point startpoint) {
         // TODO: Handle move
     }
+    boolean inuse = false;
+    Point dist;
 
     @Override
     public void startDrawing(int x, int y, Color col) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Layer selected;
+        if ((selected = GUIMgr.getWorkSpace().getSelectedLayer()) != null) {
+            inuse = true;
+            dist = (new Point(x, y)).subtract(selected.getX(), selected.getY());
+        }
     }
 
     @Override
     public void mouseMoved(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (inuse) {
+            GUIMgr.getWorkSpace().getSelectedLayer().transformTo(new Point(x, y).subtract(dist));
+        }
     }
 
     @Override
     public void finishDrawing() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        inuse = false;
     }
 
 }

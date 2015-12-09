@@ -56,7 +56,15 @@ public class Point {
         return new PointF(x, y);
     }
 
-    Point subtract(Point dstart) {
-        return new Point(x - dstart.getX(), y - dstart.getY());
+    Point subtract(Point p) {
+        return subtract(p.getX(), p.getY());
+    }
+
+    Point add(int x, int y) {
+        return new Point(this.x + x, this.y + y);
+    }
+
+    Point subtract(int x, int y) {
+        return new Point(this.x - x, this.y - y);
     }
 }
