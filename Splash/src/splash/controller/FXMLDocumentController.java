@@ -62,6 +62,8 @@ public class FXMLDocumentController implements Initializable {
             items.add(tool.getId());
         }
         toolsList.setItems(items);
+        colorPicker.setValue(Color.BLACK);
+        
 
         // events
         drawingCanvas.setOnMousePressed(this::canvasMousePressed);
@@ -102,14 +104,12 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void addLayer(ActionEvent e) {
         GUIMgr.newLayer(new RawLayer());
-        refreshLayers();
     }
 
     @FXML
     private void removeLayer(ActionEvent e) {
         String id = layersList.getSelectionModel().getSelectedItem();
         GUIMgr.removeLayer(Integer.parseInt(id));
-        refreshLayers();
     }
 
     public void refreshLayers() {

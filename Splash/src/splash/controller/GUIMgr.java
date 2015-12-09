@@ -51,10 +51,12 @@ public class GUIMgr {
 
     public static void newLayer(Layer layer) {
         workspace.addLayer(layer);
+        cont.refreshLayers();
     }
     public static void removeLayer(int id)
     {
         workspace.removeLayer(id);
+        cont.refreshLayers();
     }
     /**
      *
