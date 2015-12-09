@@ -55,4 +55,8 @@ public class Point {
     PointF toPointF() {
         return new PointF(x, y);
     }
+
+    Point subtract(Point dstart) {
+        return new Point(x - dstart.getX(), y - dstart.getY());
+    }
 }

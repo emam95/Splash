@@ -26,7 +26,7 @@ public class GUIMgr {
      * @param drawable
      */
     public static Tool getSelectedTool() {
-        return new DrawableTool("Ellipse");// For testing
+        return cont.toolSelected();
     }
 
     public static Color getPixel(int x, int y) {

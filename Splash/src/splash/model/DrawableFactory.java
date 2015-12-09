@@ -1,4 +1,4 @@
-package splash.model;
+    package splash.model;
 
 import java.util.HashMap;
 
