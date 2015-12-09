@@ -39,7 +39,7 @@ public class DrawableTool extends Tool {
         Drawable dr = DrawableFactory.createDrawable(drawableName);
         if (dr instanceof Object2D) {
             activelayer = new ObjectLayer((Object2D) dr);
-            GUIMgr.getWorkSpace().addLayer(activelayer);
+            GUIMgr.newLayer(activelayer);
             activelayer.setX(x);
             activelayer.setY(y);
             activelayer.startDrawing(x, y, col);            

@@ -7,6 +7,7 @@ package splash.model;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import javafx.scene.paint.Color;
 
@@ -36,12 +37,13 @@ public class Line extends Object2D {
     
     @Override
     public BufferedImage getBitmap() {
-        BufferedImage output = new BufferedImage(Math.max(1, p.getX()), Math.max(1, p.getY()), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage output = new BufferedImage(Math.max(1, 10), Math.max(1, 10), BufferedImage.TYPE_INT_ARGB);
         Graphics2D gpx = (Graphics2D)output.getGraphics();
         java.awt.Color col = new java.awt.Color(Helper.getARGB(getColor()), true);
         gpx.setColor(col);        
         gpx.setStroke(new BasicStroke(10));
-        gpx.drawLine(0, 0, p.getX()-1, p.getY()-1);        
+        gpx.draw(new Line2D.Float(0,0,10,10));
+        System.out.println(p.toString());
         return output;
     }
 }

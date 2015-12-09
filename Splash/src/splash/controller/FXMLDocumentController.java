@@ -46,7 +46,7 @@ public class FXMLDocumentController implements Initializable {
     private Button delLayBtn;
     @FXML
     private Canvas drawingCanvas;
-    
+
     private ArrayList<Tool> tools;
 
     /**
@@ -66,7 +66,7 @@ public class FXMLDocumentController implements Initializable {
         // events
         drawingCanvas.setOnMousePressed(this::canvasMousePressed);
         drawingCanvas.setOnMouseMoved(this::canvasMouseMoved);
-        
+
     }
 
     public Tool toolSelected() {
@@ -97,24 +97,22 @@ public class FXMLDocumentController implements Initializable {
 
     void setPixel(int x, int y, Color col) {
         drawingCanvas.getGraphicsContext2D().getPixelWriter().setArgb(x, y, Helper.getARGB(col));
-    }    
+    }
 
     @FXML
     private void addLayer(ActionEvent e) {
-        Layer l = new RawLayer();
-        GUIMgr.getWorkSpace().addLayer(l);
+        GUIMgr.newLayer(new RawLayer());
         refreshLayers();
     }
 
     @FXML
     private void removeLayer(ActionEvent e) {
         String id = layersList.getSelectionModel().getSelectedItem();
-        GUIMgr.getWorkSpace().removeLayer(Integer.parseInt(id));
+        GUIMgr.removeLayer(Integer.parseInt(id));
         refreshLayers();
     }
-    
-    public void refreshLayers()
-    {
+
+    public void refreshLayers() {
         ObservableList<String> items = FXCollections.observableArrayList();
         Layer[] layers = GUIMgr.getWorkSpace().getLayers();
         for (Layer layer : layers) {

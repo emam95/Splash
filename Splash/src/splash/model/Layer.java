@@ -18,7 +18,11 @@ public abstract class Layer {
     private int x = 0, y = 0;
     BufferedImage bitmap;
     private int id;
-
+    
+    public Layer()
+    {
+        setId(idseed++);
+    }
     public abstract void undo();
 
     public abstract void redo();

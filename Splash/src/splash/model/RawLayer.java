@@ -9,7 +9,7 @@ package splash.model;
  *
  * @author Hesham
  */
-public class RawLayer extends Layer{    
+public class RawLayer extends Layer {
 
     @Override
     public void undo() {

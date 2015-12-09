@@ -49,10 +49,13 @@ public class GUIMgr {
         setPixel(x, y, null);
     }
 
-    public void newLayer() {
-        throw new UnsupportedOperationException();
+    public static void newLayer(Layer layer) {
+        workspace.addLayer(layer);
     }
-
+    public static void removeLayer(int id)
+    {
+        workspace.removeLayer(id);
+    }
     /**
      *
      * @param id

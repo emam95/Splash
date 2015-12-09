@@ -33,13 +33,9 @@ public class WorkSpace {
     public void addLayer(Layer layer) {
         layers.addFirst(selectedlayer = layer);
     }
-    
+
     public void removeLayer(int id) {
-        for(Layer l: layers)
-        {
-            if(l.getId() == id)
-                layers.remove(l);
-        }
+        layers.removeIf((l) -> l.getId() == id);
     }
 
     /**

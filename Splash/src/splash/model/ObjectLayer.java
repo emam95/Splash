@@ -9,7 +9,6 @@ public class ObjectLayer extends Layer {
 
     public ObjectLayer(Object2D drawable) {
         content = drawable;
-        this.id = idseed++;
     }
 
     public void redraw() {

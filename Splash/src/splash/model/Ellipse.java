@@ -1,6 +1,7 @@
 package splash.model;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import javafx.scene.paint.Color;
 
@@ -24,9 +25,10 @@ public class Ellipse extends Object2D {
     @Override
     public BufferedImage getBitmap() {
         BufferedImage output = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
-        Graphics gpx = output.getGraphics();
+        Graphics2D gpx = output.createGraphics();
         java.awt.Color col = new java.awt.Color(Helper.getARGB(getColor()), true);
         gpx.setColor(col);
+        //gpx.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         gpx.fillOval(0, 0, width, height);
         return output;
     }
