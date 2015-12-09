@@ -12,12 +12,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.AccessibleAttribute;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ListView;
-import javafx.scene.image.PixelWriter;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import splash.model.Helper;
@@ -52,7 +50,6 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         GUIMgr.init(this);
-        pw = drawingCanvas.getGraphicsContext2D().getPixelWriter();
         ObservableList<String> items = FXCollections.observableArrayList();
         // Tools are loaded in Splash.java
         tools = ResourceManager.getTools();
@@ -78,7 +75,7 @@ public class FXMLDocumentController implements Initializable {
 
     private void canvasMousePressed(MouseEvent ev) {
         if (!GUIMgr.isDrawing()) {
-            GUIMgr.getWorkSpace().startDrawing((int) ev.getX(), (int) ev.getY(), GUIMgr.getSelectedTool(), Color.BLUE);
+            GUIMgr.getWorkSpace().startDrawing((int) ev.getX(), (int) ev.getY(), GUIMgr.getSelectedTool(), colorPicker.getValue());
         } else {
             GUIMgr.getWorkSpace().finishDrawing();
         }
@@ -91,9 +88,8 @@ public class FXMLDocumentController implements Initializable {
     Color getPixel(int x, int y) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    PixelWriter pw;
 
     void setPixel(int x, int y, Color col) {
-        pw.setArgb(x, y, Helper.getARGB(col));
-    }
+        drawingCanvas.getGraphicsContext2D().getPixelWriter().setArgb(x, y, Helper.getARGB(col));
+    }    
 }

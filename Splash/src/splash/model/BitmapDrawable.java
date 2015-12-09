@@ -30,7 +30,7 @@ public class BitmapDrawable implements Drawable {
 
 
     @Override
-    public Point getCenter() {
+    public PointF getCenter() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

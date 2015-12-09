@@ -34,7 +34,7 @@ public interface Drawable {
 
     void setHeight(int val);
 
-    Point getCenter();
+    PointF getCenter();
 
     State getState();
 

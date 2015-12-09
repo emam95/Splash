@@ -84,46 +84,33 @@ public class WorkSpace {
         drawing = true;
         tool.startDrawing(x, y, col);
     }
-    Thread th = null;
-    boolean lock = false;
 
     public void mouseMoved(int ox, int oy) {
         if (drawing) {
-            if (lock) {
-                return;
-            }            
-            lock = true;
-            (th = new Thread() {
-                @Override
-                public void run() {
-                    java.awt.Rectangle prect = selectedlayer.getRect();
-                    drawingtool.mouseMoved(ox, oy);
-                    java.awt.Rectangle nrect = selectedlayer.getRect();
-                    for (int x = 0; x < width; x++) {
-                        for (int y = 0; y < height; y++) {
-                            if (prect.contains(x, y) || nrect.contains(x, y)) {
-                                boolean found = false;
-                                for (Layer layer : layers) {
-                                    if (layer.getRect().contains(x, y)) {
-                                        Color col = layer.getPixel(x, y);
-                                        if (col.getOpacity() == 1) {
-                                            // TODO: implement color blending
-                                            GUIMgr.setPixel(x, y, col);
-                                            found = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                                if (!found) {
-                                    GUIMgr.clearPixel(x, y);
+            java.awt.Rectangle prect = selectedlayer.getRect();
+            drawingtool.mouseMoved(ox, oy);
+            java.awt.Rectangle nrect = selectedlayer.getRect();
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    if (prect.contains(x, y) || nrect.contains(x, y)) {
+                        boolean found = false;
+                        for (Layer layer : layers) {
+                            if (layer.getRect().contains(x, y)) {
+                                Color col = layer.getPixel(x, y);
+                                if (col.getOpacity() == 1) {
+                                    // TODO: implement color blending
+                                    GUIMgr.setPixel(x, y, col);
+                                    found = true;
+                                    break;
                                 }
                             }
                         }
+                        if (!found) {
+                            GUIMgr.clearPixel(x, y);
+                        }
                     }
-                    System.out.println("Drew");
-                    lock = false;
                 }
-            }).start();
+            }
         } else if (moving) {
 
         }

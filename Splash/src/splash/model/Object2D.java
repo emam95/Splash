@@ -51,33 +51,36 @@ public abstract class Object2D implements Drawable {
      * @return the width
      */
     public int getWidth() {
-        return width;
+        return Math.max(1, width);
     }
 
     /**
      * @param width the width to set
      */
+    @Override
     public void setWidth(int width) {
-        this.width = width;
+        this.width = Math.max(1, width);
     }
 
     /**
      * @return the height
      */
+    @Override
     public int getHeight() {
-        return height;
+        return Math.max(1, height);
     }
 
     /**
      * @param height the height to set
      */
+    @Override
     public void setHeight(int height) {
-        this.height = height;
+        this.height = Math.max(1, height);
     }
 
     @Override
-    public Point getCenter() {
-        return new Point(getWidth() / 2, getHeight() / 2);
+    public PointF getCenter() {
+        return new PointF(getWidth() / 2f, getHeight() / 2f);
     }
 
     // Realtime drawing
@@ -85,7 +88,7 @@ public abstract class Object2D implements Drawable {
     Point cpos = null;
 
     @Override
-    public void startDrawing(Point start, Color col) {        
+    public void startDrawing(Point start, Color col) {
         dstart = cpos = start;
         setColor(col);
     }

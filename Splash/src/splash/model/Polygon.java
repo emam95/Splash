@@ -1,6 +1,5 @@
 package splash.model;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -22,7 +21,7 @@ public class Polygon extends Object2D {
             xs[i] = points[i].getX();
             ys[i] = points[i++].getY();
         }
-        //pointschanged = true;
+        pointschanged = true;
     }
 
     @Override
@@ -32,40 +31,44 @@ public class Polygon extends Object2D {
         Graphics gpx = output.getGraphics();
         java.awt.Color col = new java.awt.Color(Helper.getARGB(getColor()), true);
         gpx.setColor(col);
-        gpx.fillRect(0, 0, width, height);
+        gpx.fillPolygon(xs, ys, Math.min(xs.length, ys.length));
         return output;
     }
 
     @Override
     public void setWidth(int val) {
-        if (val == 0) {
+        if (val < 3) {
             return;
         }
-        int cx = getCenter().getX();
-        float rf = val / getWidth();
+        if (val == getWidth()) {
+            return;
+        }
+        float cx = getCenter().getX();
+        float rf = (float) val / getWidth();
         width = val;
-        /*for (int i = 0; i < xs.length; i++) {
-            int nx = xs[i];
-            int dist = nx - cx;
-            dist *= rf;
-            xs[i] = cx + dist;
-        }*/
+        for (int i = 0; i < xs.length; i++) {
+            float nx = xs[i] - cx;
+            nx *= rf;
+            xs[i] = (int) (nx + val / 2f);
+        }
     }
 
     @Override
     public void setHeight(int val) {
-        if (val == 0) {
+        if (val < 10) {
             return;
         }
-        int cy = getCenter().getY();
-        float rf = val / getHeight();
-        height = val;        
-        /*for (int i = 0; i < xs.length; i++) {
-            int ny = ys[i];
-            int dist = ny - cy;
-            dist *= rf;
-            xs[i] = cy + dist;
-        }*/
+        if (val == getWidth()) {
+            return;
+        }
+        float cy = getCenter().getY();
+        float rf = (float) val / getHeight();
+        height = val;
+        for (int i = 0; i < ys.length; i++) {
+            float ny = ys[i] - cy;
+            ny *= rf;
+            ys[i] = (int) (ny + val / 2f);
+        }
     }
 
     @Override
@@ -73,13 +76,12 @@ public class Polygon extends Object2D {
         if (!pointschanged) {
             return Math.max(width, 1);
         } else {
-            int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+            int max = Integer.MIN_VALUE;
             for (int i = 0; i < xs.length; i++) {
-                min = Math.min(xs[i], min);
                 max = Math.max(xs[i], max);
             }
             pointschanged = false;
-            return width = max - min;
+            return width = max;
         }
     }
 
@@ -88,13 +90,38 @@ public class Polygon extends Object2D {
         if (!pointschanged) {
             return Math.max(height, 1);
         } else {
-            int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+            int max = Integer.MIN_VALUE;
             for (int i = 0; i < ys.length; i++) {
-                min = Math.min(ys[i], min);
                 max = Math.max(ys[i], max);
             }
             pointschanged = false;
-            return height = max - min;
+            return height = max;
+        }
+    }
+    int sox = 1, soy = 1;
+
+    @Override
+    public void mouseMoved(Point newpos) {
+        if ((newpos.getX() - dstart.getX()) * sox < 0) {
+            sox *= -1;
+            mirrorXs();
+        }
+        if ((newpos.getY() - dstart.getY()) * soy < 0) {
+            soy *= -1;
+            mirrorYs();
+        }
+        super.mouseMoved(newpos);
+    }
+
+    private void mirrorXs() {
+        for (int i = 0; i < xs.length; i++) {
+            xs[i] = getWidth() - xs[i];
+        }
+    }
+
+    private void mirrorYs() {
+        for (int i = 0; i < ys.length; i++) {
+            ys[i] = getHeight() - ys[i];
         }
     }
 }

@@ -17,18 +17,10 @@ public class Helper {
         if (col == null) {
             return 0;
         }
-        int a = (int) col.getOpacity() * 255;
-        int r = (int) col.getRed() * 255;
-        int g = (int) col.getGreen() * 255;
-        int b = (int) col.getBlue() * 255;
+        int a = (int) (col.getOpacity() * 255);
+        int r = (int) (col.getRed() * 255);
+        int g = (int) (col.getGreen() * 255);
+        int b = (int) (col.getBlue() * 255);
         return b | (g << 8) | (r << 16) | (a << 24);
-    }
-
-    public static int getRGBA(Color col) {
-        int a = (int) col.getOpacity() * 255;
-        int r = (int) col.getRed() * 255;
-        int g = (int) col.getGreen() * 255;
-        int b = (int) col.getBlue() * 255;
-        return a | (r << 8) | (b << 16) | (b << 24);
     }
 }
