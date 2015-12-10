@@ -12,7 +12,7 @@ public class WorkSpace {
     private GraphicsContext graphics;
     private LinkedList<Layer> layers = new LinkedList<>();
     private Layer selectedlayer;
-    private Selection selection = null;
+    private Selection selection = new Selection();
 
     public WorkSpace(int width, int height) {
         this.width = width;
@@ -104,22 +104,7 @@ public class WorkSpace {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (prect.contains(x, y) || (!primaryrectonly && srect.contains(x, y))) {
-                    double a = 0, r = 0, g = 0, b = 0;
-                    for (Layer layer : layers) {
-                        if (layer.getRect().contains(x, y)) {
-                            Color col = layer.getPixel(x, y);
-                            if (col != null) {
-                                r = Math.min(1, col.getRed() + r);
-                                g = Math.min(1, col.getGreen() + g);
-                                b = Math.min(1, col.getBlue() + b);
-                                a = Math.min(1, col.getOpacity() + a);
-                                if (a == 1) {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    GUIMgr.setPixel(x, y, new Color(r, g, b, a));
+                    GUIMgr.setPixel(x, y, getPixel(x, y));
                 }
             }
             //})).start();
@@ -154,5 +139,24 @@ public class WorkSpace {
 
     public boolean isDrawing() {
         return drawing;
+    }
+
+    public Color getPixel(int x, int y) {
+        double a = 0, r = 0, g = 0, b = 0;
+        for (Layer layer : layers) {
+            if (layer.getRect().contains(x, y)) {
+                Color col = layer.getPixel(x, y);
+                if (col != null) {
+                    r = Math.min(1, col.getRed() + r);
+                    g = Math.min(1, col.getGreen() + g);
+                    b = Math.min(1, col.getBlue() + b);
+                    a = Math.min(1, col.getOpacity() + a);
+                    if (a == 1) {
+                        break;
+                    }
+                }
+            }
+        }
+        return new Color(r, g, b, a);
     }
 }
