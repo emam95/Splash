@@ -26,7 +26,10 @@ public class PointerTool extends Tool {
     Point dist;
 
     @Override
-    public void startDrawing(int x, int y, Color col) {
+    public void primaryKey(int x, int y, Color col) {
+        if (inuse) {
+            return;
+        }
         Layer selected;
         if ((selected = GUIMgr.getWorkSpace().getSelectedLayer()) != null) {
             inuse = true;
@@ -42,7 +45,7 @@ public class PointerTool extends Tool {
     }
 
     @Override
-    public void finishDrawing() {
+    public void secKey() {
         inuse = false;
     }
 

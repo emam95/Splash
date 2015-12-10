@@ -34,9 +34,9 @@ public class Ellipse extends Object2D {
     }
 
     @Override
-    public void startDrawing(Point start, Color col) {
+    public void primaryKey(Point start, Color col) {
         setCenter(start.toPointF());
-        super.startDrawing(start, col);
+        super.primaryKey(start, col);
     }
 
 }

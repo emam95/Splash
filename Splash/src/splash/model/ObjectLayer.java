@@ -62,16 +62,24 @@ public class ObjectLayer extends Layer {
 
     Point startp, cpoint;
 
-    public void startDrawing(int x, int y, Color col) {
-        content.startDrawing(new Point(x, y), col);
+    public void primaryKey(int x, int y, Color col) {
+        content.primaryKey(new Point(x, y), col);
         redraw();
     }
 
+    public boolean isDrawing() {
+        return content.isdrawing();
+    }
+
     public void mouseMoved(int x, int y) {
-        content.mouseMoved(new Point(x, y));
-        redraw();
-        setX(Math.min(x, content.getDrawingStartPoint().getX()));
-        setY(Math.min(y, content.getDrawingStartPoint().getY()));
+        if (isDrawing()) {
+            content.mouseMoved(new Point(x, y));
+            redraw();
+            if (content.layerShouldAdjust()) {
+                setX(Math.min(x, content.getDrawingStartPoint().getX()));
+                setY(Math.min(y, content.getDrawingStartPoint().getY()));
+            }
+        }
     }
 
     public void finishDrawing() {

@@ -65,14 +65,6 @@ public class WorkSpace {
         this.layers = layers;
     }
 
-    public void undo() {
-        throw new UnsupportedOperationException();
-    }
-
-    public void redo() {
-        throw new UnsupportedOperationException();
-    }
-
     /**
      *
      * @param ids
@@ -133,10 +125,10 @@ public class WorkSpace {
         //})).start();
     }
 
-    public void startDrawing(int x, int y, Tool tool, Color col) {
+    public void primaryKey(int x, int y, Tool tool, Color col) {
         drawingtool = tool;
         drawing = true;
-        tool.startDrawing(x, y, col);
+        tool.primaryKey(x, y, col);
     }
 
     public void mouseMoved(int ox, int oy) {
@@ -154,8 +146,8 @@ public class WorkSpace {
         }
     }
 
-    public void finishDrawing() {
-        drawingtool.finishDrawing();
+    public void secKey() {
+        drawingtool.secKey();
         drawing = false;
     }
 

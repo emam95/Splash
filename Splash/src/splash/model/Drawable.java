@@ -36,9 +36,9 @@ public interface Drawable {
 
     PointF getCenter();
 
-    void startDrawing(Point start, Color col);
+    void primaryKey(Point start, Color col);
 
     void mouseMoved(Point offset);
 
-    void finishDrawing();
+    void secKey();
 }

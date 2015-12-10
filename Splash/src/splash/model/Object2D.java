@@ -6,11 +6,11 @@ import javafx.scene.paint.Color;
 
 public abstract class Object2D implements Drawable {
 
-    private Point size;
-    private Color color;    
+    boolean wasdrawn = false;
+    private Color color;
     int width;
     int height;
-        
+
     @Override
     public HashMap<String, Class<?>> getEditableList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -20,8 +20,6 @@ public abstract class Object2D implements Drawable {
     public Error[] updateProperties(HashMap<String, Object> modrec) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-
 
     @Override
     public abstract BufferedImage getBitmap();
@@ -65,16 +63,24 @@ public abstract class Object2D implements Drawable {
     // Realtime drawing
     Point dstart = null;
     Point cpos = null;
+    boolean isdrawing = false;
 
     @Override
-    public void startDrawing(Point start, Color col) {
+    public void primaryKey(Point start, Color col) {
+        if (isdrawing) {
+            isdrawing = false;
+            System.out.println("stopped drawing");
+            return;
+        }
+        isdrawing = true;
         dstart = cpos = start;
         setColor(col);
+        System.out.println("problem");
     }
 
     @Override
     public void mouseMoved(Point newpos) {
-        if (dstart != null) {
+        if (isdrawing) {
             cpos = newpos;
             setWidth(Math.abs(cpos.getX() - dstart.getX()));
             setHeight(Math.abs(cpos.getY() - dstart.getY()));
@@ -82,8 +88,8 @@ public abstract class Object2D implements Drawable {
     }
 
     @Override
-    public void finishDrawing() {
-        dstart = cpos = null;
+    public void secKey() {
+        isdrawing = false;
     }
 
     public Point getDrawingStartPoint() {
@@ -106,5 +112,17 @@ public abstract class Object2D implements Drawable {
      */
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    boolean isdrawing() {
+        return isdrawing;
+    }
+
+    boolean layerShouldAdjust() {
+        return true;
+    }
+
+    boolean wasDrawn() {
+        return wasdrawn;
     }
 }

@@ -9,7 +9,7 @@ public abstract class Tool {
 
     static Tool lastselected = null;
     private Image thumb;
-    protected String id;
+    protected String id;    
 
 
     public String getId() {
@@ -31,9 +31,9 @@ public abstract class Tool {
     public void notifyLayerChanged() {
     }
 
-    public abstract void startDrawing(int x, int y, Color col);
+    public abstract void primaryKey(int x, int y, Color col);
 
     public abstract void mouseMoved(int x, int y);
 
-    public abstract void finishDrawing();
+    public abstract void secKey();
 }

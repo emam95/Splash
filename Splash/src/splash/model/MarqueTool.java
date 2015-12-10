@@ -23,7 +23,7 @@ public class MarqueTool extends Tool {
 
 
     @Override
-    public void startDrawing(int x, int y, Color col) {
+    public void primaryKey(int x, int y, Color col) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -33,7 +33,7 @@ public class MarqueTool extends Tool {
     }
 
     @Override
-    public void finishDrawing() {
+    public void secKey() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

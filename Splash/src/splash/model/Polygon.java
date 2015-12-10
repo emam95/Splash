@@ -3,13 +3,13 @@ package splash.model;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-public class Polygon extends Object2D {
+public abstract class Polygon extends Object2D {
 
-    int[] xs;
-    int[] ys;
+    int[] xs = new int[0];
+    int[] ys = new int[0];
     boolean pointschanged = false;
-    private boolean isFilled = true;
-    
+    private boolean isFilled = false;
+
     public boolean getIsFilled() {
         return this.isFilled;
     }
@@ -75,7 +75,7 @@ public class Polygon extends Object2D {
         if (val < 3) {
             return;
         }
-        if (val == getWidth()) {
+        if (val == getHeight()) {
             return;
         }
         float cy = getCenter().getY();
@@ -90,7 +90,7 @@ public class Polygon extends Object2D {
 
     @Override
     public int getWidth() {
-        int max = Integer.MIN_VALUE;
+        int max = 0;
         for (int i = 0; i < xs.length; i++) {
             max = Math.max(xs[i], max);
         }
@@ -99,7 +99,7 @@ public class Polygon extends Object2D {
 
     @Override
     public int getHeight() {
-        int max = Integer.MIN_VALUE;
+        int max = 0;
         for (int i = 0; i < ys.length; i++) {
             max = Math.max(ys[i], max);
         }
@@ -121,14 +121,16 @@ public class Polygon extends Object2D {
     }
 
     private void mirrorXs() {
+        getWidth();
         for (int i = 0; i < xs.length; i++) {
-            xs[i] = getWidth() - xs[i];
+            xs[i] = width - xs[i];
         }
     }
 
     private void mirrorYs() {
+        getHeight();
         for (int i = 0; i < ys.length; i++) {
-            ys[i] = getHeight() - ys[i];
+            ys[i] = height - ys[i];
         }
     }
 }

@@ -67,7 +67,7 @@ public class BitmapDrawable implements Drawable {
     }
 
     @Override
-    public void startDrawing(Point start, Color col) {
+    public void primaryKey(Point start, Color col) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -77,7 +77,7 @@ public class BitmapDrawable implements Drawable {
     }
 
     @Override
-    public void finishDrawing() {
+    public void secKey() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -94,7 +94,7 @@ public class GUIMgr {
     }
     
     public void startDrawing(int x, int y, Tool tool, Color col) {
-        workspace.startDrawing(x, y, tool, col);
+        workspace.primaryKey(x, y, tool, col);
     }
     
     public void mouseMoved(int x, int y) {
@@ -102,6 +102,6 @@ public class GUIMgr {
     }
     
     public void finishDrawing() {
-        workspace.finishDrawing();
+        workspace.secKey();
     }
 }

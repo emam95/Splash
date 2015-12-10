@@ -19,6 +19,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ListView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -36,7 +37,7 @@ import splash.model.Tool;
  * @author MEmam
  */
 public class FXMLDocumentController implements Initializable {
-    
+
     @FXML
     private ColorPicker colorPicker;
     @FXML
@@ -49,11 +50,11 @@ public class FXMLDocumentController implements Initializable {
     private Button delLayBtn;
     @FXML
     private Canvas drawingCanvas;
-    
-    private Tool selectedTool;    
-    
+
+    private Tool selectedTool;
+
     private ArrayList<Tool> tools;
-    
+
     ArrayList<KeyCode> pressedkeys = new ArrayList<>();
 
     /**
@@ -81,52 +82,52 @@ public class FXMLDocumentController implements Initializable {
         drawingCanvas.setOnKeyPressed((e) -> {
             pressedkeys.add(e.getCode());
             ShortcutManager.checkComb(pressedkeys);
-        });        
+        });
         drawingCanvas.setOnKeyReleased((e) -> {
             pressedkeys.remove(e.getCode());
-        });        
+        });
     }
-    
+
     public Tool toolSelected() {
         return selectedTool;
     }
-    
+
     public int layerSelected() {
         return Integer.parseInt(layersList.getSelectionModel().getSelectedItem());
     }
-    
+
     private void canvasMousePressed(MouseEvent ev) {
-        if (!GUIMgr.isDrawing()) {
-            GUIMgr.getWorkSpace().startDrawing((int) ev.getX(), (int) ev.getY(), GUIMgr.getSelectedTool(), colorPicker.getValue());
-        } else {
-            GUIMgr.getWorkSpace().finishDrawing();
+        if (ev.getButton() == MouseButton.PRIMARY) {
+            GUIMgr.getWorkSpace().primaryKey((int) ev.getX(), (int) ev.getY(), GUIMgr.getSelectedTool(), colorPicker.getValue());
+        } else if (ev.getButton() == MouseButton.SECONDARY) {
+            GUIMgr.getWorkSpace().secKey();
         }
     }
-    
+
     private void canvasMouseMoved(MouseEvent ev) {
         GUIMgr.getWorkSpace().mouseMoved((int) ev.getX(), (int) ev.getY());
     }
-    
+
     Color getPixel(int x, int y) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     PixelWriter pw;
-    
+
     void setPixel(int x, int y, Color col) {
         pw.setArgb(x, y, Helper.getARGB(col));
     }
-    
+
     @FXML
     private void addLayer(ActionEvent e) {
         GUIMgr.newLayer(new RawLayer());
     }
-    
+
     @FXML
     private void removeLayer(ActionEvent e) {
         String id = layersList.getSelectionModel().getSelectedItem();
         GUIMgr.removeLayer(Integer.parseInt(id));
     }
-    
+
     public void refreshLayers() {
         ObservableList<String> items = FXCollections.observableArrayList();
         Layer[] layers = GUIMgr.getWorkSpace().getLayers();
@@ -134,9 +135,9 @@ public class FXMLDocumentController implements Initializable {
             items.add(String.valueOf(layer.getId()));
         }
         layersList.setItems(items);
-        
+
     }
-    
+
     @FXML
     private void selectTool(MouseEvent event) {
         String id = toolsList.getSelectionModel().getSelectedItem();
@@ -147,7 +148,7 @@ public class FXMLDocumentController implements Initializable {
         }
         selectedTool.select();
     }
-    
+
     @FXML
     private void selectLayer(MouseEvent event) {
         GUIMgr.getWorkSpace().selectLayer(layerSelected());

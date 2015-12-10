@@ -21,7 +21,7 @@ public class Line extends Object2D {
     float thickness = 2;
 
     @Override
-    public void startDrawing(Point start, Color col) {
+    public void primaryKey(Point start, Color col) {
         dstart = cpos = start;
         p = new Point(0, 0);
         setColor(col);
