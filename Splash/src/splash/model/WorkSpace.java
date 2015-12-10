@@ -22,13 +22,13 @@ public class WorkSpace {
     public GraphicsContext getGraphics() {
         return this.graphics;
     }
-    
-    public void selectLayer(int id){
-        for(Layer l : layers)
-        {
-            if(l.getId() == id)
+
+    public void selectLayer(int id) {
+        for (Layer l : layers) {
+            if (l.getId() == id) {
                 selectedlayer = l;
-        } 
+            }
+        }
     }
 
     public Layer getSelectedLayer() {
@@ -46,7 +46,7 @@ public class WorkSpace {
     }
 
     public void removeLayer(int id) {
-        if (selectedlayer.getId() == id) {
+        if (selectedlayer != null && selectedlayer.getId() == id) {
             selectedlayer = null;
         }
         for (Layer layer : layers) {
@@ -104,25 +104,26 @@ public class WorkSpace {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (prect.contains(x, y) || (!primaryrectonly && srect.contains(x, y))) {
-                    boolean found = false;
+                    double a = 0, r = 0, g = 0, b = 0;
                     for (Layer layer : layers) {
                         if (layer.getRect().contains(x, y)) {
                             Color col = layer.getPixel(x, y);
-                            if (col != null && col.getOpacity() == 1) {
-                                // TODO: implement color blending
-                                GUIMgr.setPixel(x, y, col);
-                                found = true;
-                                break;
+                            if (col != null) {
+                                r = Math.min(1, col.getRed() + r);
+                                g = Math.min(1, col.getGreen() + g);
+                                b = Math.min(1, col.getBlue() + b);
+                                a = Math.min(1, col.getOpacity() + a);
+                                if (a == 1) {
+                                    break;
+                                }
                             }
                         }
                     }
-                    if (!found) {
-                        GUIMgr.clearPixel(x, y);
-                    }
+                    GUIMgr.setPixel(x, y, new Color(r, g, b, a));
                 }
             }
+            //})).start();
         }
-        //})).start();
     }
 
     public void primaryKey(int x, int y, Tool tool, Color col) {

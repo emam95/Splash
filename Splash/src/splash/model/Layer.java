@@ -86,15 +86,15 @@ public abstract class Layer {
         g = awcol.getGreen();
         b = awcol.getBlue();
         a = awcol.getAlpha();
-        return new Color(r / 255.0, g / 255.0, b / 255.0, a / 255);
+        return new Color(r / 255.0, g / 255.0, b / 255.0, a / 255.0);
     }
     int ax = 0, ay = 0;
 
     void adjustX(int i) {
-        ax = i;        
+        ax = i;
     }
 
-    void adjustY(int i) {        
+    void adjustY(int i) {
         ay = i;
     }
 
@@ -127,5 +127,10 @@ public abstract class Layer {
 
     public void transformTo(Point p) {
         transform(p.subtract(x, y));
+    }
+
+    void transform(int xshift, int yshift) {
+        x += xshift;
+        y += yshift;
     }
 }
