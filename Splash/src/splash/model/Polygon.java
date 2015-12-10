@@ -8,7 +8,7 @@ public abstract class Polygon extends Object2D {
     int[] xs = new int[0];
     int[] ys = new int[0];
     boolean pointschanged = false;
-    private boolean isFilled = false;
+    private boolean isFilled =  true;
 
     public boolean getIsFilled() {
         return this.isFilled;
@@ -109,13 +109,25 @@ public abstract class Polygon extends Object2D {
 
     @Override
     public void mouseMoved(Point newpos) {
-        if ((newpos.getX() - dstart.getX()) * sox < 0) {
+        Point p = newpos.subtract(dstart);
+        if (p.getX() * sox < 0) {
             sox *= -1;
             mirrorXs();
         }
-        if ((newpos.getY() - dstart.getY()) * soy < 0) {
+        if (p.getY() * soy < 0) {
             soy *= -1;
             mirrorYs();
+        }
+        int nx = 0, ny = 0;
+        if (p.getX() < 0) {
+            if (parent != null) {
+                parent.adjustX(p.getX());
+            }
+        }
+        if (p.getY() < 0) {
+            if (parent != null) {
+                parent.adjustY(p.getY());
+            }
         }
         super.mouseMoved(newpos);
     }

@@ -80,7 +80,7 @@ public abstract class Layer {
         if (bitmap == null) {
             return null;
         }
-        java.awt.Color awcol = new java.awt.Color(bitmap.getRGB(sx - x, sy - y), true);
+        java.awt.Color awcol = new java.awt.Color(bitmap.getRGB(sx - getX(), sy - getY()), true);
         int r, g, b, a;
         r = awcol.getRed();
         g = awcol.getGreen();
@@ -88,13 +88,29 @@ public abstract class Layer {
         a = awcol.getAlpha();
         return new Color(r / 255.0, g / 255.0, b / 255.0, a / 255);
     }
+    int ax = 0, ay = 0;
+
+    void adjustX(int i) {
+        ax = i;        
+    }
+
+    void adjustY(int i) {        
+        ay = i;
+    }
 
     int getX() {
-        return x;
+        return x + ax;
     }
 
     int getY() {
-        return y;
+        return y + ay;
+    }
+
+    void applyAdjustedPos() {
+        x += ax;
+        ax = 0;
+        y += ay;
+        ay = 0;
     }
 
     void setX(int val) {
