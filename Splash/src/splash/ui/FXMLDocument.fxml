@@ -73,13 +73,11 @@
             </VBox>
          </right>
          <center>
-            <AnchorPane prefHeight="614.0" prefWidth="669.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
-               <children>
-                  <Canvas fx:id="drawingCanvas" height="625.0" onKeyPressed="#keyPressed" width="669.0" AnchorPane.bottomAnchor="174.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <Separator layoutY="599.0" prefHeight="0.0" prefWidth="668.0" style="-fx-background-color: grey;" />
-                  <AnchorPane layoutX="-1.0" layoutY="599.0" prefHeight="200.0" prefWidth="670.0" style="-fx-background-color: grey;" />
-               </children>
-            </AnchorPane>
+            <ScrollPane BorderPane.alignment="CENTER">
+               <content>
+                  <Canvas fx:id="drawingCanvas" height="800.0" onKeyPressed="#keyPressed" width="669.0" />
+               </content>
+            </ScrollPane>
          </center>
       </BorderPane>
    </children>
