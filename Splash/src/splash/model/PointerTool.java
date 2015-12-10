@@ -7,6 +7,7 @@ package splash.model;
 
 ;
 
+import java.awt.Rectangle;
 import javafx.scene.paint.Color;
 import splash.controller.GUIMgr;
 
@@ -24,16 +25,18 @@ public class PointerTool extends Tool {
 
     boolean inuse = false;
     Point dist;
+    Point prevpos;
+    Layer selected;
 
     @Override
     public void primaryKey(int x, int y, Color col) {
         if (inuse) {
-            inuse = false;
+            stop();
             return;
         }
-        Layer selected;
         if ((selected = GUIMgr.getWorkSpace().getSelectedLayer()) != null) {
             inuse = true;
+            prevpos = selected.getPos();
             dist = (new Point(x, y)).subtract(selected.getX(), selected.getY());
         }
     }
@@ -41,13 +44,37 @@ public class PointerTool extends Tool {
     @Override
     public void mouseMoved(int x, int y) {
         if (inuse) {
-            GUIMgr.getWorkSpace().getSelectedLayer().transformTo(new Point(x, y).subtract(dist));
+            selected.transformTo(new Point(x, y).subtract(dist));
         }
     }
 
     @Override
     public void secKey() {
-        inuse = false;
+        stop();
     }
 
+    void stop() {
+        inuse = false;
+        Point p = selected.getPos();
+        WorkSpace ws = GUIMgr.getWorkSpace();
+        CommandCenter.StoreCommand(new Command() {
+            @Override
+            public void execute() {
+                Rectangle orect = selected.getRect();
+                selected.setX(p.getX());
+                selected.setY(p.getY());
+                Rectangle nrect = selected.getRect();
+                ws.redrawRegion(orect, nrect, false);
+            }
+
+            @Override
+            public void unexecute() {
+                Rectangle orect = selected.getRect();
+                selected.setX(prevpos.getX());
+                selected.setY(prevpos.getY());
+                Rectangle nrect = selected.getRect();
+                ws.redrawRegion(orect, nrect, false);
+            }
+        });
+    }
 }

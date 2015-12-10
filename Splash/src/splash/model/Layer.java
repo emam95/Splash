@@ -133,4 +133,8 @@ public abstract class Layer {
         x += xshift;
         y += yshift;
     }
+
+    Point getPos() {
+        return new Point(getX(), getY());
+    }
 }

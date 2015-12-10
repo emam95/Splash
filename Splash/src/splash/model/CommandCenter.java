@@ -12,30 +12,35 @@ import java.util.Stack;
  * @author Hesham
  */
 public class CommandCenter {
-    private static Stack<Command> past= new Stack<>();
+
+    private static Stack<Command> past = new Stack<>();
     private static Stack<Command> fut = new Stack<>();
-    
-    public static void ExecuteCommand(Command cmd)
-    {
-        fut.clear();
+
+    public static void ExecuteCommand(Command cmd) {
         cmd.execute();
-        past.push(cmd);
+        StoreCommand(cmd);
     }
-    
-    public static void Undo()
-    {
-        if(!past.isEmpty())
-        {
+
+    public static void Undo() {
+        if (!past.isEmpty()) {
             fut.push(past.pop());
             fut.peek().unexecute();
-        }else System.out.println("Nothing to undo.");
+        } else {
+            System.out.println("Nothing to undo.");
+        }
     }
-    public static void Redo()
-    {
-        if(!fut.isEmpty())
-        {
+
+    public static void Redo() {
+        if (!fut.isEmpty()) {
             past.push(fut.pop());
             past.peek().execute();
-        }else System.out.println("Nothing to redo.");
+        } else {
+            System.out.println("Nothing to redo.");
+        }
+    }
+
+    static void StoreCommand(Command cmd) {
+        fut.clear();
+        past.push(cmd);
     }
 }
