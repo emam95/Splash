@@ -26,11 +26,8 @@ public class Splash extends Application {
         stage.setTitle("Splash");
 
         stage.setScene(scene);
-        //stage.setResizable(false);
         stage.show();        
-        //Alert al = new Alert(Alert.AlertType.INFORMATION);
-        //al.setContentText(Paths.get("").toAbsolutePath().toString());
-        //al.show();
+        
         
         
     }
@@ -42,7 +39,6 @@ public class Splash extends Application {
         ResourceManager.loadDrawables("\\drawables");
         ResourceManager.loadBrushes("\\Brushes");
         ResourceManager.loadTools();
-        GUIMgr.newProject(800, 600);
         launch(args);
     }
 

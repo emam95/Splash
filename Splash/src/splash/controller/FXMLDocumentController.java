@@ -81,10 +81,13 @@ public class FXMLDocumentController implements Initializable {
         drawingCanvas.setOnMousePressed(this::canvasMousePressed);
         drawingCanvas.setOnMouseMoved(this::canvasMouseMoved);
         
-        drawingCanvas.setHeight(2000);
-        drawingCanvas.setWidth(2000);
         
-        
+    }
+    
+    public void CanvasSize(int width,int height)
+    {
+        drawingCanvas.setWidth(width);
+        drawingCanvas.setHeight(height);
     }
 
     public Tool toolSelected() {
