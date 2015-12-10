@@ -47,6 +47,8 @@ public class FXMLDocumentController implements Initializable {
     private Button delLayBtn;
     @FXML
     private Canvas drawingCanvas;
+    
+    private Tool selectedTool;
 
     private ArrayList<Tool> tools;
 
@@ -66,6 +68,8 @@ public class FXMLDocumentController implements Initializable {
         toolsList.setItems(items);
         colorPicker.setValue(Color.BLACK);
         toolsList.getSelectionModel().select(0);
+        selectedTool = tools.get(0);
+        selectedTool.select();
         
 
         // events
@@ -75,13 +79,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public Tool toolSelected() {
-        String id = toolsList.getSelectionModel().getSelectedItem();
-        for (Tool tool : tools) {
-            if (tool.getId().equals(id)) {
-                return tool;
-            }
-        }
-        return null;
+        return selectedTool;
     }
     
     public int layerSelected() {
@@ -127,5 +125,21 @@ public class FXMLDocumentController implements Initializable {
         }
         layersList.setItems(items);
 
+    }
+
+    @FXML
+    private void selectTool(MouseEvent event) {
+        String id = toolsList.getSelectionModel().getSelectedItem();
+        for (Tool tool : tools) {
+            if (tool.getId().equals(id)) {
+                selectedTool = tool;
+            }
+        }
+        selectedTool.select();
+    }
+
+    @FXML
+    private void selectLayer(MouseEvent event) {
+        GUIMgr.getWorkSpace().selectLayer(layerSelected());
     }
 }

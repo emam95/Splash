@@ -24,6 +24,14 @@ public class WorkSpace {
     public GraphicsContext getGraphics() {
         return this.graphics;
     }
+    
+    public void selectLayer(int id){
+        for(Layer l : layers)
+        {
+            if(l.getId() == id)
+                selectedlayer = l;
+        } 
+    }
 
     public Layer getSelectedLayer() {
         return selectedlayer;

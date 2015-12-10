@@ -35,7 +35,7 @@
                       </Menu>
                     </menus>
                   </MenuBar>
-                  <ListView fx:id="toolsList" orientation="HORIZONTAL" prefHeight="70.0" prefWidth="908.0" style="-fx-background-color: grey;" />
+                  <ListView fx:id="toolsList" onMousePressed="#selectTool" orientation="HORIZONTAL" prefHeight="70.0" prefWidth="908.0" style="-fx-background-color: grey;" />
                </children>
             </VBox>
          </top>
@@ -55,7 +55,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: grey;">
                            <children>
-                              <ListView fx:id="layersList" layoutX="1.1999999999999993" layoutY="11.2" prefHeight="342.0" prefWidth="234.0" style="-fx-background-color: lightgrey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <ListView fx:id="layersList" layoutX="1.1999999999999993" layoutY="11.2" onMousePressed="#selectLayer" prefHeight="342.0" prefWidth="234.0" style="-fx-background-color: lightgrey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                     </content>
