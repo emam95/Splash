@@ -13,7 +13,7 @@ public interface Drawable {
      */
     BufferedImage getBitmap();
 
-    HashMap<String, Class<?>> getEditableList();
+    HashMap<String, Object> getEditableList();
 
     /**
      *
