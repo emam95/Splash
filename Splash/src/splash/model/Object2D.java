@@ -7,23 +7,10 @@ import javafx.scene.paint.Color;
 public abstract class Object2D implements Drawable {
 
     private Point size;
-    private Color color;
-    private boolean isFilled;
+    private Color color;    
     int width;
     int height;
-
-    public boolean getIsFilled() {
-        return this.isFilled;
-    }
-
-    /**
-     *
-     * @param isFilled
-     */
-    public void setIsFilled(boolean isFilled) {
-        this.isFilled = isFilled;
-    }
-
+        
     @Override
     public HashMap<String, Class<?>> getEditableList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

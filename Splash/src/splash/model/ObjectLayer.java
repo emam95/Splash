@@ -45,7 +45,6 @@ public class ObjectLayer extends Layer {
      *
      * @param diff
      */
-
     @Override
     public void rotate(float rad) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -80,6 +79,7 @@ public class ObjectLayer extends Layer {
     }
 
     public java.awt.Rectangle getRect() {
-        return new java.awt.Rectangle(getX(), getY(), content.getWidth(), content.getHeight());
+        boolean bmpe = bitmap != null;
+        return new java.awt.Rectangle(getX(), getY(), bmpe ? bitmap.getWidth() : 0, bmpe ? bitmap.getHeight() : 0);
     }
 }

@@ -12,7 +12,7 @@ public class WorkSpace {
     private GraphicsContext graphics;
     private LinkedList<Layer> layers = new LinkedList<>();
     private Layer selectedlayer;
-    private Selection selection;
+    private Selection selection = null;
 
     public WorkSpace(int width, int height) {
         this.width = width;

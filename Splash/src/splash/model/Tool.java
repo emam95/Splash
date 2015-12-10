@@ -21,9 +21,11 @@ public abstract class Tool {
             lastselected.unselect();
         }
         lastselected = this;
+        System.out.println(id + " selected");
     }
 
     public void unselect() {
+        System.out.println(id + " unselected");
     }
 
     public void notifyLayerChanged() {

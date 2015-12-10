@@ -1,6 +1,5 @@
 package splash.model;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -9,6 +8,19 @@ public class Polygon extends Object2D {
     int[] xs;
     int[] ys;
     boolean pointschanged = false;
+    private boolean isFilled = true;
+    
+    public boolean getIsFilled() {
+        return this.isFilled;
+    }
+
+    /**
+     *
+     * @param isFilled
+     */
+    public void setIsFilled(boolean isFilled) {
+        this.isFilled = isFilled;
+    }
 
     /**
      *
@@ -28,11 +40,15 @@ public class Polygon extends Object2D {
     @Override
     public BufferedImage getBitmap() {
         int w = getWidth(), h = getHeight();
-        BufferedImage output = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage output = new BufferedImage(w + 1, h + 1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D gpx = output.createGraphics();
         java.awt.Color col = new java.awt.Color(Helper.getARGB(getColor()), true);
         gpx.setColor(col);
-        gpx.fillPolygon(xs, ys, Math.min(xs.length, ys.length));
+        if (getIsFilled()) {
+            gpx.fillPolygon(xs, ys, Math.min(xs.length, ys.length));
+        } else {
+            gpx.drawPolygon(xs, ys, Math.min(xs.length, ys.length));
+        }
         return output;
     }
 
@@ -56,7 +72,7 @@ public class Polygon extends Object2D {
 
     @Override
     public void setHeight(int val) {
-        if (val < 10) {
+        if (val < 3) {
             return;
         }
         if (val == getWidth()) {
@@ -74,30 +90,20 @@ public class Polygon extends Object2D {
 
     @Override
     public int getWidth() {
-        if (!pointschanged) {
-            return Math.max(width, 1);
-        } else {
-            int max = Integer.MIN_VALUE;
-            for (int i = 0; i < xs.length; i++) {
-                max = Math.max(xs[i], max);
-            }
-            pointschanged = false;
-            return width = max;
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < xs.length; i++) {
+            max = Math.max(xs[i], max);
         }
+        return width = max;
     }
 
     @Override
     public int getHeight() {
-        if (!pointschanged) {
-            return Math.max(height, 1);
-        } else {
-            int max = Integer.MIN_VALUE;
-            for (int i = 0; i < ys.length; i++) {
-                max = Math.max(ys[i], max);
-            }
-            pointschanged = false;
-            return height = max;
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < ys.length; i++) {
+            max = Math.max(ys[i], max);
         }
+        return height = max;
     }
     int sox = 1, soy = 1;
 

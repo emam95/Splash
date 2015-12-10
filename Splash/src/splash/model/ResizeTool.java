@@ -21,6 +21,7 @@ class ResizeTool extends Tool {
     public void select()
     {
         super.select();
+        
     }
     @Override
     public void startDrawing(int x, int y, Color col) {

@@ -24,7 +24,7 @@ public class Ellipse extends Object2D {
 
     @Override
     public BufferedImage getBitmap() {
-        BufferedImage output = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage output = new BufferedImage(getWidth()+1, getHeight()+1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D gpx = output.createGraphics();
         java.awt.Color col = new java.awt.Color(Helper.getARGB(getColor()), true);
         gpx.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

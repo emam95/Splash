@@ -9,10 +9,6 @@ package splash.model;
  *
  * @author Hesham
  */
-public interface Command {
-
-    void execute();
-
-    void unexecute();
-    
+public interface OnShortcutHandler {
+    public void shortcutUsed();
 }

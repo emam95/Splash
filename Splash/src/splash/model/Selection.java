@@ -1,13 +1,20 @@
 package splash.model;
 
-public class Selection extends BitmapDrawable {
+import java.awt.Rectangle;
+
+public class Selection {
 
     /**
      *
+     * @param targetrect
      * @param sources
      */
-    public Selection(BitmapDrawable[] sources) {
-        throw new UnsupportedOperationException();
+    public Selection() {
+        
+    }
+
+    private void setBounds(Rectangle targetrect) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

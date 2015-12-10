@@ -47,7 +47,7 @@ public class Line extends Object2D {
             p.setY(0);
         }
         BufferedImage output = new BufferedImage(Math.max(1, Math.max(ox, p.getX())), Math.max(1, Math.max(oy, p.getY())), BufferedImage.TYPE_INT_ARGB);
-        Graphics2D gpx = (Graphics2D) output.getGraphics();
+        Graphics2D gpx = output.createGraphics();
         java.awt.Color col = new java.awt.Color(Helper.getARGB(getColor()), true);
         if (thickness > 1) {
             gpx.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
