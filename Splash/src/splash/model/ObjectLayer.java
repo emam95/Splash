@@ -79,7 +79,8 @@ public class ObjectLayer extends Layer {
         }
     }
 
-    public void finishDrawing() {
+    public void secKey() {
+        content.secKey();
         redraw();
     }
 

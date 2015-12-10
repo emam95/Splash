@@ -20,7 +20,7 @@ public class PolygonObject extends Polygon {
             addPoint(new Point(0, 0));
             addPoint(new Point(0, 0));
             isdrawing = true;
-        } else if (isdrawing) {
+        } else if (isdrawing()) {
             addPoint(p.subtract(parent.getPos()));
         }
     }
