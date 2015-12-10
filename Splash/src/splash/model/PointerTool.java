@@ -22,10 +22,6 @@ public class PointerTool extends Tool {
         id = "Pointer";
     }
 
-    @Override
-    public void initFunction(Point startpoint) {
-        // TODO: Handle move
-    }
     boolean inuse = false;
     Point dist;
 

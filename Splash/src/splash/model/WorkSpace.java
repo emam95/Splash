@@ -12,8 +12,6 @@ public class WorkSpace {
     private GraphicsContext graphics;
     private LinkedList<Layer> layers = new LinkedList<>();
     private Layer selectedlayer;
-    private Stack<State> paststates;
-    private Stack<State> futstates;
     private Selection selection;
 
     public WorkSpace(int width, int height) {

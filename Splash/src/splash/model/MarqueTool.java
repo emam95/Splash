@@ -21,10 +21,6 @@ public class MarqueTool extends Tool {
         id = "Marque";
     }
 
-    @Override
-    public void initFunction(Point startpoint) {
-        // TODO: handle free selection (flooding)
-    }
 
     @Override
     public void startDrawing(int x, int y, Color col) {

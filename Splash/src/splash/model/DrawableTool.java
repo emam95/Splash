@@ -29,10 +29,6 @@ public class DrawableTool extends Tool {
         return drawableName;
     }
 
-    @Override
-    public void initFunction(Point startpoint) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void startDrawing(int x, int y, Color col) {

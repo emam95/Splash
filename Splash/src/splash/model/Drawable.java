@@ -36,10 +36,6 @@ public interface Drawable {
 
     PointF getCenter();
 
-    State getState();
-
-    State updateState();
-
     void startDrawing(Point start, Color col);
 
     void mouseMoved(Point offset);

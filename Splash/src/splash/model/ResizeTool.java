@@ -16,12 +16,12 @@ class ResizeTool extends Tool {
     public ResizeTool() {
         id = "Resize";
     }
-
+    
     @Override
-    public void initFunction(Point startpoint) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void select()
+    {
+        super.select();
     }
-
     @Override
     public void startDrawing(int x, int y, Color col) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
