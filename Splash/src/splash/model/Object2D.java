@@ -13,7 +13,7 @@ public abstract class Object2D implements Drawable {
     private boolean lsa = false;
 
     @Override
-    public HashMap<String, Class<?>> getEditableList() {
+    public HashMap<String, Object> getEditableList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -17,6 +17,13 @@ public class GUIMgr {
                 CommandCenter.Undo();
             }            
         });
+        
+        ShortcutManager.subscribe(new KeyCode[]{KeyCode.CONTROL, KeyCode.Y}, new OnShortcutHandler(){
+            @Override
+            public void shortcutUsed() {
+                CommandCenter.Redo();
+            }            
+        });
     }
     
     public static void clearDrawingArea() {

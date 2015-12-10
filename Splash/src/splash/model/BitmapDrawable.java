@@ -17,7 +17,7 @@ public class BitmapDrawable implements Drawable {
     }
 
     @Override
-    public HashMap<String, Class<?>> getEditableList() {
+    public HashMap<String, Object> getEditableList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -19,6 +19,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ListView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -79,13 +80,11 @@ public class FXMLDocumentController implements Initializable {
         // events
         drawingCanvas.setOnMousePressed(this::canvasMousePressed);
         drawingCanvas.setOnMouseMoved(this::canvasMouseMoved);
-        drawingCanvas.setOnKeyPressed((e) -> {
-            pressedkeys.add(e.getCode());
-            ShortcutManager.checkComb(pressedkeys);
-        });
-        drawingCanvas.setOnKeyReleased((e) -> {
-            pressedkeys.remove(e.getCode());
-        });
+        
+        drawingCanvas.setHeight(2000);
+        drawingCanvas.setWidth(2000);
+        
+        
     }
 
     public Tool toolSelected() {
@@ -152,5 +151,16 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void selectLayer(MouseEvent event) {
         GUIMgr.getWorkSpace().selectLayer(layerSelected());
+    }
+
+    @FXML
+    private void keyPressed(KeyEvent event) {
+        pressedkeys.add(event.getCode());
+            ShortcutManager.checkComb(pressedkeys);
+    }
+
+    @FXML
+    private void keyReleased(KeyEvent event) {
+        pressedkeys.remove(event.getCode());
     }
 }

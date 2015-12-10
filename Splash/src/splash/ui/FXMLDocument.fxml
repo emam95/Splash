@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="splash.controller.FXMLDocumentController">
+<AnchorPane id="AnchorPane" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="splash.controller.FXMLDocumentController">
    <children>
       <BorderPane prefHeight="884.0" prefWidth="905.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -73,13 +73,11 @@
             </VBox>
          </right>
          <center>
-            <AnchorPane prefHeight="614.0" prefWidth="669.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
-               <children>
-                  <Canvas fx:id="drawingCanvas" height="625.0" width="669.0" AnchorPane.bottomAnchor="174.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <Separator layoutY="599.0" prefHeight="0.0" prefWidth="668.0" style="-fx-background-color: grey;" />
-                  <AnchorPane layoutX="-1.0" layoutY="599.0" prefHeight="200.0" prefWidth="670.0" style="-fx-background-color: grey;" />
-               </children>
-            </AnchorPane>
+            <ScrollPane BorderPane.alignment="CENTER">
+               <content>
+                  <Canvas fx:id="drawingCanvas" height="800.0" onKeyPressed="#keyPressed" width="669.0" />
+               </content>
+            </ScrollPane>
          </center>
       </BorderPane>
    </children>
