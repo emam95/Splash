@@ -15,22 +15,20 @@ public class PolygonObject extends Polygon {
 
     @Override
     public void primaryKey(Point p, Color col) {
-        if (!wasDrawn() && !isdrawing()) {
-            dstart = cpos = p;
+        if (!wasDrawn() && !isdrawing()) {            
             setColor(col);
             addPoint(new Point(0, 0));
             addPoint(new Point(0, 0));
             isdrawing = true;
-        } else if (isdrawing) {
-            addPoint(p.subtract(dstart));
+        } else if (isdrawing()) {
+            addPoint(p.subtract(parent.getPos()));
         }
     }
 
     @Override
     public void mouseMoved(Point newpos) {
-        Point p = newpos.subtract(dstart);
-        xs[xs.length - 1] = p.getX();
-        ys[ys.length - 1] = p.getY();
+        Point p = newpos.subtract(parent.getPos());
+        replaceLastPoint(p);
     }
 
     @Override
@@ -56,15 +54,37 @@ public class PolygonObject extends Polygon {
         for (int i = 0; i < ys.length; i++) {
             ty[i] = ys[i] + yshift;
         }
-        System.arraycopy(ys, 0, ty, 0, ys.length);
         tx[xs.length] = p.getX() + xshift;
         ty[ys.length] = p.getY() + yshift;
         xs = tx;
         ys = ty;
+        parent.adjustX(-xshift);
+        parent.adjustY(-yshift);
+        parent.applyAdjustedPos();
     }
 
-    @Override
-    public boolean layerShouldAdjust() {
-        return false;
+    private void replaceLastPoint(Point p) {
+        int xshift = 0, yshift = 0;
+        if (p.getX() < 0) {
+            xshift = p.getX() * -1;
+        }
+        if (p.getY() < 0) {
+            yshift = p.getY() * -1;
+        }
+        if (xshift != 0) {
+            for (int i = 0; i < xs.length - 1; i++) {
+                xs[i] = xs[i] + xshift;
+            }
+        }
+        if (yshift != 0) {
+            for (int i = 0; i < ys.length - 1; i++) {
+                ys[i] = ys[i] + yshift;
+            }
+        }
+        xs[xs.length - 1] = p.getX() + xshift;
+        ys[ys.length - 1] = p.getY() + yshift;
+        parent.adjustX(-xshift);
+        parent.adjustY(-yshift);
+        parent.applyAdjustedPos();
     }
 }

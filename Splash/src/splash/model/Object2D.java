@@ -5,11 +5,12 @@ import java.util.HashMap;
 import javafx.scene.paint.Color;
 
 public abstract class Object2D implements Drawable {
-
+    ObjectLayer parent = null;
     boolean wasdrawn = false;
     private Color color;
     int width;
     int height;
+    private boolean lsa = false;
 
     @Override
     public HashMap<String, Object> getEditableList() {
@@ -90,6 +91,9 @@ public abstract class Object2D implements Drawable {
     @Override
     public void secKey() {
         isdrawing = false;
+        wasdrawn = true;
+        if(parent!=null)
+            parent.applyAdjustedPos();
     }
 
     public Point getDrawingStartPoint() {
@@ -118,11 +122,11 @@ public abstract class Object2D implements Drawable {
         return isdrawing;
     }
 
-    boolean layerShouldAdjust() {
-        return true;
-    }
-
     boolean wasDrawn() {
         return wasdrawn;
+    }
+
+    void setParent(ObjectLayer aThis) {
+        parent = aThis;
     }
 }

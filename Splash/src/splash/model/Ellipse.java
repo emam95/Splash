@@ -38,5 +38,22 @@ public class Ellipse extends Object2D {
         setCenter(start.toPointF());
         super.primaryKey(start, col);
     }
+    
+    @Override
+    public void mouseMoved(Point newpos) {
+        Point p = newpos.subtract(dstart);
+        int nx = 0, ny = 0;
+        if (p.getX() < 0) {
+            if (parent != null) {
+                parent.adjustX(p.getX());
+            }
+        }
+        if (p.getY() < 0) {
+            if (parent != null) {
+                parent.adjustY(p.getY());
+            }
+        }
+        super.mouseMoved(newpos);
+    }
 
 }

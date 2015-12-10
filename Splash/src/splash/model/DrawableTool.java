@@ -53,7 +53,7 @@ public class DrawableTool extends Tool {
     
     @Override
     public void secKey() {
-        activelayer.finishDrawing();
+        activelayer.secKey();
     }
     
 }

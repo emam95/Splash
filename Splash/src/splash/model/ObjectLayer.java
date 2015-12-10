@@ -9,6 +9,7 @@ public class ObjectLayer extends Layer {
 
     public ObjectLayer(Object2D drawable) {
         content = drawable;
+        content.setParent(this);
     }
 
     public void redraw() {
@@ -75,19 +76,20 @@ public class ObjectLayer extends Layer {
         if (isDrawing()) {
             content.mouseMoved(new Point(x, y));
             redraw();
-            if (content.layerShouldAdjust()) {
-                setX(Math.min(x, content.getDrawingStartPoint().getX()));
-                setY(Math.min(y, content.getDrawingStartPoint().getY()));
-            }
         }
     }
 
-    public void finishDrawing() {
+    public void secKey() {
+        content.secKey();
         redraw();
     }
 
     public java.awt.Rectangle getRect() {
         boolean bmpe = bitmap != null;
         return new java.awt.Rectangle(getX(), getY(), bmpe ? bitmap.getWidth() : 0, bmpe ? bitmap.getHeight() : 0);
+    }
+
+    Point getPos() {
+        return new Point(getX(), getY());
     }
 }
