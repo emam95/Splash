@@ -28,6 +28,7 @@ public class PointerTool extends Tool {
     @Override
     public void primaryKey(int x, int y, Color col) {
         if (inuse) {
+            inuse = false;
             return;
         }
         Layer selected;

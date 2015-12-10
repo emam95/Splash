@@ -30,8 +30,7 @@ public class ResourceManager {
         DrawableFactory.Drawables.put("Rectangle", RectangleObject.class);
         DrawableFactory.Drawables.put("Triangle", TriangleObject.class);
         DrawableFactory.Drawables.put("Ellipse", Ellipse.class);
-        DrawableFactory.Drawables.put("Polygon", PolygonObject.class);
-        DrawableFactory.Drawables.put("Line", Line.class);
+        DrawableFactory.Drawables.put("Polygon", PolygonObject.class);        
         // External
         // TODO: Load external classes
     }

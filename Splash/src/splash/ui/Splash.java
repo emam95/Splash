@@ -42,7 +42,7 @@ public class Splash extends Application {
         ResourceManager.loadDrawables("\\drawables");
         ResourceManager.loadBrushes("\\Brushes");
         ResourceManager.loadTools();
-        GUIMgr.newProject(800, 600);
+        GUIMgr.newProject(1440, 900);
         launch(args);
     }
 
