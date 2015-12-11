@@ -56,23 +56,25 @@ public class PointerTool extends Tool {
     void stop() {
         inuse = false;
         Point p = selected.getPos();
+        Layer target = selected;
+        Point prevp = new Point(prevpos.getX(), prevpos.getY());
         WorkSpace ws = GUIMgr.getWorkSpace();
         CommandCenter.StoreCommand(new Command() {
             @Override
             public void execute() {
-                Rectangle orect = selected.getRect();
-                selected.setX(p.getX());
-                selected.setY(p.getY());
-                Rectangle nrect = selected.getRect();
+                Rectangle orect = target.getRect();
+                target.setX(p.getX());
+                target.setY(p.getY());
+                Rectangle nrect = target.getRect();
                 ws.redrawRegion(orect, nrect, false);
             }
 
             @Override
             public void unexecute() {
-                Rectangle orect = selected.getRect();
-                selected.setX(prevpos.getX());
-                selected.setY(prevpos.getY());
-                Rectangle nrect = selected.getRect();
+                Rectangle orect = target.getRect();
+                target.setX(prevp.getX());
+                target.setY(prevp.getY());
+                Rectangle nrect = target.getRect();
                 ws.redrawRegion(orect, nrect, false);
             }
         });

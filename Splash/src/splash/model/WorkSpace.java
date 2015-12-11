@@ -1,5 +1,7 @@
 package splash.model;
 
+import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Stack;
 import javafx.scene.canvas.GraphicsContext;
@@ -27,6 +29,7 @@ public class WorkSpace {
         for (Layer l : layers) {
             if (l.getId() == id) {
                 selectedlayer = l;
+                OnSelectedLayerChanged();
             }
         }
     }
@@ -48,11 +51,13 @@ public class WorkSpace {
     public void removeLayer(int id) {
         if (selectedlayer != null && selectedlayer.getId() == id) {
             selectedlayer = null;
+            OnSelectedLayerChanged();
         }
         for (Layer layer : layers) {
             if (layer.getId() == id) {
                 layers.remove(layer);
                 redrawRegion(layer.getRect(), null, true);
+                break;
             }
         }
     }
@@ -104,7 +109,7 @@ public class WorkSpace {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (prect.contains(x, y) || (!primaryrectonly && srect.contains(x, y))) {
-                    GUIMgr.setPixel(x, y, getPixel(x, y));
+                    GUIMgr.setPixel(x, y, getPixel(x, y, false));
                 }
             }
             //})).start();
@@ -141,16 +146,23 @@ public class WorkSpace {
         return drawing;
     }
 
-    public Color getPixel(int x, int y) {
+    public Color getPixel(int x, int y, boolean ignoreselection) {
         double a = 0, r = 0, g = 0, b = 0;
+        if (!ignoreselection && selection != null && selection.getRect().contains(x, y)) {
+            Color col = selection.getPixel(x, y);
+            if (col != null && col.getOpacity() > 0) {
+                return col;
+            }
+        }
         for (Layer layer : layers) {
             if (layer.getRect().contains(x, y)) {
                 Color col = layer.getPixel(x, y);
-                if (col != null) {
-                    r = Math.min(1, col.getRed() + r);
-                    g = Math.min(1, col.getGreen() + g);
-                    b = Math.min(1, col.getBlue() + b);
-                    a = Math.min(1, col.getOpacity() + a);
+                if (col != null && col.getOpacity() > 0) {
+                    double af = col.getOpacity();
+                    r = Math.min(1, col.getRed() + r * af);
+                    g = Math.min(1, col.getGreen() + g * af);
+                    b = Math.min(1, col.getBlue() + b * af);
+                    a = Math.min(1, af + a);
                     if (a == 1) {
                         break;
                     }
@@ -158,5 +170,35 @@ public class WorkSpace {
             }
         }
         return new Color(r, g, b, a);
+    }
+
+    Selection getSelection() {
+        return selection;
+    }
+    ArrayList<LayerChangedEventHandler> selectedlayerchangedevents = new ArrayList<>();
+
+    public void setOnSelectedLayerChanged(LayerChangedEventHandler handler) {
+        if (!selectedlayerchangedevents.contains(handler)) {
+            selectedlayerchangedevents.add(handler);
+        }
+    }
+
+    public void removeOnSelectedLayerChanged(LayerChangedEventHandler handler) {
+        if (selectedlayerchangedevents.contains(handler)) {
+            selectedlayerchangedevents.remove(handler);
+        }
+    }
+
+    public void OnSelectedLayerChanged() {
+        for (LayerChangedEventHandler handler : selectedlayerchangedevents) {
+            handler.selectedLayerChanged(selectedlayer);
+        }
+    }
+
+    void setSelection(Selection sel) {
+        Rectangle orect = selection.getRect();
+        Rectangle nrect = sel.getRect();
+        selection = sel;
+        redrawRegion(orect, nrect, false);
     }
 }

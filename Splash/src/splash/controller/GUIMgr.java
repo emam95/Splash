@@ -18,36 +18,36 @@ import javafx.util.Pair;
 import splash.model.*;
 
 public class GUIMgr {
-    
+
     private static FXMLDocumentController cont = null;
-    
+
     public static void init(FXMLDocumentController controller) {
         cont = controller;
         CreateNewProject();
-        
-        ShortcutManager.subscribe(new KeyCode[]{KeyCode.CONTROL, KeyCode.Z}, new OnShortcutHandler(){
+
+        ShortcutManager.subscribe(new KeyCode[]{KeyCode.CONTROL, KeyCode.Z}, new OnShortcutHandler() {
             @Override
             public void shortcutUsed() {
                 CommandCenter.Undo();
-            }            
+            }
         });
-        
-        ShortcutManager.subscribe(new KeyCode[]{KeyCode.CONTROL, KeyCode.Y}, new OnShortcutHandler(){
+
+        ShortcutManager.subscribe(new KeyCode[]{KeyCode.CONTROL, KeyCode.Y}, new OnShortcutHandler() {
             @Override
             public void shortcutUsed() {
                 CommandCenter.Redo();
-            }            
+            }
         });
     }
-    
+
     public static void clearDrawingArea() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     public static WorkSpace getWorkSpace() {
         return workspace;
     }
-    
+
     private static WorkSpace workspace = null;
 
     /**
@@ -57,21 +57,20 @@ public class GUIMgr {
     public static Tool getSelectedTool() {
         return cont.toolSelected();
     }
-    
+
     public static Color getPixel(int x, int y) {
         return cont.getPixel(x, y);
     }
-    
+
     public static void setPixel(int x, int y, Color col) {
         cont.setPixel(x, y, col);
     }
-    
-    public static void CreateNewProject()
-    {
+
+    public static void CreateNewProject() {
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("New Project");
         dialog.setHeaderText("Create New Project");
-        
+
         ButtonType okButton = new ButtonType("Done", ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(okButton, ButtonType.CANCEL);
 
@@ -89,7 +88,6 @@ public class GUIMgr {
         grid.add(nameField, 1, 0);
         grid.add(new Label("Dimensions:"), 0, 1);
         grid.add(dimensions, 1, 1);
-        
 
         dialog.getDialogPane().setContent(grid);
 
@@ -97,50 +95,52 @@ public class GUIMgr {
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == okButton) {
-                if(nameField.getText().equals("") || dimensions.getText().equals(""))
-                    return new Pair<>("New Project","1920 x 1080");
+                if (nameField.getText().equals("") || dimensions.getText().equals("")) {
+                    return new Pair<>("New Project", "1920 x 1080");
+                }
                 return new Pair<>(nameField.getText(), dimensions.getText());
             }
-            return new Pair<>("New Project","1920 x 1080");
+            return new Pair<>("New Project", "1920 x 1080");
         });
 
         Optional<Pair<String, String>> result = dialog.showAndWait();
 
         result.ifPresent(projectinfo -> {
-            int width = Integer.parseInt(projectinfo.getValue().split("x",2)[0].trim());
-            int length = Integer.parseInt(projectinfo.getValue().split("x",2)[1].trim());
-            newProject(projectinfo.getKey(),width, length);
+            int width = Integer.parseInt(projectinfo.getValue().split("x", 2)[0].trim());
+            int length = Integer.parseInt(projectinfo.getValue().split("x", 2)[1].trim());
+            newProject(projectinfo.getKey(), width, length);
         });
     }
-    
+
     public static void newProject(String name, int width, int height) {
         cont.CanvasSize(width, height);
         workspace = new WorkSpace(width, height);
     }
-    
+
     public static boolean isDrawing() {
         return workspace.isDrawing();
     }
-    
+
     public static void clearPixel(int x, int y) {
         setPixel(x, y, null);
     }
-    
+
     public static void newLayer(Layer layer) {
+        int id = layer.getId();
         CommandCenter.ExecuteCommand(new Command() {
             @Override
             public void execute() {
                 workspace.addLayer(layer);
                 cont.refreshLayers();
             }
-            
+
             @Override
             public void unexecute() {
-                removeLayer(layer.getId());
+                removeLayer(id);
             }
         });
     }
-    
+
     public static void removeLayer(int id) {
         workspace.removeLayer(id);
         cont.refreshLayers();
@@ -153,23 +153,23 @@ public class GUIMgr {
     public void selecLayer(int id) {
         throw new UnsupportedOperationException();
     }
-    
+
     public void initSave() {
         throw new UnsupportedOperationException();
     }
-    
+
     public void initLoad() {
         throw new UnsupportedOperationException();
     }
-    
+
     public void startDrawing(int x, int y, Tool tool, Color col) {
         workspace.primaryKey(x, y, tool, col);
     }
-    
+
     public void mouseMoved(int x, int y) {
         workspace.mouseMoved(x, y);
     }
-    
+
     public void finishDrawing() {
         workspace.secKey();
     }

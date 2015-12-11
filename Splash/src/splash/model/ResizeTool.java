@@ -5,7 +5,9 @@
  */
 package splash.model;
 
+import java.awt.Rectangle;
 import javafx.scene.paint.Color;
+import splash.controller.GUIMgr;
 
 /**
  *
@@ -16,26 +18,61 @@ class ResizeTool extends Tool {
     public ResizeTool() {
         id = "Resize";
     }
-    
+    Selection ts;
+    Layer selected;
+    boolean isselected = false;
+
     @Override
-    public void select()
-    {
+    public void select() {
         super.select();
-        
+        isselected = true;
+        ts = GUIMgr.getWorkSpace().getSelection();
+        selected = GUIMgr.getWorkSpace().getSelectedLayer();
+        imposeSelectionModel();
+        GUIMgr.getWorkSpace().setOnSelectedLayerChanged(new LayerChangedEventHandler() {
+            @Override
+            public void selectedLayerChanged(Layer selectedlayer) {
+                if (!isselected) {
+                    return;
+                }
+                selected = selectedlayer;
+                selected.applyAdjustedPos();
+                imposeSelectionModel();
+            }
+        });
     }
+
+    @Override
+    public void unselect() {
+        isselected = false;
+        Rectangle orect = ts.getRect();
+        ts.clear();
+        GUIMgr.getWorkSpace().redrawRegion(orect, null, true);
+    }
+
     @Override
     public void primaryKey(int x, int y, Color col) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ts.primaryKey(x,y);
     }
 
     @Override
     public void mouseMoved(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ts.mouseMoved(x,y);
     }
 
     @Override
     public void secKey() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ts.secKey();
+    }
+
+    private void imposeSelectionModel() {
+        Rectangle orect = ts.getRect();
+        ts.clear();
+        if (selected != null) {
+            GUIMgr.getWorkSpace().setSelection(ts=new ResizeRectangle(selected));
+        } else {
+            GUIMgr.getWorkSpace().redrawRegion(orect, null, true);
+        }
     }
 
 }

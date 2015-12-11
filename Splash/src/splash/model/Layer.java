@@ -23,10 +23,6 @@ public abstract class Layer {
         setId(idseed++);
     }
 
-    public abstract void undo();
-
-    public abstract void redo();
-
     public int getId() {
         return this.id;
     }
@@ -73,7 +69,7 @@ public abstract class Layer {
     public abstract Selection getSelection(Point point);
 
     public Rectangle getRect() {
-        return new Rectangle(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        return new Rectangle(0, 0, getWidth(), getHeight());
     }
 
     Color getPixel(int sx, int sy) {
@@ -126,7 +122,7 @@ public abstract class Layer {
     }
 
     public void transformTo(Point p) {
-        transform(p.subtract(x, y));
+        transform(p.subtract(getX(), getY()));
     }
 
     void transform(int xshift, int yshift) {
@@ -136,5 +132,27 @@ public abstract class Layer {
 
     Point getPos() {
         return new Point(getX(), getY());
+    }
+
+    int getWidth() {
+        if (bitmap != null) {
+            return bitmap.getWidth();
+        }
+        return 0;
+    }
+
+    int getHeight() {
+        if (bitmap != null) {
+            return bitmap.getHeight();
+        }
+        return 0;
+    }
+
+    void addWidthRel(int dif, int i) {  
+        
+    }
+
+    void addHeightRel(int dif, int i) {        
+        
     }
 }

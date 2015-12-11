@@ -69,14 +69,12 @@ public abstract class Object2D implements Drawable {
     @Override
     public void primaryKey(Point start, Color col) {
         if (isdrawing) {
-            isdrawing = false;
-            System.out.println("stopped drawing");
+            isdrawing = false;            
             return;
         }
         isdrawing = true;
         dstart = cpos = start;
-        setColor(col);
-        System.out.println("problem");
+        setColor(col);        
     }
 
     @Override

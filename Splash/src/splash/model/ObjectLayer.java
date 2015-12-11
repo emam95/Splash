@@ -16,16 +16,6 @@ public class ObjectLayer extends Layer {
         bitmap = content.getBitmap();
     }
 
-    @Override
-    public void undo() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void redo() {
-        throw new UnsupportedOperationException();
-    }
-
     public Drawable getObj() {
         return content;
     }

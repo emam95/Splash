@@ -1,27 +1,46 @@
 package splash.model;
 
-class Anchor {
+public abstract class Anchor {
 
-        Object asocObj = null;
-        Point location = new Point(0, 0);
+    boolean isactive = false;
+    int x, y;
 
-        public Anchor() {
-        }
+    public Anchor(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
-        public Anchor(Object obj, Point location) {
-            this(location);
-            asocObj = obj;
-        }
+    public void primaryDown(int x, int y) {
+        isactive = true;
+    }
 
-        public Anchor(Point location) {
-            this.location = location;
-        }
+    public void secDown(int x, int y) {
+        isactive = false;
+    }
+    int lastxdif = 0, lastydif = 0;
 
-        public Object getAsocObj() {
-            return asocObj;
-        }
-
-        public void setAsocObj(Object asocobj) {
-            this.asocObj = asocobj;
+    public void move(int x, int y) {
+        if (isactive) {
+            lastxdif = x - this.x;
+            lastydif = y - this.y;
+            this.x = x;
+            this.y = y;
         }
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    void setX(int x) {
+        this.x = x;
+    }
+
+    void setY(int y) {
+        this.y = y;
+    }
+}
