@@ -46,11 +46,11 @@ public class PolygonObject extends Polygon {
         if (p.getY() < 0) {
             yshift = p.getY() * -1;
         }
-        int[] tx = new int[xs.length + 1];
+        float[] tx = new float[xs.length + 1];
         for (int i = 0; i < xs.length; i++) {
             tx[i] = xs[i] + xshift;
         }
-        int[] ty = new int[ys.length + 1];
+        float[] ty = new float[ys.length + 1];
         for (int i = 0; i < ys.length; i++) {
             ty[i] = ys[i] + yshift;
         }

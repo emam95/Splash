@@ -116,6 +116,11 @@ public class Selection {
     }
 
     void primaryKey(int x, int y) {
+        if (selected != null) {
+            selected.secDown(x, y);
+            selected = null;
+            return;
+        }
         int rx = x - getX(), ry = y - getY();
         for (Anchor anc : anchors) {
             if (rx >= anc.getX() && rx <= anc.getX() + anchordim && ry >= anc.getY() && ry <= anc.getY() + anchordim) {

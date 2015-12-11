@@ -5,10 +5,10 @@ import java.awt.image.BufferedImage;
 
 public abstract class Polygon extends Object2D {
 
-    int[] xs = new int[0];
-    int[] ys = new int[0];
+    float[] xs = new float[0];
+    float[] ys = new float[0];
     boolean pointschanged = false;
-    private boolean isFilled =  true;
+    private boolean isFilled = true;
 
     public boolean getIsFilled() {
         return this.isFilled;
@@ -28,8 +28,8 @@ public abstract class Polygon extends Object2D {
      */
     public void setPoints(Point... points) {
         int i = 0;
-        xs = new int[points.length];
-        ys = new int[points.length];
+        xs = new float[points.length];
+        ys = new float[points.length];
         while (i < points.length) {
             xs[i] = points[i].getX();
             ys[i] = points[i++].getY();
@@ -44,10 +44,16 @@ public abstract class Polygon extends Object2D {
         Graphics2D gpx = output.createGraphics();
         java.awt.Color col = new java.awt.Color(Helper.getARGB(getColor()), true);
         gpx.setColor(col);
+        int[] ixs = new int[xs.length];
+        int[] iys = new int[ys.length];
+        for (int i = 0; i < ixs.length; i++) {
+            ixs[i] = (int) xs[i];
+            iys[i] = (int) ys[i];
+        }
         if (getIsFilled()) {
-            gpx.fillPolygon(xs, ys, Math.min(xs.length, ys.length));
+            gpx.fillPolygon(ixs, iys, Math.min(xs.length, ys.length));
         } else {
-            gpx.drawPolygon(xs, ys, Math.min(xs.length, ys.length));
+            gpx.drawPolygon(ixs, iys, Math.min(xs.length, ys.length));
         }
         return output;
     }
@@ -90,20 +96,20 @@ public abstract class Polygon extends Object2D {
 
     @Override
     public int getWidth() {
-        int max = 0;
+        float max = 0;
         for (int i = 0; i < xs.length; i++) {
             max = Math.max(xs[i], max);
         }
-        return width = max;
+        return width = (int) max;
     }
 
     @Override
     public int getHeight() {
-        int max = 0;
+        float max = 0;
         for (int i = 0; i < ys.length; i++) {
             max = Math.max(ys[i], max);
         }
-        return height = max;
+        return height = (int) max;
     }
     int sox = 1, soy = 1;
 

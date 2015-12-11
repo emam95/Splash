@@ -32,7 +32,7 @@ class ResizeTool extends Tool {
         GUIMgr.getWorkSpace().setOnSelectedLayerChanged(new LayerChangedEventHandler() {
             @Override
             public void selectedLayerChanged(Layer selectedlayer) {
-                if (!isselected) {
+                if (!isselected || selected == null) {
                     return;
                 }
                 selected = selectedlayer;
