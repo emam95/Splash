@@ -45,6 +45,7 @@ public class PointerTool extends Tool {
     public void mouseMoved(int x, int y) {
         if (inuse) {
             selected.transformTo(new Point(x, y).subtract(dist));
+            GUIMgr.getWorkSpace().getSelection().setPos(selected.getPos());
         }
     }
 
@@ -78,5 +79,23 @@ public class PointerTool extends Tool {
                 ws.redrawRegion(orect, nrect);
             }
         });
+    }
+
+    @Override
+    public void select() {
+        super.select();
+        if ((selected = GUIMgr.getWorkSpace().getSelectedLayer()) != null) {
+            GUIMgr.getWorkSpace().setSelection(new Selection(selected.getRect()));
+            GUIMgr.getWorkSpace().setOnSelectedLayerChanged(new LayerChangedEventHandler() {
+                @Override
+                public void selectedLayerChanged(Layer selectedlayer) {
+                    if (Tool.lastselected == PointerTool.this) {
+                        Rectangle prect = GUIMgr.getWorkSpace().getSelection().getRect();
+                        GUIMgr.getWorkSpace().getSelection().setRect((selected = selectedlayer).getRect(), true);
+                        GUIMgr.getWorkSpace().redrawRegion(prect, GUIMgr.getWorkSpace().getSelection().getRect());
+                    }
+                }
+            });
+        }
     }
 }

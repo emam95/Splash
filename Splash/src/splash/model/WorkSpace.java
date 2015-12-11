@@ -156,7 +156,7 @@ public class WorkSpace {
     }
 
     public Color getPixel(int x, int y, boolean ignoreselection) {
-        double a = 0, r = 0, g = 0, b = 0;
+        float a = 0, r = 0, g = 0, b = 0;
         if (!ignoreselection && selection != null && selection.getRect().contains(x, y)) {
             Color col = selection.getPixel(x, y);
             if (col != null && col.getOpacity() > 0) {
@@ -164,14 +164,14 @@ public class WorkSpace {
             }
         }
         for (Layer layer : layers) {
-            if (layer.getRect().contains(x, y)) {
-                Color col = layer.getPixel(x, y);
-                if (col != null && col.getOpacity() > 0) {
-                    double af = col.getOpacity();
-                    r = Math.min(1, col.getRed() + r * af);
-                    g = Math.min(1, col.getGreen() + g * af);
-                    b = Math.min(1, col.getBlue() + b * af);
-                    a = Math.min(1, af + a);
+            if (layer.contains(x, y)) {
+                java.awt.Color col = layer.getPixel(x, y);
+                float af = 0;
+                if (col != null && (af = col.getAlpha()) > 0) {
+                    r = (((col.getRed() * af + r * a) * 255) % 256) / 255f;
+                    g = (((col.getGreen() * af + g * a) * 255) % 256) / 255f;
+                    b = (((col.getBlue() * af + b * a) * 255) % 256) / 255f;
+                    a = Math.min(1, af / 255f + a / 255f - af / 255f * a / 255f);
                     if (a == 1) {
                         break;
                     }

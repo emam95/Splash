@@ -126,4 +126,9 @@ public class Selection {
         }
     }
 
+    void setPos(Point pos) {
+        x = pos.getX();
+        y = pos.getY();
+    }
+
 }

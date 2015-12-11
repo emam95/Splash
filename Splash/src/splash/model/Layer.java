@@ -72,17 +72,11 @@ public abstract class Layer {
         return new Rectangle(0, 0, getWidth(), getHeight());
     }
 
-    Color getPixel(int sx, int sy) {
+    java.awt.Color getPixel(int sx, int sy) {
         if (bitmap == null) {
             return null;
         }
-        java.awt.Color awcol = new java.awt.Color(bitmap.getRGB(sx - getX(), sy - getY()), true);
-        int r, g, b, a;
-        r = awcol.getRed();
-        g = awcol.getGreen();
-        b = awcol.getBlue();
-        a = awcol.getAlpha();
-        return new Color(r / 255.0, g / 255.0, b / 255.0, a / 255.0);
+        return new java.awt.Color(bitmap.getRGB(sx - getX(), sy - getY()), true);
     }
     int ax = 0, ay = 0;
 
@@ -172,5 +166,10 @@ public abstract class Layer {
         } else {
             return false;
         }
+    }
+
+    boolean contains(int x, int y) {
+        int tx = getX(), ty = getY(), w = getWidth(), h = getHeight();
+        return x >= tx && x < tx + w && y >= ty && y < ty + h;
     }
 }
