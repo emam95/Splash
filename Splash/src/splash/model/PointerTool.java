@@ -66,7 +66,7 @@ public class PointerTool extends Tool {
                 target.setX(p.getX());
                 target.setY(p.getY());
                 Rectangle nrect = target.getRect();
-                ws.redrawRegion(orect, nrect, false);
+                ws.redrawRegion(orect, nrect);
             }
 
             @Override
@@ -75,7 +75,7 @@ public class PointerTool extends Tool {
                 target.setX(prevp.getX());
                 target.setY(prevp.getY());
                 Rectangle nrect = target.getRect();
-                ws.redrawRegion(orect, nrect, false);
+                ws.redrawRegion(orect, nrect);
             }
         });
     }

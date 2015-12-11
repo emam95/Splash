@@ -45,7 +45,7 @@ public class WorkSpace {
 
     public void addLayer(Layer layer) {
         layers.addFirst(selectedlayer = layer);
-        redrawRegion(layer.getRect(), null, true);
+        redrawRegion(layer.getRect(), null);
     }
 
     public void removeLayer(int id) {
@@ -56,7 +56,7 @@ public class WorkSpace {
         for (Layer layer : layers) {
             if (layer.getId() == id) {
                 layers.remove(layer);
-                redrawRegion(layer.getRect(), null, true);
+                redrawRegion(layer.getRect(), null);
                 break;
             }
         }
@@ -101,14 +101,18 @@ public class WorkSpace {
     long lastmousemove = 0;
 
     //Thread th;
-    public void redrawRegion(java.awt.Rectangle prect, java.awt.Rectangle srect, boolean primaryrectonly) {
+    public void redrawRegion(java.awt.Rectangle prect, java.awt.Rectangle srect) {
+        if (supnred) {
+            supnred = false;
+            return;
+        }
         /*  if (th!=null && th.isAlive()) {
             return;
         }
         (th=new Thread(() -> {*/
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                if (prect.contains(x, y) || (!primaryrectonly && srect.contains(x, y))) {
+                if (prect.contains(x, y) || (srect != null && srect.contains(x, y))) {
                     GUIMgr.setPixel(x, y, getPixel(x, y, false));
                 }
             }
@@ -121,6 +125,11 @@ public class WorkSpace {
         drawing = true;
         tool.primaryKey(x, y, col);
     }
+    boolean supnred = false;
+
+    public void supressNextRedraw() {
+        supnred = true;
+    }
 
     public void mouseMoved(int ox, int oy) {
         if (drawing && selectedlayer != null) {
@@ -132,7 +141,7 @@ public class WorkSpace {
             final java.awt.Rectangle prect = selectedlayer.getRect();
             drawingtool.mouseMoved(ox, oy);
             final java.awt.Rectangle nrect = selectedlayer.getRect();
-            redrawRegion(prect, nrect, false);
+            redrawRegion(prect, nrect);
             redrawrestraint = SW.getElapsed() * 2;
         }
     }
@@ -199,6 +208,6 @@ public class WorkSpace {
         Rectangle orect = selection.getRect();
         Rectangle nrect = sel.getRect();
         selection = sel;
-        redrawRegion(orect, nrect, false);
+        redrawRegion(orect, nrect);
     }
 }

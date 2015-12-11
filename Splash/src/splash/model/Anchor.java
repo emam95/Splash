@@ -3,11 +3,16 @@ package splash.model;
 public abstract class Anchor {
 
     boolean isactive = false;
-    int x, y;
+    int x = 0, y = 0;
+    int id = 0;
 
     public Anchor(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Anchor(int id) {
+        this.id = id;
     }
 
     public void primaryDown(int x, int y) {
@@ -42,5 +47,17 @@ public abstract class Anchor {
 
     void setY(int y) {
         this.y = y;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    void deactivate() {
+        isactive = false;
+    }
+
+    void activate() {
+        isactive = true;
     }
 }

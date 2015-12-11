@@ -148,11 +148,29 @@ public abstract class Layer {
         return 0;
     }
 
-    void addWidthRel(int dif, int i) {  
-        
+    abstract void addWidthRel(int dif, int i);
+
+    abstract void addHeightRel(int dif, int i);
+
+    boolean mirroredx = false;
+    boolean mirroredy = false;
+
+    // Special function for resize tool. One time use boolean.
+    public boolean wasMirroredX() {
+        if (mirroredx) {
+            mirroredx = false;
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    void addHeightRel(int dif, int i) {        
-        
+    public boolean wasMirroredY() {
+        if (mirroredy) {
+            mirroredy = false;
+            return true;
+        } else {
+            return false;
+        }
     }
 }

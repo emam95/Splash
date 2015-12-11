@@ -127,4 +127,7 @@ public abstract class Object2D implements Drawable {
     void setParent(ObjectLayer aThis) {
         parent = aThis;
     }
+
+    void mirrorX() {}
+    void mirrorY() {}
 }

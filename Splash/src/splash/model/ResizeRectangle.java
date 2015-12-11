@@ -19,39 +19,97 @@ public class ResizeRectangle extends Selection {
     @Override
     void mouseMoved(int x, int y) {
         if (selected != null) {
-            //Rectangle orect = getRect();
+            Rectangle orect = getRect();
             selected.move(x - getX(), y - getY());
-            //Rectangle nrect = getRect();            
+            if (target.wasMirroredX()) {
+                int i = selected.getId();
+                int j;
+                if (i % 2 == 1) {
+                    j = (i + 4) % 8;
+                } else {
+                    switch (i) {
+                        case 0:
+                            j = 2;
+                            break;
+                        case 2:
+                            j = 0;
+                            break;
+                        case 6:
+                            j = 4;
+                            break;
+                        case 4:
+                            j = 6;
+                            break;
+                        default:
+                            j = i;
+                    }
+                }
+                anchors[i].deactivate();
+                (selected = anchors[j]).activate();
+            }
+            if (target.wasMirroredY()) {
+                int i = selected.getId();
+                int j;
+                if (i % 2 == 1) {
+                    j = (i + 4) % 8;
+                } else {
+                    switch (i) {
+                        case 0:
+                            j = 6;
+                            break;
+                        case 2:
+                            j = 4;
+                            break;
+                        case 6:
+                            j = 0;
+                            break;
+                        case 4:
+                            j = 2;
+                            break;
+                        default:
+                            j = i;
+                    }
+                }
+                anchors[i].deactivate();
+                (selected = anchors[j]).activate();
+            }
+            syncRect();
             redrawBitmap();
-            //GUIMgr.getWorkSpace().redrawRegion(orect, nrect, true);
+            Rectangle nrect = getRect();
+            GUIMgr.getWorkSpace().redrawRegion(orect, nrect);
+            GUIMgr.getWorkSpace().supressNextRedraw();
         }
     }
     Anchor nw, n, ne, e, se, s, sw, w;
 
+    final void syncRect() {
+        super.setRect(target.getRect(), false);
+        for (Anchor anc : anchors) {
+            int id = anc.getId();
+            anc.setX(id == 0 || id == 7 || id == 6 ? 0 : id == 1 || id == 8 || id == 5 ? (int) (target.getWidth() / 2f) : target.getWidth());
+            anc.setY(id == 0 || id == 1 || id == 2 ? 0 : id == 3 || id == 8 || id == 7 ? (int) (target.getHeight() / 2f) : target.getHeight());
+        }
+    }
+
     public ResizeRectangle(Layer target) {
         this.target = target;
-        setRect(target.getRect(), false);
-        int wd = target.getWidth(), h = target.getHeight();
-        nw = new Anchor(0, 0) {
+        anchordim = 8;
+        nw = new Anchor(0) {
             @Override
             public void move(int x, int y) {
                 super.move(x, y);
                 if (lastxdif != 0) {
                     target.addWidthRel(lastxdif * -1, 0);
-                    w.setX(getX());
-                    sw.setX(getX());
                     lastxdif = 0;
                 }
                 if (lastydif != 0) {
                     target.addHeightRel(lastydif * -1, 0);
-                    n.setY(getY());
-                    ne.setY(getY());
                     lastydif = 0;
                 }
             }
 
         };
-        n = new Anchor((int) (wd / 2f), 0) {
+        n = new Anchor(1) {
             @Override
             public void move(int x, int y) {
                 super.move(x, y);
@@ -61,40 +119,32 @@ public class ResizeRectangle extends Selection {
                 }
                 if (lastydif != 0) {
                     target.addHeightRel(lastydif * -1, 1);
-                    nw.setY(getY());
-                    ne.setY(getY());
                     lastydif = 0;
                 }
             }
 
         };
-        ne = new Anchor(wd, 0) {
+        ne = new Anchor(2) {
             @Override
             public void move(int x, int y) {
                 super.move(x, y);
                 if (lastxdif != 0) {
                     target.addWidthRel(lastxdif, 2);
-                    e.setX(getX());
-                    se.setX(getX());
                     lastxdif = 0;
                 }
                 if (lastydif != 0) {
                     target.addHeightRel(lastydif * -1, 2);
-                    nw.setY(getY());
-                    n.setY(getY());
                     lastydif = 0;
                 }
             }
 
         };
-        e = new Anchor(wd, (int) (h / 2f)) {
+        e = new Anchor(3) {
             @Override
             public void move(int x, int y) {
                 super.move(x, y);
                 if (lastxdif != 0) {
                     target.addWidthRel(lastxdif, 3);
-                    ne.setX(getX());
-                    se.setX(getX());
                     lastxdif = 0;
                 }
                 if (lastydif != 0) {
@@ -104,26 +154,22 @@ public class ResizeRectangle extends Selection {
             }
 
         };
-        se = new Anchor(wd, h) {
+        se = new Anchor(4) {
             @Override
             public void move(int x, int y) {
                 super.move(x, y);
                 if (lastxdif != 0) {
                     target.addWidthRel(lastxdif, 4);
-                    ne.setX(getX());
-                    e.setX(getX());
                     lastxdif = 0;
                 }
                 if (lastydif != 0) {
                     target.addHeightRel(lastydif, 4);
-                    s.setY(getY());
-                    sw.setY(getY());
                     lastydif = 0;
                 }
             }
 
         };
-        s = new Anchor((int) (wd / 2f), h) {
+        s = new Anchor(5) {
             @Override
             public void move(int x, int y) {
                 super.move(x, y);
@@ -133,40 +179,32 @@ public class ResizeRectangle extends Selection {
                 }
                 if (lastydif != 0) {
                     target.addHeightRel(lastydif, 5);
-                    se.setY(getY());
-                    sw.setY(getY());
                     lastydif = 0;
                 }
             }
 
         };
-        sw = new Anchor(0, h) {
+        sw = new Anchor(6) {
             @Override
             public void move(int x, int y) {
                 super.move(x, y);
                 if (lastxdif != 0) {
                     target.addWidthRel(lastxdif * -1, 6);
-                    w.setX(getX());
-                    nw.setX(getX());
                     lastxdif = 0;
                 }
                 if (lastydif != 0) {
                     target.addHeightRel(lastydif, 6);
-                    s.setY(getY());
-                    se.setY(getY());
                     lastydif = 0;
                 }
             }
 
         };
-        w = new Anchor(0, (int) (h / 2f)) {
+        w = new Anchor(7) {
             @Override
             public void move(int x, int y) {
                 super.move(x, y);
                 if (lastxdif != 0) {
                     target.addWidthRel(lastxdif * -1, 7);
-                    nw.setX(getX());
-                    sw.setX(getX());
                     lastxdif = 0;
                 }
                 if (lastydif != 0) {
@@ -177,6 +215,7 @@ public class ResizeRectangle extends Selection {
 
         };
         setAnchors(new Anchor[]{nw, n, ne, e, se, s, sw, w});
+        syncRect();
         redrawBitmap();
     }
 }

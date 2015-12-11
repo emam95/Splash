@@ -82,4 +82,50 @@ public class ObjectLayer extends Layer {
     Point getPos() {
         return new Point(getX(), getY());
     }
+
+    @Override
+    void addWidthRel(int dif, int i) {
+        int w = getWidth();
+        int nw = w + dif;
+        if (nw < 0) {
+            content.mirrorX();
+            nw *= -1;
+            resizeX(nw);
+            if (i == 0 || i == 7 || i == 6) {
+                setX(getX() + w);
+            } else {
+                setX(getX() - getWidth());
+            }
+            mirroredx = true;
+        } else {
+            resizeX(nw);
+            if (i == 0 || i == 7 || i == 6) {
+                dif = getWidth() - w; // floating point inaccuracy can accumulate
+                setX(getX() - dif);
+            }
+        }
+    }
+
+    @Override
+    void addHeightRel(int dif, int i) {
+        int h = getHeight();
+        int nh = h + dif;
+        if (nh < 0) {
+            content.mirrorY();
+            nh *= -1;
+            resizeY(nh);
+            if (i == 0 || i == 1 || i == 2) {
+                setY(getY() + h);
+            } else {
+                setY(getY() - getHeight());
+            }
+            mirroredy = true;
+        } else {
+            resizeY(nh);
+            if (i == 0 || i == 1 || i == 2) {
+                dif = getHeight() - h; // floating point inaccuracy can accumulate
+                setY(getY() - dif);
+            }
+        }
+    }
 }

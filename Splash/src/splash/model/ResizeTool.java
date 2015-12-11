@@ -47,7 +47,7 @@ class ResizeTool extends Tool {
         isselected = false;
         Rectangle orect = ts.getRect();
         ts.clear();
-        GUIMgr.getWorkSpace().redrawRegion(orect, null, true);
+        GUIMgr.getWorkSpace().redrawRegion(orect, null);
     }
 
     @Override
@@ -71,7 +71,7 @@ class ResizeTool extends Tool {
         if (selected != null) {
             GUIMgr.getWorkSpace().setSelection(ts=new ResizeRectangle(selected));
         } else {
-            GUIMgr.getWorkSpace().redrawRegion(orect, null, true);
+            GUIMgr.getWorkSpace().redrawRegion(orect, null);
         }
     }
 

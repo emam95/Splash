@@ -16,13 +16,12 @@ public class Selection {
     BufferedImage bitmap = null;
     Anchor[] anchors = new Anchor[0];
     int x, y, width, height;
-    int anchordim = 8;
+    int anchordim = 0;
 
     public Selection() {
     }
 
     public BufferedImage redrawBitmap() {
-        System.out.println(width+","+height);
         BufferedImage output = new BufferedImage(width + anchordim, height + anchordim, BufferedImage.TYPE_INT_ARGB);
         Graphics2D gpx = output.createGraphics();
         gpx.setColor(java.awt.Color.ORANGE);
