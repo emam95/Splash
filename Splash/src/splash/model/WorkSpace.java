@@ -172,10 +172,10 @@ public class WorkSpace {
                 java.awt.Color col = layer.getPixel(x, y);
                 float af = 0;
                 if (col != null && (af = col.getAlpha()) > 0) {
-                    r = Math.min(255, (((col.getRed() * af + r * a) * 255) % 256) / 255f);
-                    g = Math.min(255, (((col.getGreen() * af + g * a) * 255) % 256) / 255f);
-                    b = Math.min(255, (((col.getBlue() * af + b * a) * 255) % 256) / 255f);
-                    a = Math.min(255, af / 255f + a / 255f - af / 255f * a / 255f);
+                    r = Math.min(255, col.getRed() + r);
+                    g = Math.min(255, col.getGreen() + g);
+                    b = Math.min(255, col.getBlue() + b);
+                    a = Math.min(255, af / 255f + a / 255f - af / 255 / 255f * a / 255f);
                     if (a == 1) {
                         break;
                     }
@@ -183,7 +183,7 @@ public class WorkSpace {
             }
         }
 
-        return new Color(r, g, b, a);
+        return new Color(r / 255, g / 255, b / 255, a);
     }
 
     ArrayList<LayerChangedEventHandler> selectedlayerchangedevents = new ArrayList<>();
