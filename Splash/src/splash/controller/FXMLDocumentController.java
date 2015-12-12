@@ -58,6 +58,10 @@ public class FXMLDocumentController implements Initializable {
 
     ArrayList<KeyCode> pressedkeys = new ArrayList<>();
 
+    boolean iskeyPressed(KeyCode code) {
+        return pressedkeys.contains(code);
+    }
+
     /**
      * Initializes the controller class.
      */
@@ -80,12 +84,10 @@ public class FXMLDocumentController implements Initializable {
         // events
         drawingCanvas.setOnMousePressed(this::canvasMousePressed);
         drawingCanvas.setOnMouseMoved(this::canvasMouseMoved);
-        
-        
+
     }
-    
-    public void CanvasSize(int width,int height)
-    {
+
+    public void CanvasSize(int width, int height) {
         drawingCanvas.setWidth(width);
         drawingCanvas.setHeight(height);
     }
@@ -159,7 +161,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void keyPressed(KeyEvent event) {
         pressedkeys.add(event.getCode());
-            ShortcutManager.checkComb(pressedkeys);
+        ShortcutManager.checkComb(pressedkeys);
     }
 
     @FXML

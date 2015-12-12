@@ -146,31 +146,7 @@ public class GUIMgr {
         cont.refreshLayers();
     }
 
-    /**
-     *
-     * @param id
-     */
-    public void selecLayer(int id) {
-        throw new UnsupportedOperationException();
-    }
-
-    public void initSave() {
-        throw new UnsupportedOperationException();
-    }
-
-    public void initLoad() {
-        throw new UnsupportedOperationException();
-    }
-
-    public void startDrawing(int x, int y, Tool tool, Color col) {
-        workspace.primaryKey(x, y, tool, col);
-    }
-
-    public void mouseMoved(int x, int y) {
-        workspace.mouseMoved(x, y);
-    }
-
-    public void finishDrawing() {
-        workspace.secKey();
+    public static boolean isKeyPressed(KeyCode key) {
+        return cont.iskeyPressed(key);
     }
 }

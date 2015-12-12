@@ -218,4 +218,14 @@ public class WorkSpace {
     public int getWidth() {
         return width;
     }
+
+    void selectLayerAt(int x, int y) {
+        for (Layer layer : layers) {
+            if (layer.contains(x, y) && layer.getPixel(x, y).getAlpha() > 0) {
+                selectedlayer = layer;
+                OnSelectedLayerChanged();
+                break;
+            }
+        }
+    }
 }

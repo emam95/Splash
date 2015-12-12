@@ -8,6 +8,7 @@ package splash.model;
 ;
 
 import java.awt.Rectangle;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import splash.controller.GUIMgr;
 
@@ -18,29 +19,31 @@ import splash.controller.GUIMgr;
 
 
 public class PointerTool extends Tool {
-
+    
     public PointerTool() {
         id = "Pointer";
     }
-
+    
     boolean inuse = false;
     Point dist;
     Point prevpos;
     Layer selected;
-
+    
     @Override
     public void primaryKey(int x, int y, Color col) {
         if (inuse) {
             stop();
             return;
         }
-        if ((selected = GUIMgr.getWorkSpace().getSelectedLayer()) != null) {
+        if (GUIMgr.isKeyPressed(KeyCode.CONTROL)) {
+            GUIMgr.getWorkSpace().selectLayerAt(x, y);
+        } else if ((selected = GUIMgr.getWorkSpace().getSelectedLayer()) != null) {
             inuse = true;
             prevpos = selected.getPos();
             dist = (new Point(x, y)).subtract(selected.getX(), selected.getY());
         }
     }
-
+    
     @Override
     public void mouseMoved(int x, int y) {
         if (inuse) {
@@ -48,12 +51,12 @@ public class PointerTool extends Tool {
             GUIMgr.getWorkSpace().getSelection().setPos(selected.getPos());
         }
     }
-
+    
     @Override
     public void secKey() {
         stop();
     }
-
+    
     void stop() {
         inuse = false;
         Point p = selected.getPos();
@@ -70,7 +73,7 @@ public class PointerTool extends Tool {
                 ws.redrawRegion(orect, nrect);
                 ws.setSelection(new Selection(target.getRect()));
             }
-
+            
             @Override
             public void unexecute() {
                 Rectangle orect = target.getRect();
@@ -82,7 +85,7 @@ public class PointerTool extends Tool {
             }
         });
     }
-
+    
     @Override
     public void select() {
         super.select();
@@ -92,10 +95,11 @@ public class PointerTool extends Tool {
                 @Override
                 public void selectedLayerChanged(Layer selectedlayer) {
                     if (Tool.lastselected == PointerTool.this) {
-                        if(selectedlayer != null)
-                        GUIMgr.getWorkSpace().setSelection(new Selection((selected = selectedlayer).getRect()));
-                        else
+                        if (selectedlayer != null) {
+                            GUIMgr.getWorkSpace().setSelection(new Selection((selected = selectedlayer).getRect()));
+                        } else {
                             GUIMgr.getWorkSpace().getSelection().clear();
+                        }
                     }
                 }
             });
