@@ -168,10 +168,10 @@ public class WorkSpace {
                 java.awt.Color col = layer.getPixel(x, y);
                 float af = 0;
                 if (col != null && (af = col.getAlpha()) > 0) {
-                    r = (((col.getRed() * af + r * a) * 255) % 256) / 255f;
-                    g = (((col.getGreen() * af + g * a) * 255) % 256) / 255f;
-                    b = (((col.getBlue() * af + b * a) * 255) % 256) / 255f;
-                    a = Math.min(1, af / 255f + a / 255f - af / 255f * a / 255f);
+                    r = Math.min(255, (((col.getRed() * af + r * a) * 255) % 256) / 255f);
+                    g = Math.min(255, (((col.getGreen() * af + g * a) * 255) % 256) / 255f);
+                    b = Math.min(255, (((col.getBlue() * af + b * a) * 255) % 256) / 255f);
+                    a = Math.min(255, af / 255f + a / 255f - af / 255f * a / 255f);
                     if (a == 1) {
                         break;
                     }
@@ -209,5 +209,13 @@ public class WorkSpace {
         Rectangle nrect = sel.getRect();
         selection = sel;
         redrawRegion(orect, nrect);
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
     }
 }

@@ -61,13 +61,6 @@ public abstract class Layer {
      */
     public abstract void erase(Point target);
 
-    /**
-     *
-     * @param point
-     * @return
-     */
-    public abstract Selection getSelection(Point point);
-
     public Rectangle getRect() {
         return new Rectangle(0, 0, getWidth(), getHeight());
     }

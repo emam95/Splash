@@ -15,6 +15,40 @@ import splash.controller.GUIMgr;
 public class ResizeRectangle extends Selection {
 
     Layer target;
+    Rectangle trec;
+
+    @Override
+    public void secKey() {
+        if (selected == null) {
+            return;
+        }
+        selected.secDown();
+        selected = null;
+        Layer ct = target;
+        Rectangle ts = target.getRect();
+        Rectangle or = trec;
+        CommandCenter.StoreCommand(new Command() {
+            @Override
+            public void execute() {
+                ct.setX((int) ts.getX());
+                ct.setY((int) ts.getY());
+                ct.resizeX((int) ts.getWidth());
+                ct.resizeY((int) ts.getHeight());
+                syncRect();
+                GUIMgr.getWorkSpace().redrawRegion(ts, or);
+            }
+
+            @Override
+            public void unexecute() {
+                ct.setX((int) or.getX());
+                ct.setY((int) or.getY());
+                ct.resizeX((int) or.getWidth());
+                ct.resizeY((int) or.getHeight());
+                syncRect();
+                GUIMgr.getWorkSpace().redrawRegion(ts, or);
+            }
+        });
+    }
 
     @Override
     void mouseMoved(int x, int y) {
@@ -93,6 +127,7 @@ public class ResizeRectangle extends Selection {
 
     public ResizeRectangle(Layer target) {
         this.target = target;
+        trec = target.getRect();
         anchordim = 8;
         nw = new Anchor(0) {
             @Override

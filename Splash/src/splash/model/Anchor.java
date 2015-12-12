@@ -19,7 +19,7 @@ public abstract class Anchor {
         isactive = true;
     }
 
-    public void secDown(int x, int y) {
+    public void secDown() {
         isactive = false;
     }
     int lastxdif = 0, lastydif = 0;

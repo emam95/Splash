@@ -68,6 +68,7 @@ public class PointerTool extends Tool {
                 target.setY(p.getY());
                 Rectangle nrect = target.getRect();
                 ws.redrawRegion(orect, nrect);
+                ws.setSelection(new Selection(target.getRect()));
             }
 
             @Override
@@ -77,6 +78,7 @@ public class PointerTool extends Tool {
                 target.setY(prevp.getY());
                 Rectangle nrect = target.getRect();
                 ws.redrawRegion(orect, nrect);
+                ws.setSelection(new Selection(target.getRect()));
             }
         });
     }
@@ -90,9 +92,10 @@ public class PointerTool extends Tool {
                 @Override
                 public void selectedLayerChanged(Layer selectedlayer) {
                     if (Tool.lastselected == PointerTool.this) {
-                        Rectangle prect = GUIMgr.getWorkSpace().getSelection().getRect();
-                        GUIMgr.getWorkSpace().getSelection().setRect((selected = selectedlayer).getRect(), true);
-                        GUIMgr.getWorkSpace().redrawRegion(prect, GUIMgr.getWorkSpace().getSelection().getRect());
+                        if(selectedlayer != null)
+                        GUIMgr.getWorkSpace().setSelection(new Selection((selected = selectedlayer).getRect()));
+                        else
+                            GUIMgr.getWorkSpace().getSelection().clear();
                     }
                 }
             });

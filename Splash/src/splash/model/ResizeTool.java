@@ -32,11 +32,13 @@ class ResizeTool extends Tool {
         GUIMgr.getWorkSpace().setOnSelectedLayerChanged(new LayerChangedEventHandler() {
             @Override
             public void selectedLayerChanged(Layer selectedlayer) {
-                if (!isselected || selected == null) {
+                if (!isselected) {
                     return;
                 }
                 selected = selectedlayer;
-                selected.applyAdjustedPos();
+                if (selected != null) {
+                    selected.applyAdjustedPos();
+                }
                 imposeSelectionModel();
             }
         });
@@ -47,17 +49,17 @@ class ResizeTool extends Tool {
         isselected = false;
         Rectangle orect = ts.getRect();
         ts.clear();
-        GUIMgr.getWorkSpace().redrawRegion(orect, null);
+        GUIMgr.getWorkSpace().redrawRegion(orect, null);        
     }
 
     @Override
     public void primaryKey(int x, int y, Color col) {
-        ts.primaryKey(x,y);
+        ts.primaryKey(x, y);
     }
 
     @Override
     public void mouseMoved(int x, int y) {
-        ts.mouseMoved(x,y);
+        ts.mouseMoved(x, y);
     }
 
     @Override
@@ -69,7 +71,7 @@ class ResizeTool extends Tool {
         Rectangle orect = ts.getRect();
         ts.clear();
         if (selected != null) {
-            GUIMgr.getWorkSpace().setSelection(ts=new ResizeRectangle(selected));
+            GUIMgr.getWorkSpace().setSelection(ts = new ResizeRectangle(selected));
         } else {
             GUIMgr.getWorkSpace().redrawRegion(orect, null);
         }

@@ -5,49 +5,45 @@
  */
 package splash.model;
 
+import java.awt.image.BufferedImage;
+import splash.controller.GUIMgr;
+
 /**
  *
  * @author Hesham
  */
 public class RawLayer extends Layer {
 
-    @Override
-    public void resizeX(int newwidth) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public RawLayer() {
+        super();
+        bitmap = new BufferedImage(GUIMgr.getWorkSpace().getWidth(), GUIMgr.getWorkSpace().getHeight(), BufferedImage.TYPE_INT_ARGB);
     }
 
     @Override
-    public void resizeY(int newheight) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void resizeX(int newwidth) {        
     }
 
     @Override
-    public void transform(Point diff) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void resizeY(int newheight) {        
     }
 
     @Override
-    public void rotate(float rad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void transform(Point diff) {        
     }
 
     @Override
-    public void erase(Point target) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void rotate(float rad) {        
     }
 
     @Override
-    public Selection getSelection(Point point) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void erase(Point target) {        
     }
 
     @Override
-    void addWidthRel(int dif, int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void addWidthRel(int dif, int i) {        
     }
 
     @Override
-    void addHeightRel(int dif, int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void addHeightRel(int dif, int i) {        
     }
 }

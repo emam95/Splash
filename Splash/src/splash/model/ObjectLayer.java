@@ -46,10 +46,6 @@ public class ObjectLayer extends Layer {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public Selection getSelection(Point point) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     Point startp, cpoint;
 

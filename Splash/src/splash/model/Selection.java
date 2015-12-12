@@ -105,7 +105,7 @@ public class Selection {
         if (selected == null) {
             return;
         }
-        selected.secDown(x, y);
+        selected.secDown();
         selected = null;
     }
 
@@ -117,8 +117,7 @@ public class Selection {
 
     void primaryKey(int x, int y) {
         if (selected != null) {
-            selected.secDown(x, y);
-            selected = null;
+            secKey();
             return;
         }
         int rx = x - getX(), ry = y - getY();
