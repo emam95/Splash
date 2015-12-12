@@ -14,7 +14,7 @@ public class WorkSpace {
     private GraphicsContext graphics;
     private LinkedList<Layer> layers = new LinkedList<>();
     private Layer selectedlayer;
-    private Selection selection = new Selection();
+    private ArrayList<Selection> selections = new ArrayList<>();
 
     public WorkSpace(int width, int height) {
         this.width = width;
@@ -157,10 +157,14 @@ public class WorkSpace {
 
     public Color getPixel(int x, int y, boolean ignoreselection) {
         float a = 0, r = 0, g = 0, b = 0;
-        if (!ignoreselection && selection != null && selection.getRect().contains(x, y)) {
-            Color col = selection.getPixel(x, y);
-            if (col != null && col.getOpacity() > 0) {
-                return col;
+        if (!ignoreselection) {
+            for (Selection s : selections) {
+                if (s.getRect().contains(x, y)) {
+                    Color temp = s.getPixel(x, y);
+                    if (temp != null && temp.getOpacity() > 0) {
+                        return s.getPixel(x, y);
+                    }
+                }
             }
         }
         for (Layer layer : layers) {
@@ -178,12 +182,10 @@ public class WorkSpace {
                 }
             }
         }
+
         return new Color(r, g, b, a);
     }
 
-    Selection getSelection() {
-        return selection;
-    }
     ArrayList<LayerChangedEventHandler> selectedlayerchangedevents = new ArrayList<>();
 
     public void setOnSelectedLayerChanged(LayerChangedEventHandler handler) {
@@ -205,10 +207,9 @@ public class WorkSpace {
     }
 
     void setSelection(Selection sel) {
-        Rectangle orect = selection.getRect();
-        Rectangle nrect = sel.getRect();
-        selection = sel;
-        redrawRegion(orect, nrect);
+        clearSelection();
+        selections.add(sel);
+        redrawRegion(sel.getRect(), null);
     }
 
     public int getHeight() {
@@ -230,11 +231,15 @@ public class WorkSpace {
     }
 
     void clearSelection() {
-        if (selection == null) {
-            return;
+        for (Selection sel : selections) {
+            Rectangle rect = sel.getRect();
+            sel.clear();
+            redrawRegion(rect, null);
         }
-        Rectangle srect = selection.getRect();
-        selection.clear();
-        redrawRegion(srect, null);
+        selections.clear();
+    }
+
+    Object getSelection(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

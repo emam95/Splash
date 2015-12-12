@@ -14,15 +14,7 @@ public class ResourceManager {
     }
 
     public static HashMap<String, Class<? extends Brush>> getBrushes() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     *
-     * @param brushes
-     */
-    public static void setBrushes(int brushes) {
-        throw new UnsupportedOperationException();
+        return BrushFactory.Brushes;
     }
 
     public static void loadDrawables(String path) {

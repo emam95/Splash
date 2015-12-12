@@ -14,6 +14,12 @@ import splash.controller.GUIMgr;
  */
 public class ResizeRectangle extends Selection {
 
+    static ResizeRectangle instance = null;
+
+    static ResizeRectangle getInstance() {
+        return instance;
+    }
+
     Layer target;
     Rectangle trec;
 
@@ -45,7 +51,7 @@ public class ResizeRectangle extends Selection {
                 ct.resizeX((int) or.getWidth());
                 ct.resizeY((int) or.getHeight());
                 GUIMgr.getWorkSpace().selectLayer(ct.getId());
-                GUIMgr.getWorkSpace().redrawRegion(ts, or);                
+                GUIMgr.getWorkSpace().redrawRegion(ts, or);
             }
         });
     }
@@ -110,7 +116,7 @@ public class ResizeRectangle extends Selection {
             syncRect();
             redrawBitmap();
             Rectangle nrect = getRect();
-            GUIMgr.getWorkSpace().redrawRegion(orect, nrect);
+            GUIMgr.getWorkSpace().redrawRegion(orect, nrect);            
             GUIMgr.getWorkSpace().supressNextRedraw();
         }
     }
@@ -252,5 +258,6 @@ public class ResizeRectangle extends Selection {
         setAnchors(new Anchor[]{nw, n, ne, e, se, s, sw, w});
         syncRect();
         redrawBitmap();
+        instance = this;
     }
 }

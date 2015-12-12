@@ -3,6 +3,7 @@ package splash.model;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
+import javafx.scene.paint.Color;
 
 public abstract class Polygon extends Object2D {
 
@@ -136,8 +137,12 @@ public abstract class Polygon extends Object2D {
     public void drawToBitmap(BufferedImage target, int x, int y) {
         int w = getWidth(), h = getHeight();
         Graphics2D gpx = target.createGraphics();
-        java.awt.Color col = new java.awt.Color(Helper.getARGB(getColor()), true);
-        gpx.setColor(col);
+        Color fxcol = getColor();
+        if (fxcol == null) {
+            gpx.setColor(null);
+        } else {            
+            gpx.setColor(new java.awt.Color(Helper.getARGB(fxcol), true));
+        }
         int[] ixs = new int[xs.length];
         int[] iys = new int[ys.length];
         for (int i = 0; i < ixs.length; i++) {

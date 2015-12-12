@@ -28,6 +28,10 @@ class BrushTool extends Tool {
 
     @Override
     public void primaryKey(int x, int y, Color col) {
+        if (inuse) {
+            inuse = false;
+            return;
+        }
         if ((selected = GUIMgr.getWorkSpace().getSelectedLayer()) == null) {
             return;
         }
