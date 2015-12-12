@@ -176,4 +176,16 @@ public class FXMLDocumentController implements Initializable {
     private void keyReleased(KeyEvent event) {
         pressedkeys.remove(event.getCode());
     }
+
+    @FXML
+    private void NewProject(ActionEvent event) {
+    }
+
+    @FXML
+    private void Save(ActionEvent event) {
+    }
+
+    @FXML
+    private void SaveAs(ActionEvent event) {
+    }
 }
