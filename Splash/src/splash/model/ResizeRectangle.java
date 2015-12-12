@@ -34,7 +34,7 @@ public class ResizeRectangle extends Selection {
                 ct.setY((int) ts.getY());
                 ct.resizeX((int) ts.getWidth());
                 ct.resizeY((int) ts.getHeight());
-                syncRect();
+                GUIMgr.getWorkSpace().selectLayer(ct.getId());
                 GUIMgr.getWorkSpace().redrawRegion(ts, or);
             }
 
@@ -44,8 +44,8 @@ public class ResizeRectangle extends Selection {
                 ct.setY((int) or.getY());
                 ct.resizeX((int) or.getWidth());
                 ct.resizeY((int) or.getHeight());
-                syncRect();
-                GUIMgr.getWorkSpace().redrawRegion(ts, or);
+                GUIMgr.getWorkSpace().selectLayer(ct.getId());
+                GUIMgr.getWorkSpace().redrawRegion(ts, or);                
             }
         });
     }

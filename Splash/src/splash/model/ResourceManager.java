@@ -30,7 +30,9 @@ public class ResourceManager {
         DrawableFactory.Drawables.put("Rectangle", RectangleObject.class);
         DrawableFactory.Drawables.put("Triangle", TriangleObject.class);
         DrawableFactory.Drawables.put("Ellipse", Ellipse.class);
-        DrawableFactory.Drawables.put("Polygon", PolygonObject.class);        
+        DrawableFactory.Drawables.put("Polygon", PolygonObject.class);
+
+        BrushFactory.Brushes.put("Round", RoundBrush.class);
         // External
         // TODO: Load external classes
     }
@@ -44,10 +46,15 @@ public class ResourceManager {
         tools.add(new PointerTool());
         tools.add(new MarqueTool());
         tools.add(new ResizeTool());
+
         // Shape based tools
         Iterator<String> it = DrawableFactory.Drawables.keySet().iterator();
         while (it.hasNext()) {
             tools.add(new DrawableTool(it.next()));
+        }
+        Iterator<String> itb = BrushFactory.Brushes.keySet().iterator();
+        while (itb.hasNext()) {
+            tools.add(new BrushTool(itb.next()));
         }
         // TODO: Include brushes as tools
     }

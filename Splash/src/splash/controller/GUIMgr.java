@@ -149,4 +149,8 @@ public class GUIMgr {
     public static boolean isKeyPressed(KeyCode key) {
         return cont.iskeyPressed(key);
     }
+
+    public static void triedToEditObject() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

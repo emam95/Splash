@@ -228,4 +228,13 @@ public class WorkSpace {
             }
         }
     }
+
+    void clearSelection() {
+        if (selection == null) {
+            return;
+        }
+        Rectangle srect = selection.getRect();
+        selection.clear();
+        redrawRegion(srect, null);
+    }
 }

@@ -165,4 +165,8 @@ public abstract class Layer {
         int tx = getX(), ty = getY(), w = getWidth(), h = getHeight();
         return x >= tx && x < tx + w && y >= ty && y < ty + h;
     }
+
+    void stroke(Brush brush) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

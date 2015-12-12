@@ -18,7 +18,6 @@ class ResizeTool extends Tool {
     public ResizeTool() {
         id = "Resize";
     }
-    Selection ts;
     Layer selected;
     boolean isselected = false;
 
@@ -26,8 +25,11 @@ class ResizeTool extends Tool {
     public void select() {
         super.select();
         isselected = true;
-        ts = GUIMgr.getWorkSpace().getSelection();
         selected = GUIMgr.getWorkSpace().getSelectedLayer();
+        GUIMgr.getWorkSpace().clearSelection();
+        if (selected != null) {
+            selected.applyAdjustedPos();
+        }
         imposeSelectionModel();
         GUIMgr.getWorkSpace().setOnSelectedLayerChanged(new LayerChangedEventHandler() {
             @Override
@@ -36,6 +38,7 @@ class ResizeTool extends Tool {
                     return;
                 }
                 selected = selectedlayer;
+                GUIMgr.getWorkSpace().clearSelection();
                 if (selected != null) {
                     selected.applyAdjustedPos();
                 }
@@ -47,31 +50,31 @@ class ResizeTool extends Tool {
     @Override
     public void unselect() {
         isselected = false;
-        Rectangle orect = ts.getRect();
-        ts.clear();
-        GUIMgr.getWorkSpace().redrawRegion(orect, null);        
+        Rectangle orect = GUIMgr.getWorkSpace().getSelection().getRect();
+        GUIMgr.getWorkSpace().getSelection().clear();
+        GUIMgr.getWorkSpace().redrawRegion(orect, null);
     }
 
     @Override
     public void primaryKey(int x, int y, Color col) {
-        ts.primaryKey(x, y);
+        GUIMgr.getWorkSpace().getSelection().primaryKey(x, y);
     }
 
     @Override
     public void mouseMoved(int x, int y) {
-        ts.mouseMoved(x, y);
+        GUIMgr.getWorkSpace().getSelection().mouseMoved(x, y);
     }
 
     @Override
     public void secKey() {
-        ts.secKey();
+        GUIMgr.getWorkSpace().getSelection().secKey();
     }
 
     private void imposeSelectionModel() {
-        Rectangle orect = ts.getRect();
-        ts.clear();
+        Rectangle orect = GUIMgr.getWorkSpace().getSelection().getRect();
+        GUIMgr.getWorkSpace().getSelection().clear();
         if (selected != null) {
-            GUIMgr.getWorkSpace().setSelection(ts = new ResizeRectangle(selected));
+            GUIMgr.getWorkSpace().setSelection(new ResizeRectangle(selected));
         } else {
             GUIMgr.getWorkSpace().redrawRegion(orect, null);
         }
