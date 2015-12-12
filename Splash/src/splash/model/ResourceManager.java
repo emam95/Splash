@@ -96,7 +96,7 @@ public class ResourceManager {
      * @param path
      * @return
      */
-    public BitmapDrawable loadImage(String path) {
+    public RawLayer loadImage(String path) {
         throw new UnsupportedOperationException();
     }
 

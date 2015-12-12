@@ -2,6 +2,7 @@ package splash.model;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 
 public abstract class Polygon extends Object2D {
 
@@ -35,27 +36,6 @@ public abstract class Polygon extends Object2D {
             ys[i] = points[i++].getY();
         }
         pointschanged = true;
-    }
-
-    @Override
-    public BufferedImage getBitmap() {
-        int w = getWidth(), h = getHeight();
-        BufferedImage output = new BufferedImage(w + 1, h + 1, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D gpx = output.createGraphics();
-        java.awt.Color col = new java.awt.Color(Helper.getARGB(getColor()), true);
-        gpx.setColor(col);
-        int[] ixs = new int[xs.length];
-        int[] iys = new int[ys.length];
-        for (int i = 0; i < ixs.length; i++) {
-            ixs[i] = (int) xs[i];
-            iys[i] = (int) ys[i];
-        }
-        if (getIsFilled()) {
-            gpx.fillPolygon(ixs, iys, Math.min(xs.length, ys.length));
-        } else {
-            gpx.drawPolygon(ixs, iys, Math.min(xs.length, ys.length));
-        }
-        return output;
     }
 
     @Override
@@ -150,5 +130,34 @@ public abstract class Polygon extends Object2D {
         for (int i = 0; i < ys.length; i++) {
             ys[i] = height - ys[i];
         }
+    }
+
+    @Override
+    public void drawToBitmap(BufferedImage target, int x, int y) {
+        int w = getWidth(), h = getHeight();
+        Graphics2D gpx = target.createGraphics();
+        java.awt.Color col = new java.awt.Color(Helper.getARGB(getColor()), true);
+        gpx.setColor(col);
+        int[] ixs = new int[xs.length];
+        int[] iys = new int[ys.length];
+        for (int i = 0; i < ixs.length; i++) {
+            ixs[i] = (int) xs[i];
+            iys[i] = (int) ys[i];
+        }
+        if (getIsFilled()) {
+            gpx.fillPolygon(ixs, iys, Math.min(xs.length, ys.length));
+        } else {
+            gpx.drawPolygon(ixs, iys, Math.min(xs.length, ys.length));
+        }
+    }
+
+    @Override
+    public HashMap<String, Object> getEditableList() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Error[] updateProperties(HashMap<String, Object> modrec) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -41,4 +41,6 @@ public interface Drawable {
     void mouseMoved(Point offset);
 
     void secKey();
+
+    public void drawToBitmap(BufferedImage target, int x, int y);
 }

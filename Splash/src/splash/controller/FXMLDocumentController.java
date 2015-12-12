@@ -109,7 +109,15 @@ public class FXMLDocumentController implements Initializable {
     }
 
     private void canvasMouseMoved(MouseEvent ev) {
-        GUIMgr.getWorkSpace().mouseMoved((int) ev.getX(), (int) ev.getY());
+        int xp = (int) ev.getX(), yp = (int) ev.getY();
+        if (iskeyPressed(KeyCode.SHIFT)) {
+            double p = Math.max(xp, yp);
+            p = Math.min(drawingCanvas.getWidth(), p);
+            p = Math.min(drawingCanvas.getHeight(), p);
+            GUIMgr.getWorkSpace().mouseMoved((int) p, (int) p);
+        } else {
+            GUIMgr.getWorkSpace().mouseMoved(xp, yp);
+        }
     }
 
     Color getPixel(int x, int y) {

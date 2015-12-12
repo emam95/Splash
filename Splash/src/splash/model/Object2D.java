@@ -10,21 +10,15 @@ public abstract class Object2D implements Drawable {
     private Color color;
     int width;
     int height;
+    
+    @Override
+    public BufferedImage getBitmap() {
+        BufferedImage output = new BufferedImage(getWidth() + 1, getHeight() + 1, BufferedImage.TYPE_INT_ARGB);
+        drawToBitmap(output, 0, 0);
+        return output;
+    }
+
     private boolean lsa = false;
-
-    @Override
-    public HashMap<String, Object> getEditableList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Error[] updateProperties(HashMap<String, Object> modrec) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public abstract BufferedImage getBitmap();
-
     /**
      * @return the width
      */
