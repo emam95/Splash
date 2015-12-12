@@ -16,10 +16,14 @@ class BrushTool extends Tool {
 
     Brush brush;
     Layer selected;
+    boolean inuse = false;
 
     public BrushTool(String brushname) {
         brush = BrushFactory.createBrush(brushname);
         this.id = brushname;
+    }
+
+    public BrushTool() {
     }
 
     @Override
@@ -30,19 +34,22 @@ class BrushTool extends Tool {
 
         if (selected instanceof ObjectLayer) {
             GUIMgr.triedToEditObject();
-        } else {
-            selected.stroke(brush);            
+        } else if (!inuse) {
+            inuse = true;
+            selected.stroke(brush, x, y);
         }
     }
 
     @Override
     public void mouseMoved(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (inuse) {
+            selected.stroke(brush, x, y);
+        }
     }
 
     @Override
     public void secKey() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        inuse = false;
     }
 
 }

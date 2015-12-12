@@ -32,19 +32,7 @@ public class ObjectLayer extends Layer {
         redraw();
     }
 
-    /**
-     *
-     * @param diff
-     */
-    @Override
-    public void rotate(float rad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public void erase(Point target) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 
     Point startp, cpoint;

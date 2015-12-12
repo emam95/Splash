@@ -31,13 +31,7 @@ public class RawLayer extends Layer {
     public void transform(Point diff) {        
     }
 
-    @Override
-    public void rotate(float rad) {        
-    }
 
-    @Override
-    public void erase(Point target) {        
-    }
 
     @Override
     void addWidthRel(int dif, int i) {        

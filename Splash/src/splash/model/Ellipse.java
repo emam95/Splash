@@ -23,7 +23,7 @@ public class Ellipse extends Object2D {
     public void setCenter(PointF center) {
         this.center = center;
     }
-    
+
     @Override
     public void primaryKey(Point start, Color col) {
         setCenter(start.toPointF());
@@ -60,9 +60,13 @@ public class Ellipse extends Object2D {
     @Override
     public void drawToBitmap(BufferedImage target, int x, int y) {
         Graphics2D gpx = target.createGraphics();
-        java.awt.Color col = new java.awt.Color(Helper.getARGB(getColor()), true);
         gpx.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        gpx.setColor(col);
+        Color fxcol = getColor();
+        if (fxcol == null) {
+            gpx.setColor(null);
+        } else {            
+            gpx.setColor(new java.awt.Color(Helper.getARGB(fxcol), true));
+        }
         gpx.fillOval(x, y, width, height);
     }
 

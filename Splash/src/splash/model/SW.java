@@ -14,11 +14,16 @@ public class SW {
 
     static long stime;
 
-    public static void start() {
+    public SW()
+    {
+        stime = System.currentTimeMillis();
+    }
+    
+    public void restart() {
         stime = System.currentTimeMillis();
     }
 
-    public static long getElapsed() {
+    public long getElapsed() {
         return System.currentTimeMillis() - stime;
     }
 }

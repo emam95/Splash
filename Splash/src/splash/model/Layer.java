@@ -8,6 +8,7 @@ package splash.model;
 import java.awt.image.BufferedImage;
 import java.awt.Rectangle;
 import javafx.scene.paint.Color;
+import splash.controller.GUIMgr;
 
 /**
  *
@@ -48,18 +49,6 @@ public abstract class Layer {
         x += diff.getX();
         y += diff.getY();
     }
-
-    /**
-     *
-     * @param rad
-     */
-    public abstract void rotate(float rad);
-
-    /**
-     *
-     * @param target
-     */
-    public abstract void erase(Point target);
 
     public Rectangle getRect() {
         return new Rectangle(0, 0, getWidth(), getHeight());
@@ -166,7 +155,9 @@ public abstract class Layer {
         return x >= tx && x < tx + w && y >= ty && y < ty + h;
     }
 
-    void stroke(Brush brush) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void stroke(Brush brush, int x, int y) {
+        brush.drawTo(bitmap, x - getX(), y - getY());
+        GUIMgr.getWorkSpace().redrawRegion(new Rectangle(x, y, brush.getWidth(), brush.getHeight()), null);
+        GUIMgr.getWorkSpace().supressNextRedraw();;
     }
 }

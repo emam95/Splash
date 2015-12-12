@@ -137,12 +137,12 @@ public class WorkSpace {
                 return;
             }
             lastmousemove = System.currentTimeMillis();
-            SW.start();
+            SW sw = new SW();
             final java.awt.Rectangle prect = selectedlayer.getRect();
             drawingtool.mouseMoved(ox, oy);
             final java.awt.Rectangle nrect = selectedlayer.getRect();
             redrawRegion(prect, nrect);
-            redrawrestraint = SW.getElapsed() * 2;
+            redrawrestraint = sw.getElapsed() * 2;
         }
     }
 
