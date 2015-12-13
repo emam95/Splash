@@ -34,11 +34,11 @@ public class RawLayer extends Layer {
     }
 
     @Override
-    void addWidthRel(int dif, int i) {
+    public void addWidthRel(int dif, int i) {
     }
 
     @Override
-    void addHeightRel(int dif, int i) {
+    public void addHeightRel(int dif, int i) {
     }
 
     public SparseArray getARGB() {

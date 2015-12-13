@@ -69,7 +69,7 @@ public class ObjectLayer extends Layer {
     }
 
     @Override
-    void addWidthRel(int dif, int i) {
+    public void addWidthRel(int dif, int i) {
         int w = getWidth();
         int nw = w + dif;
         if (nw < 0) {
@@ -92,7 +92,7 @@ public class ObjectLayer extends Layer {
     }
 
     @Override
-    void addHeightRel(int dif, int i) {
+    public void addHeightRel(int dif, int i) {
         int h = getHeight();
         int nh = h + dif;
         if (nh < 0) {

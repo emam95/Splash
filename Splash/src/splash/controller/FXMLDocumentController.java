@@ -49,9 +49,9 @@ import splash.model.Tool;
 public class FXMLDocumentController implements Initializable {
 
     Layer[] layers;
-    
+
     ArrayList<SimpleLayer> spl;
-    
+
     @FXML
     private ColorPicker colorPicker;
     @FXML
@@ -69,15 +69,13 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TableView<?> propTable;
     @FXML
-    private TableColumn<Map.Entry<String, Property> ,String> propCol;
+    private TableColumn<Map.Entry<String, Property>, String> propCol;
     @FXML
     private TableColumn<Map.Entry<String, Property>, String> valCol;
-    
 
     private Tool selectedTool;
     private ArrayList<Tool> tools;
     ArrayList<KeyCode> pressedkeys = new ArrayList<>();
-    
 
     boolean iskeyPressed(KeyCode code) {
         return pressedkeys.contains(code);
@@ -104,7 +102,7 @@ public class FXMLDocumentController implements Initializable {
 
         // events
         drawingCanvas.setOnMousePressed(this::canvasMousePressed);
-        drawingCanvas.setOnMouseMoved(this::canvasMouseMoved);                
+        drawingCanvas.setOnMouseMoved(this::canvasMouseMoved);
     }
 
     public void CanvasSize(int width, int height) {
@@ -206,14 +204,15 @@ public class FXMLDocumentController implements Initializable {
     private void Save(ActionEvent event) {
         GUIMgr.Save();
     }
-    
+
     @FXML
     private void SaveAs(ActionEvent event) {
         GUIMgr.SaveAs();
-        if(GUIMgr.getCurrentFile() != null)
+        if (GUIMgr.getCurrentFile() != null) {
             saveMenItem.setDisable(false);
+        }
     }
-    
+
     /*private void fillTable()
     {
         Layer selectedLayer = GUIMgr.getWorkSpace().getSelectedLayer();
@@ -243,9 +242,8 @@ public class FXMLDocumentController implements Initializable {
 
         table.getColumns().setAll(propCol, valCol);
     }*/
-
     @FXML
     private void LoadProject(ActionEvent event) {
-        
+        GUIMgr.loadProject("C:\\Users\\Hesham\\Documents\\test");
     }
 }

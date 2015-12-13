@@ -45,7 +45,7 @@ public class WorkSpace {
 
     public void addLayer(Layer layer) {
         layers.addFirst(selectedlayer = layer);
-        redrawRegion(layer.getRect(), null);
+        redrawRegion(layer.getRect(), null);        
     }
 
     public void removeLayer(int id) {
@@ -208,8 +208,7 @@ public class WorkSpace {
 
     void setSelection(Selection sel) {
         clearSelection();
-        selections.add(sel);
-        redrawRegion(sel.getRect(), null);
+        addSelection(sel);
     }
 
     public int getHeight() {
@@ -240,6 +239,11 @@ public class WorkSpace {
     }
 
     Object getSelection(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return selections.get(i);
+    }
+
+    void addSelection(Selection selection) {
+        selections.add(selection);
+        redrawRegion(selection.getRect(), null);
     }
 }
