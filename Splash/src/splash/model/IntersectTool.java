@@ -5,7 +5,10 @@
  */
 package splash.model;
 
+import java.util.ArrayList;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import splash.controller.GUIMgr;
 
 /**
  *
@@ -19,7 +22,9 @@ public class IntersectTool extends Tool {
 
     @Override
     public void primaryKey(int x, int y, Color col) {
-           
+        if (GUIMgr.isKeyPressed(KeyCode.CONTROL)) {
+            GUIMgr.getWorkSpace().selectLayerAt(x, y);
+        }
     }
 
     @Override
@@ -28,6 +33,51 @@ public class IntersectTool extends Tool {
 
     @Override
     public void secKey() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        RawLayer rl = new RawLayer();
+        for (int x = 0; x < GUIMgr.getWorkSpace().getWidth(); x++) {
+            for (int y = 0; y < GUIMgr.getWorkSpace().getHeight(); y++) {
+                boolean flag = true;
+                for (Layer l : sl) {
+                    if (!l.contains(x, y) || l.getPixel(x, y).getAlpha() == 0) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    rl.setPixel(x, y, GUIMgr.getSelectedFillColor());
+                }
+            }
+        }
+        GUIMgr.newLayer(rl);
+    }
+    ArrayList<Layer> sl = new ArrayList<>();
+
+    @Override
+    public void select() {
+        if (Tool.lastselected == IntersectTool.this) {
+            secKey();
+        }
+        super.select();
+        Layer selected;
+        if ((selected = GUIMgr.getWorkSpace().getSelectedLayer()) != null) {
+            sl.add(selected);
+        }
+        if ((selected = GUIMgr.getWorkSpace().getSelectedLayer()) != null) {
+            GUIMgr.getWorkSpace().setSelection(new Selection(selected.getRect()));
+            GUIMgr.getWorkSpace().setOnSelectedLayerChanged(new LayerChangedEventHandler() {
+                @Override
+                public void selectedLayerChanged(Layer selectedlayer) {
+                    if (Tool.lastselected == IntersectTool.this) {
+                        if (selectedlayer != null) {
+                            GUIMgr.getWorkSpace().addSelection(new Selection((selectedlayer).getRect()));
+                            sl.add(selectedlayer);
+                        } else {
+                            GUIMgr.getWorkSpace().clearSelection();
+                            sl.clear();
+                        }
+                    }
+                }
+            });
+        }
     }
 }

@@ -5,3 +5,4 @@ Splash/dist
 Splash/nbproject/private
 Splash/build
 *.rar
+Splash/src/splash/controller/FXMLDocumentController.java

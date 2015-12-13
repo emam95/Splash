@@ -1,8 +1,10 @@
 package splash.controller;
 
+import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Optional;
 import javafx.application.Platform;
@@ -173,7 +175,7 @@ public class GUIMgr {
             s.setW(layer.getWidth());
             if (layer instanceof ObjectLayer) {
                 ObjectLayer l = (ObjectLayer) layer;
-                s.setS(l.getObj());
+                s.setS(l.getObject());
             } else if (layer instanceof RawLayer) {
                 SparseArray data = ((RawLayer) layer).getARGB();
                 s.setS(data);
@@ -201,6 +203,37 @@ public class GUIMgr {
 
     public static FileOutputStream getCurrentFile() {
         return fOutput;
+    }
+
+    static void loadProject(String filename) {
+        try {
+            FileInputStream fis = new FileInputStream(filename);
+            XMLDecoder xdec = new XMLDecoder(fis);
+            while (true) {
+                try {
+                    SimpleLayer sl = (SimpleLayer) xdec.readObject();
+                    if (sl.getS() instanceof Drawable) {
+                        ObjectLayer ol = new ObjectLayer((Object2D) sl.getS());
+                        ol.setId(sl.getId());
+                        ol.setX(sl.getX());
+                        ol.setY(sl.getY());
+                        ol.redraw();
+                        workspace.addLayer(ol);
+                    } else {
+
+                    }
+                } catch (Exception ex) {
+                    break;
+                }
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static int getSelectedFillColor() {
+        return 0xFF000000;
     }
 
 }

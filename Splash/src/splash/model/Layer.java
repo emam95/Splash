@@ -63,11 +63,11 @@ public abstract class Layer {
     }
     int ax = 0, ay = 0;
 
-    void adjustX(int i) {
+    public void adjustX(int i) {
         ax = i;
     }
 
-    void adjustY(int i) {
+    public void adjustY(int i) {
         ay = i;
     }
 
@@ -79,18 +79,18 @@ public abstract class Layer {
         return y + ay;
     }
 
-    void applyAdjustedPos() {
+    public void applyAdjustedPos() {
         x += ax;
         ax = 0;
         y += ay;
         ay = 0;
     }
 
-    void setX(int val) {
+    public void setX(int val) {
         x = val;
     }
 
-    void setY(int val) {
+    public void setY(int val) {
         y = val;
     }
 
@@ -102,7 +102,7 @@ public abstract class Layer {
         transform(p.subtract(getX(), getY()));
     }
 
-    void transform(int xshift, int yshift) {
+    public void transform(int xshift, int yshift) {
         x += xshift;
         y += yshift;
     }
@@ -125,9 +125,9 @@ public abstract class Layer {
         return 0;
     }
 
-    abstract void addWidthRel(int dif, int i);
+    abstract public void addWidthRel(int dif, int i);
 
-    abstract void addHeightRel(int dif, int i);
+    abstract public void addHeightRel(int dif, int i);
 
     boolean mirroredx = false;
     boolean mirroredy = false;
@@ -156,7 +156,7 @@ public abstract class Layer {
         return x >= tx && x < tx + w && y >= ty && y < ty + h;
     }
 
-    void stroke(Brush brush, int x, int y) {
+    public void stroke(Brush brush, int x, int y) {
         brush.drawTo(bitmap, x - getX(), y - getY());
         GUIMgr.getWorkSpace().redrawRegion(new Rectangle(x, y, brush.getWidth(), brush.getHeight()), null);
         GUIMgr.getWorkSpace().supressNextRedraw();;

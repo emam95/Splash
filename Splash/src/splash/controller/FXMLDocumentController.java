@@ -246,6 +246,6 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void LoadProject(ActionEvent event) {
-        
+        GUIMgr.loadProject("C:\\Users\\Hesham\\Documents\\test");
     }
 }
