@@ -175,7 +175,7 @@ public class WorkSpace {
                     r = Math.min(255, col.getRed() + r);
                     g = Math.min(255, col.getGreen() + g);
                     b = Math.min(255, col.getBlue() + b);
-                    a = Math.min(255, af / 255f + a / 255f - af / 255 / 255f * a / 255f);
+                    a = Math.max(1, af / 255f + a / 255f - af / 255 / 255f * a / 255f);
                     if (a == 1) {
                         break;
                     }
