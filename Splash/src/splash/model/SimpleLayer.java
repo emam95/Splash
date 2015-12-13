@@ -5,20 +5,18 @@
  */
 package splash.model;
 
-import static javax.swing.Spring.width;
-
 /**
  *
  * @author wizard
  */
 public class SimpleLayer {
-    
+
     private int id;
     private int x;
     private int y;
     private int w;
-   private Object s;
-   
+    private Object s;
+
     /**
      * @return the id
      */
@@ -88,5 +86,5 @@ public class SimpleLayer {
     public void setW(int w) {
         this.w = w;
     }
-    
+
 }

@@ -35,8 +35,8 @@ public class Ellipse extends Object2D {
     public void drawToBitmap(BufferedImage target, int x, int y) {
         Graphics2D gpx = target.createGraphics();
         gpx.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        int fxcol = getFillColor();
-        int cancol = getCanvasColor();
+        int fxcol = getFillcolor();
+        int cancol = getCanvascolor();
         if (getIsFilled()) {
             if (nullifyfill) {
                 gpx.setColor(null);

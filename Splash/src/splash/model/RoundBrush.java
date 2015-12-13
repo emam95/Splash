@@ -29,7 +29,7 @@ class RoundBrush extends Brush {
         this.color = color;
         if (stroke instanceof Object2D) {
             if (color != null) {
-                ((Object2D) stroke).setFillColor(Helper.getARGB(color));
+                ((Object2D) stroke).setFillcolor(Helper.getARGB(color));
             } else {
                 ((Object2D) stroke).nullifyfill = true;
             }

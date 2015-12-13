@@ -6,14 +6,20 @@ import javafx.scene.paint.Color;
 
 public abstract class Object2D implements Drawable {
 
-    ObjectLayer parent = null;
-    boolean wasdrawn = false;
+    private boolean wasdrawn;
     private int fillcolor;
-    private int canvascolor = 0xff000000;
-    private boolean isFilled = true;
-    boolean nullifyfill = false;
+    private int canvascolor;
+    private boolean isFilled;
+    boolean nullifyfill;
+    ObjectLayer parent;
     int width;
     int height;
+
+    public Object2D() {
+        isFilled = true; // for testing
+        nullifyfill = false;
+        parent = null;
+    }
 
     @Override
     public BufferedImage getBitmap() {
@@ -22,11 +28,10 @@ public abstract class Object2D implements Drawable {
         return output;
     }
 
-    private boolean lsa = false;
-
     /**
      * @return the width
      */
+    @Override
     public int getWidth() {
         return Math.max(1, width);
     }
@@ -73,7 +78,7 @@ public abstract class Object2D implements Drawable {
         }
         isdrawing = true;
         dstart = cpos = start;
-        setFillColor(Helper.getARGB(col));
+        setFillcolor(Helper.getARGB(col));
     }
 
     @Override
@@ -88,7 +93,7 @@ public abstract class Object2D implements Drawable {
     @Override
     public void secKey() {
         isdrawing = false;
-        wasdrawn = true;
+        setWasdrawn(true);
         if (parent != null) {
             parent.applyAdjustedPos();
         }
@@ -102,26 +107,12 @@ public abstract class Object2D implements Drawable {
         return cpos;
     }
 
-    /**
-     * @return the color
-     */
-    public int getFillColor() {
-        return fillcolor;
-    }
-
-    /**
-     * @param color the color to set
-     */
-    public void setFillColor(int color) {
-        this.fillcolor = color;
-    }
-
     boolean isdrawing() {
         return isdrawing;
     }
 
     boolean wasDrawn() {
-        return wasdrawn;
+        return getWasdrawn();
     }
 
     void setParent(ObjectLayer aThis) {
@@ -129,7 +120,7 @@ public abstract class Object2D implements Drawable {
     }
 
     public boolean getIsFilled() {
-        return this.isFilled;
+        return this.isIsFilled();
     }
 
     /**
@@ -147,23 +138,23 @@ public abstract class Object2D implements Drawable {
                 put("Fillint", new Property<Integer>() {
                     @Override
                     public Integer get() {
-                        return getFillColor();
+                        return getFillcolor();
                     }
 
                     @Override
                     public void set(Integer val) {
-                        setFillColor(val);
+                        setFillcolor(val);
                     }
                 });
                 put("CanvasInteger", new Property<Integer>() {
                     @Override
                     public Integer get() {
-                        return getCanvasColor();
+                        return getCanvascolor();
                     }
 
                     @Override
                     public void set(Integer val) {
-                        setCanvasColor(val);
+                        setCanvascolor(val);
                     }
                 });
                 put("Width", new Property<Integer>() {
@@ -199,16 +190,51 @@ public abstract class Object2D implements Drawable {
     }
 
     /**
+     * @return the wasdrawn
+     */
+    public boolean getWasdrawn() {
+        return wasdrawn;
+    }
+
+    /**
+     * @param wasdrawn the wasdrawn to set
+     */
+    public void setWasdrawn(boolean wasdrawn) {
+        this.wasdrawn = wasdrawn;
+    }
+
+    /**
      * @return the canvascolor
      */
-    public int getCanvasColor() {
+    public int getCanvascolor() {
         return canvascolor;
     }
 
     /**
      * @param canvascolor the canvascolor to set
      */
-    public void setCanvasColor(int canvascolor) {
+    public void setCanvascolor(int canvascolor) {
         this.canvascolor = canvascolor;
+    }
+
+    /**
+     * @return the isFilled
+     */
+    public boolean isIsFilled() {
+        return isFilled;
+    }
+
+    /**
+     * @return the fillcolor
+     */
+    public int getFillcolor() {
+        return fillcolor;
+    }
+
+    /**
+     * @param fillcolor the fillcolor to set
+     */
+    public void setFillcolor(int fillcolor) {
+        this.fillcolor = fillcolor;
     }
 }

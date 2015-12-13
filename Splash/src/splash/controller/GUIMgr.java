@@ -175,7 +175,8 @@ public class GUIMgr {
                 ObjectLayer l = (ObjectLayer) layer;
                 s.setS(l.getObj());
             } else if (layer instanceof RawLayer) {
-                s.setS(((RawLayer) layer).getARGB());
+                SparseArray data = ((RawLayer) layer).getARGB();
+                s.setS(data);
             }
             xMLEncoder.writeObject(s);
         }

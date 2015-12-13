@@ -124,8 +124,8 @@ public abstract class Polygon extends Object2D {
     public void drawToBitmap(BufferedImage target, int x, int y) {
         int w = getWidth(), h = getHeight();
         Graphics2D gpx = target.createGraphics();
-        int fxcol = getFillColor();
-        int cancol = getCanvasColor();
+        int fxcol = getFillcolor();
+        int cancol = getCanvascolor();
         int[] ixs = new int[xs.length];
         int[] iys = new int[ys.length];
         for (int i = 0; i < ixs.length; i++) {

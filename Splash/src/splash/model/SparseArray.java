@@ -5,43 +5,42 @@
  */
 package splash.model;
 
-import java.lang.reflect.Array;
-
 /**
  *
  * @author Hesham partial implementation
- * @param <T>
  */
-public class SparseArray<T> {
+public class SparseArray {
 
-    SNode<T> head;
-    SNode<T> tail;
-    int length = 0;
+    private SNode head;
+    private SNode tail;
+    private int length;
+    private int tolerance = 10000;
 
-    public void add(T data) {
-        if (head == null) {
-            head = tail = new SNode<>();
-            head.setData(data);
-        } else if (tail.getData() == data) {
-            tail.endidx++;
+    public void add(int data) {
+        if (getHead() == null) {
+            setHead(tail = new SNode());
+            getHead().setData(data);
+        } else if (Math.abs(getTail().getData() - data) <= tolerance) {
+            tail.setEndidx(tail.getEndidx() + 1);
         } else {
-            tail.setNext(tail = new SNode());
-            tail.setData(data);
-            tail.startidx = tail.endidx = length;
+            getTail().setNext(tail = new SNode());
+            getTail().setData(data);
+            tail.setStartidx(getLength());
+            tail.setEndidx(getLength());
         }
-        length++;
+        setLength(getLength() + 1);
     }
-    private SNode<T> node;
+    private SNode node;
 
-    public T get(int i) {
-        if (i < 0 || i >= length) {
+    public Integer get(int i) {
+        if (i < 0 || i >= getLength()) {
             return null;
         }
-        if (node == null || node.startidx > i) {
-            node = head;
+        if (node == null || node.getStartidx() > i) {
+            node = getHead();
         }
         while (node != null) {
-            if (i >= node.startidx && i <= node.endidx) {
+            if (i >= node.getStartidx() && i <= node.getEndidx()) {
                 return node.getData();
             }
             node = node.getNext();
@@ -50,51 +49,71 @@ public class SparseArray<T> {
     }
 
     public Object[] getArray() {
-        Object[] ar = new Object[length];
+        Object[] ar = new Object[getLength()];
         int i = 0;
-        SNode<T> ite = head;
+        SNode ite = getHead();
         while (ite != null) {
-            while (i <= ite.endidx) {
+            while (i <= ite.getEndidx()) {
                 ar[i++] = ite.getData();
             }
         }
         return ar;
     }
 
-}
-
-class SNode<T> {
-
-    private SNode next = null;
-    private T data;
-    int startidx = 0;
-    int endidx = 0;
-
     /**
-     * @return the next
+     * @return the length
      */
-    public SNode getNext() {
-        return next;
+    public int getLength() {
+        return length;
     }
 
     /**
-     * @param next the next to set
+     * @param length the length to set
      */
-    public void setNext(SNode next) {
-        this.next = next;
+    public void setLength(int length) {
+        this.length = length;
     }
 
     /**
-     * @return the data
+     * @return the head
      */
-    public T getData() {
-        return data;
+    public SNode getHead() {
+        return head;
     }
 
     /**
-     * @param data the data to set
+     * @param head the head to set
      */
-    public void setData(T data) {
-        this.data = data;
+    public void setHead(SNode head) {
+        this.head = head;
     }
+
+    /**
+     * @return the tail
+     */
+    public SNode getTail() {
+        return tail;
+    }
+
+    /**
+     * @param tail the tail to set
+     */
+    public void setTail(SNode tail) {
+        this.tail = tail;
+    }
+
+    /**
+     * @return the tolerance
+     */
+    public int getTolerance() {
+        return tolerance;
+    }
+
+    /**
+     * @param tolerance the tolerance to set
+     */
+    public void setTolerance(int tolerance) {
+        this.tolerance = tolerance;
+    }
+
 }

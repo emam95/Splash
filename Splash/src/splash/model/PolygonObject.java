@@ -5,7 +5,6 @@
  */
 package splash.model;
 
-import java.util.HashMap;
 import javafx.scene.paint.Color;
 
 /**
@@ -13,11 +12,11 @@ import javafx.scene.paint.Color;
  * @author Hesham
  */
 public class PolygonObject extends Polygon {
-
+    
     @Override
     public void primaryKey(Point p, Color col) {
         if (!wasDrawn() && !isdrawing()) {
-            setFillColor(Helper.getARGB(col));
+            setFillcolor(Helper.getARGB(col));
             addPoint(new Point(0, 0));
             addPoint(new Point(0, 0));
             isdrawing = true;
@@ -25,19 +24,19 @@ public class PolygonObject extends Polygon {
             addPoint(p.subtract(parent.getPos()));
         }
     }
-
+    
     @Override
     public void mouseMoved(Point newpos) {
         Point p = newpos.subtract(parent.getPos());
         replaceLastPoint(p);
     }
-
+    
     @Override
     public void secKey() {
         isdrawing = false;
-        wasdrawn = true;
+        setWasdrawn(true);
     }
-
+    
     private void addPoint(Point p) {
         // This is in order to avoid casting an arraylist to an array on drawing
         int xshift = 0, yshift = 0;
@@ -61,7 +60,7 @@ public class PolygonObject extends Polygon {
         ys = ty;
         parent.transform(-xshift, -yshift);
     }
-
+    
     private void replaceLastPoint(Point p) {
         int xshift = 0, yshift = 0;
         if (p.getX() < 0) {
