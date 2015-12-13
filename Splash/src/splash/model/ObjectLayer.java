@@ -118,4 +118,8 @@ public class ObjectLayer extends Layer {
     public HashMap<String, Property> getEditableList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public Object2D getObject(){
+        return content;
+    }
 }

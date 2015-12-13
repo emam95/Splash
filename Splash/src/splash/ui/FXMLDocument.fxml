@@ -21,6 +21,7 @@
                       <Menu mnemonicParsing="false" text="File">
                         <items>
                               <MenuItem mnemonicParsing="false" onAction="#NewProject" text="New Project" />
+                              <MenuItem mnemonicParsing="false" onAction="#LoadProject" text="Open Project" />
                               <MenuItem fx:id="saveMenItem" disable="true" mnemonicParsing="false" onAction="#Save" text="Save" />
                               <MenuItem mnemonicParsing="false" onAction="#SaveAs" text="Save As" />
                           <MenuItem mnemonicParsing="false" text="Close" />
@@ -52,10 +53,10 @@
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="234.0">
                                  <children>
                                     <ColorPicker fx:id="colorPicker" layoutX="13.0" layoutY="15.0" prefHeight="25.0" prefWidth="99.0" />
-                                    <TableView layoutX="13.0" layoutY="54.0" prefHeight="213.0" prefWidth="200.0">
+                                    <TableView fx:id="propTable" layoutX="13.0" layoutY="54.0" prefHeight="213.0" prefWidth="200.0">
                                       <columns>
-                                        <TableColumn prefWidth="98.0" text="Property" />
-                                        <TableColumn prefWidth="101.0" text="value" />
+                                        <TableColumn fx:id="propCol" prefWidth="98.0" text="Property" />
+                                        <TableColumn fx:id="valCol" prefWidth="101.0" text="value" />
                                       </columns>
                                     </TableView>
                                  </children>

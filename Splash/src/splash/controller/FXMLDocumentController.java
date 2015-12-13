@@ -5,35 +5,36 @@
  */
 package splash.controller;
 
-import java.beans.XMLEncoder;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javax.swing.JFileChooser;
+import javafx.util.Callback;
 import splash.model.Helper;
 import splash.model.Layer;
+import splash.model.Object2D;
 import splash.model.ObjectLayer;
+import splash.model.Property;
 import splash.model.RawLayer;
 import splash.model.ResourceManager;
 import splash.model.ShortcutManager;
@@ -63,14 +64,20 @@ public class FXMLDocumentController implements Initializable {
     private Button delLayBtn;
     @FXML
     private Canvas drawingCanvas;
-
-    private Tool selectedTool;
-
-    private ArrayList<Tool> tools;
-
-    ArrayList<KeyCode> pressedkeys = new ArrayList<>();
     @FXML
     private MenuItem saveMenItem;
+    @FXML
+    private TableView<?> propTable;
+    @FXML
+    private TableColumn<Map.Entry<String, Property> ,String> propCol;
+    @FXML
+    private TableColumn<Map.Entry<String, Property>, String> valCol;
+    
+
+    private Tool selectedTool;
+    private ArrayList<Tool> tools;
+    ArrayList<KeyCode> pressedkeys = new ArrayList<>();
+    
 
     boolean iskeyPressed(KeyCode code) {
         return pressedkeys.contains(code);
@@ -205,5 +212,40 @@ public class FXMLDocumentController implements Initializable {
         GUIMgr.SaveAs();
         if(GUIMgr.getCurrentFile() != null)
             saveMenItem.setDisable(false);
+    }
+    
+    /*private void fillTable()
+    {
+        Layer selectedLayer = GUIMgr.getWorkSpace().getSelectedLayer();
+        if(selectedLayer instanceof ObjectLayer)
+        {
+            Object2D obj = ((ObjectLayer) selectedLayer).getObject();
+            Map<String, Property> map = obj.getEditableList();
+        }
+        propCol = new TableColumn<>("Key");
+        propCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Property>, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, Property>, String> p) {
+                return new SimpleStringProperty(p.getValue().getKey());
+            }
+        });
+        valCol = new TableColumn<>("Value");
+        valCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Property>, String>, ObservableValue<String>>() {
+
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, Property>, String> p) {
+                return new SimpleStringProperty(p.getValue().getValue().toString());
+            }
+        });
+
+        ObservableList<Map.Entry<String, String>> items = FXCollections.observableArrayList(map.entrySet());
+        final TableView<Map.Entry<String,String>> table = new TableView<>(items);
+
+        table.getColumns().setAll(propCol, valCol);
+    }*/
+
+    @FXML
+    private void LoadProject(ActionEvent event) {
+        
     }
 }
