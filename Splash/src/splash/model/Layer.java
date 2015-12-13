@@ -160,4 +160,8 @@ public abstract class Layer {
         GUIMgr.getWorkSpace().redrawRegion(new Rectangle(x, y, brush.getWidth(), brush.getHeight()), null);
         GUIMgr.getWorkSpace().supressNextRedraw();;
     }
+
+    public void setPixel(int x, int y, int argb) {
+        bitmap.setRGB(x, y, argb);
+    }
 }
