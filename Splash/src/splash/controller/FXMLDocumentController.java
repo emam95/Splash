@@ -22,6 +22,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -68,6 +69,8 @@ public class FXMLDocumentController implements Initializable {
     private ArrayList<Tool> tools;
 
     ArrayList<KeyCode> pressedkeys = new ArrayList<>();
+    @FXML
+    private MenuItem saveMenItem;
 
     boolean iskeyPressed(KeyCode code) {
         return pressedkeys.contains(code);
@@ -200,5 +203,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void SaveAs(ActionEvent event) {
         GUIMgr.SaveAs();
+        saveMenItem.setDisable(false);
     }
 }
