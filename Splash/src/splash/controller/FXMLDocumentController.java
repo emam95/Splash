@@ -67,7 +67,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private MenuItem saveMenItem;
     @FXML
-    private TableView<?> propTable;
+    private TableView<Map.Entry<String,Property>> propTable;
     @FXML
     private TableColumn<Map.Entry<String, Property> ,String> propCol;
     @FXML
@@ -184,6 +184,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void selectLayer(MouseEvent event) {
         GUIMgr.getWorkSpace().selectLayer(layerSelected());
+        fillTable();
     }
 
     @FXML
@@ -214,35 +215,34 @@ public class FXMLDocumentController implements Initializable {
             saveMenItem.setDisable(false);
     }
     
-    /*private void fillTable()
+    private void fillTable()
     {
         Layer selectedLayer = GUIMgr.getWorkSpace().getSelectedLayer();
         if(selectedLayer instanceof ObjectLayer)
         {
-            Object2D obj = ((ObjectLayer) selectedLayer).getObject();
-            Map<String, Property> map = obj.getEditableList();
-        }
-        propCol = new TableColumn<>("Key");
-        propCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Property>, String>, ObservableValue<String>>() {
+            Map<String, Property> map = ((ObjectLayer) selectedLayer).getObject().getEditableList();
+            propCol = new TableColumn<>("Key");
+            propCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Property>, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, Property>, String> p) {
                 return new SimpleStringProperty(p.getValue().getKey());
-            }
-        });
-        valCol = new TableColumn<>("Value");
-        valCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Property>, String>, ObservableValue<String>>() {
+                }
+            });
+            valCol = new TableColumn<>("Value");
+            valCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Property>, String>, ObservableValue<String>>() {
 
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, Property>, String> p) {
                 return new SimpleStringProperty(p.getValue().getValue().toString());
-            }
-        });
+                }
+            });
 
-        ObservableList<Map.Entry<String, String>> items = FXCollections.observableArrayList(map.entrySet());
-        final TableView<Map.Entry<String,String>> table = new TableView<>(items);
+            ObservableList<Map.Entry<String, Property>> items = FXCollections.observableArrayList(map.entrySet());
+            propTable = new TableView<>(items);
 
-        table.getColumns().setAll(propCol, valCol);
-    }*/
+            propTable.getColumns().setAll(propCol, valCol);
+        }
+    }
 
     @FXML
     private void LoadProject(ActionEvent event) {
