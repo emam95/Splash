@@ -124,8 +124,8 @@ public abstract class Polygon extends Object2D {
     public void drawToBitmap(BufferedImage target, int x, int y) {
         int w = getWidth(), h = getHeight();
         Graphics2D gpx = target.createGraphics();
-        Color fxcol = getFillColor();
-        Color cancol = getCanvascolor();
+        int fxcol = getFillColor();
+        int cancol = getCanvasColor();
         int[] ixs = new int[xs.length];
         int[] iys = new int[ys.length];
         for (int i = 0; i < ixs.length; i++) {
@@ -133,16 +133,14 @@ public abstract class Polygon extends Object2D {
             iys[i] = (int) ys[i];
         }
         if (getIsFilled()) {
-            if (fxcol == null) {
+            if (nullifyfill) {
                 gpx.setColor(null);
             } else {
-                gpx.setColor(new java.awt.Color(Helper.getARGB(fxcol), true));
+                gpx.setColor(new java.awt.Color(fxcol, true));
             }
             gpx.fillPolygon(ixs, iys, Math.min(xs.length, ys.length));
-            if (cancol != null) {
-                gpx.setColor(new java.awt.Color(Helper.getARGB(cancol), true));
-                gpx.drawPolygon(ixs, iys, Math.min(xs.length, ys.length));
-            }
+            gpx.setColor(new java.awt.Color(cancol, true));
+            gpx.drawPolygon(ixs, iys, Math.min(xs.length, ys.length));
         } else {
             gpx.drawPolygon(ixs, iys, Math.min(xs.length, ys.length));
         }

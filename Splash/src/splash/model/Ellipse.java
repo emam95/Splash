@@ -3,30 +3,14 @@ package splash.model;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
 import javafx.scene.paint.Color;
 
 public class Ellipse extends Object2D {
 
-    private PointF center;
     private int attribute;
 
     @Override
-    public PointF getCenter() {
-        return this.center;
-    }
-
-    /**
-     *
-     * @param center
-     */
-    public void setCenter(PointF center) {
-        this.center = center;
-    }
-
-    @Override
     public void primaryKey(Point start, Color col) {
-        setCenter(start.toPointF());
         super.primaryKey(start, col);
     }
 
@@ -51,19 +35,17 @@ public class Ellipse extends Object2D {
     public void drawToBitmap(BufferedImage target, int x, int y) {
         Graphics2D gpx = target.createGraphics();
         gpx.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        Color fxcol = getFillColor();
-        Color cancol = getCanvascolor();
+        int fxcol = getFillColor();
+        int cancol = getCanvasColor();
         if (getIsFilled()) {
-            if (fxcol == null) {
+            if (nullifyfill) {
                 gpx.setColor(null);
             } else {
-                gpx.setColor(new java.awt.Color(Helper.getARGB(fxcol), true));
+                gpx.setColor(new java.awt.Color(fxcol, true));
             }
             gpx.fillOval(x, y, width, height);
-            if (cancol != null) {
-                gpx.setColor(new java.awt.Color(Helper.getARGB(cancol), true));
-                gpx.drawOval(x, y, width, height);
-            }
+            gpx.setColor(new java.awt.Color(cancol, true));
+            gpx.drawOval(x, y, width, height);
         } else {
             gpx.drawOval(x, y, width, height);
         }

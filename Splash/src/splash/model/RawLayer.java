@@ -41,22 +41,23 @@ public class RawLayer extends Layer {
     void addHeightRel(int dif, int i) {
     }
 
-    public Object[] getARGB() {
-        ArrayList<Integer> argbtable = new ArrayList<>();
-        for (int x = 0; x < getWidth(); x++) {
-            for (int y = 0; y < getHeight(); y++) {
-                argbtable.add(getPixel(x, y).getRGB());
+    public int[] getARGB() {
+        int[] argbs = new int[getWidth() * getHeight()];
+        for (int i = 0; i < getWidth(); i++) {
+            for (int j = 0; j < getHeight(); j++) {
+                argbs[j * getWidth() + j] = (getPixel(i, j).getRGB());
             }
         }
-        return argbtable.toArray();
+        return argbs;
     }
 
     public void setARGB(Object[] argbs) {
-        for (int x = 0; x < getWidth(); x++) {
-            for (int y = 0; y < getHeight(); y++) {
-                int argb = (int) argbs[y * getWidth() + x];
-                setPixel(x, y, argb);//new Color(argb&0xff000000,argb&0xff0000,argb&0xff00,argb&0xff));
+        for (int i = 0; i < getWidth(); i++) {
+            for (int j = 0; j < getHeight(); j++) {
+                int argb = (int) argbs[j * getWidth() + j];
+                setPixel(i, j, argb);//new Color(argb&0xff000000,argb&0xff0000,argb&0xff00,argb&0xff));
             }
+            System.out.println("at row " + i);
         }
     }
 

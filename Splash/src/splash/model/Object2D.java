@@ -8,9 +8,10 @@ public abstract class Object2D implements Drawable {
 
     ObjectLayer parent = null;
     boolean wasdrawn = false;
-    private Color fillcolor;
-    private Color canvascolor = Color.BLACK;
+    private int fillcolor;
+    private int canvascolor = 0xff000000;
     private boolean isFilled = true;
+    boolean nullifyfill = false;
     int width;
     int height;
 
@@ -72,7 +73,7 @@ public abstract class Object2D implements Drawable {
         }
         isdrawing = true;
         dstart = cpos = start;
-        setFillColor(col);
+        setFillColor(Helper.getARGB(col));
     }
 
     @Override
@@ -104,14 +105,14 @@ public abstract class Object2D implements Drawable {
     /**
      * @return the color
      */
-    public Color getFillColor() {
+    public int getFillColor() {
         return fillcolor;
     }
 
     /**
      * @param color the color to set
      */
-    public void setFillColor(Color color) {
+    public void setFillColor(int color) {
         this.fillcolor = color;
     }
 
@@ -143,26 +144,26 @@ public abstract class Object2D implements Drawable {
     public HashMap<String, Property> getEditableList() {
         return new HashMap<String, Property>() {
             {
-                put("FillColor", new Property<Color>() {
+                put("Fillint", new Property<Integer>() {
                     @Override
-                    public Color get() {
+                    public Integer get() {
                         return getFillColor();
                     }
 
                     @Override
-                    public void set(Color val) {
+                    public void set(Integer val) {
                         setFillColor(val);
                     }
                 });
-                put("CanvasColor", new Property<Color>() {
+                put("CanvasInteger", new Property<Integer>() {
                     @Override
-                    public Color get() {
-                        return getCanvascolor();
+                    public Integer get() {
+                        return getCanvasColor();
                     }
 
                     @Override
-                    public void set(Color val) {
-                        setCanvascolor(val);
+                    public void set(Integer val) {
+                        setCanvasColor(val);
                     }
                 });
                 put("Width", new Property<Integer>() {
@@ -200,14 +201,14 @@ public abstract class Object2D implements Drawable {
     /**
      * @return the canvascolor
      */
-    public Color getCanvascolor() {
+    public int getCanvasColor() {
         return canvascolor;
     }
 
     /**
      * @param canvascolor the canvascolor to set
      */
-    public void setCanvascolor(Color canvascolor) {
+    public void setCanvasColor(int canvascolor) {
         this.canvascolor = canvascolor;
     }
 }
