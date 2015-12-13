@@ -1,5 +1,9 @@
 package splash.controller;
 
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.Optional;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -15,11 +19,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
+import javax.swing.JFileChooser;
 import splash.model.*;
 
 public class GUIMgr {
 
     private static FXMLDocumentController cont = null;
+    private static FileOutputStream fOutput = null;
 
     public static void init(FXMLDocumentController controller) {
         cont = controller;
@@ -153,4 +159,48 @@ public class GUIMgr {
     public static void triedToEditObject() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public static void Save()
+    {
+        Layer [] layers = workspace.getLayers();
+        
+        XMLEncoder xMLEncoder = new XMLEncoder(new BufferedOutputStream(fOutput));
+        
+        for(int i=0;i<layers.length;i++)
+        {
+            SimpleLayer s = new SimpleLayer();
+            s.setX(layers[i].getX());
+            s.setY(layers[i].getY());
+            s.setId(layers[i].getId());
+            s.setW(layers[i].getWidth());
+            if(layers[i] instanceof ObjectLayer){
+            ObjectLayer l =(ObjectLayer)layers[i];
+            s.setS(l.getObj());
+                
+        }
+            else if(layers[i] instanceof RawLayer){
+                
+            }
+        	xMLEncoder.writeObject(s);
+        }
+		xMLEncoder.close();
+    }
+    
+    public static void SaveAs()
+    {
+      
+        JFileChooser chooser = new JFileChooser();
+		
+	    chooser.setCurrentDirectory(new File("/home/me/Documents"));
+	    int retrival = chooser.showSaveDialog(null);
+	    if (retrival == JFileChooser.APPROVE_OPTION) {
+	        try {
+	            fOutput = new FileOutputStream(chooser.getSelectedFile());
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+	    }
+            Save();
+    }
+    
 }
