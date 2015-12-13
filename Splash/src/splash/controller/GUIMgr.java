@@ -203,4 +203,9 @@ public class GUIMgr {
             Save();
     }
     
+    public static FileOutputStream getCurrentFile()
+    {
+        return fOutput;
+    }
+    
 }
