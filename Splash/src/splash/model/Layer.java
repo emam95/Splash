@@ -70,11 +70,11 @@ public abstract class Layer {
         ay = i;
     }
 
-    int getX() {
+    public int getX() {
         return x + ax;
     }
 
-    int getY() {
+    public int getY() {
         return y + ay;
     }
 
@@ -110,7 +110,7 @@ public abstract class Layer {
         return new Point(getX(), getY());
     }
 
-    int getWidth() {
+    public int getWidth() {
         if (bitmap != null) {
             return bitmap.getWidth();
         }

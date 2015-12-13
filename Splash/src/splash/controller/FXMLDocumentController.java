@@ -5,6 +5,10 @@
  */
 package splash.controller;
 
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -25,12 +29,14 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javax.swing.JFileChooser;
 import splash.model.Helper;
 import splash.model.Layer;
 import splash.model.ObjectLayer;
 import splash.model.RawLayer;
 import splash.model.ResourceManager;
 import splash.model.ShortcutManager;
+import splash.model.SimpleLayer;
 import splash.model.Tool;
 
 /**
@@ -40,6 +46,10 @@ import splash.model.Tool;
  */
 public class FXMLDocumentController implements Initializable {
 
+    Layer[] layers;
+    
+    ArrayList<SimpleLayer> spl;
+    
     @FXML
     private ColorPicker colorPicker;
     @FXML
@@ -184,8 +194,40 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void Save(ActionEvent event) {
-    }
-
+        layers=GUIMgr.getWorkSpace().getLayers();
+      
+        JFileChooser chooser = new JFileChooser();
+		FileOutputStream fOutput = null;
+	    chooser.setCurrentDirectory(new File("/home/me/Documents"));
+	    int retrival = chooser.showSaveDialog(null);
+	    if (retrival == JFileChooser.APPROVE_OPTION) {
+	        try {
+	            fOutput = new FileOutputStream(chooser.getSelectedFile());
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+	    }
+		XMLEncoder xMLEncoder = new XMLEncoder(new BufferedOutputStream(fOutput));
+                  for(int i=0;i<layers.length;i++)
+        {
+            SimpleLayer s = new SimpleLayer();
+            s.setX(layers[i].getX());
+            s.setY(layers[i].getY());
+            s.setId(layers[i].getId());
+            s.setW(layers[i].getWidth());
+            if(layers[i] instanceof ObjectLayer){
+          ObjectLayer l =(ObjectLayer)layers[i];
+            s.setS(l.getObj());
+                
+        }
+            else if(layers[i] instanceof RawLayer){
+                
+            }
+        	xMLEncoder.writeObject(s);
+        }
+		xMLEncoder.close();
+	}
+    
     @FXML
     private void SaveAs(ActionEvent event) {
     }
