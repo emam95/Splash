@@ -48,26 +48,25 @@ public class Ellipse extends Object2D {
     }
 
     @Override
-    public HashMap<String, Object> getEditableList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Error[] updateProperties(HashMap<String, Object> modrec) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void drawToBitmap(BufferedImage target, int x, int y) {
         Graphics2D gpx = target.createGraphics();
         gpx.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        Color fxcol = getColor();
-        if (fxcol == null) {
-            gpx.setColor(null);
-        } else {            
-            gpx.setColor(new java.awt.Color(Helper.getARGB(fxcol), true));
+        Color fxcol = getFillColor();
+        Color cancol = getCanvascolor();
+        if (getIsFilled()) {
+            if (fxcol == null) {
+                gpx.setColor(null);
+            } else {
+                gpx.setColor(new java.awt.Color(Helper.getARGB(fxcol), true));
+            }
+            gpx.fillOval(x, y, width, height);
+            if (cancol != null) {
+                gpx.setColor(new java.awt.Color(Helper.getARGB(cancol), true));
+                gpx.drawOval(x, y, width, height);
+            }
+        } else {
+            gpx.drawOval(x, y, width, height);
         }
-        gpx.fillOval(x, y, width, height);
     }
 
 }

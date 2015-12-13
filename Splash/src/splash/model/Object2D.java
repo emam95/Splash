@@ -5,12 +5,15 @@ import java.util.HashMap;
 import javafx.scene.paint.Color;
 
 public abstract class Object2D implements Drawable {
+
     ObjectLayer parent = null;
     boolean wasdrawn = false;
-    private Color color;
+    private Color fillcolor;
+    private Color canvascolor = Color.BLACK;
+    private boolean isFilled = true;
     int width;
     int height;
-    
+
     @Override
     public BufferedImage getBitmap() {
         BufferedImage output = new BufferedImage(getWidth() + 1, getHeight() + 1, BufferedImage.TYPE_INT_ARGB);
@@ -19,6 +22,7 @@ public abstract class Object2D implements Drawable {
     }
 
     private boolean lsa = false;
+
     /**
      * @return the width
      */
@@ -63,12 +67,12 @@ public abstract class Object2D implements Drawable {
     @Override
     public void primaryKey(Point start, Color col) {
         if (isdrawing) {
-            isdrawing = false;            
+            isdrawing = false;
             return;
         }
         isdrawing = true;
         dstart = cpos = start;
-        setColor(col);        
+        setFillColor(col);
     }
 
     @Override
@@ -84,8 +88,9 @@ public abstract class Object2D implements Drawable {
     public void secKey() {
         isdrawing = false;
         wasdrawn = true;
-        if(parent!=null)
+        if (parent != null) {
             parent.applyAdjustedPos();
+        }
     }
 
     public Point getDrawingStartPoint() {
@@ -99,15 +104,15 @@ public abstract class Object2D implements Drawable {
     /**
      * @return the color
      */
-    public Color getColor() {
-        return color;
+    public Color getFillColor() {
+        return fillcolor;
     }
 
     /**
      * @param color the color to set
      */
-    public void setColor(Color color) {
-        this.color = color;
+    public void setFillColor(Color color) {
+        this.fillcolor = color;
     }
 
     boolean isdrawing() {
@@ -122,6 +127,87 @@ public abstract class Object2D implements Drawable {
         parent = aThis;
     }
 
-    void mirrorX() {}
-    void mirrorY() {}
+    public boolean getIsFilled() {
+        return this.isFilled;
+    }
+
+    /**
+     *
+     * @param isFilled
+     */
+    public void setIsFilled(boolean isFilled) {
+        this.isFilled = isFilled;
+    }
+
+    @Override
+    public HashMap<String, Property> getEditableList() {
+        return new HashMap<String, Property>() {
+            {
+                put("FillColor", new Property<Color>() {
+                    @Override
+                    public Color get() {
+                        return getFillColor();
+                    }
+
+                    @Override
+                    public void set(Color val) {
+                        setFillColor(val);
+                    }
+                });
+                put("CanvasColor", new Property<Color>() {
+                    @Override
+                    public Color get() {
+                        return getCanvascolor();
+                    }
+
+                    @Override
+                    public void set(Color val) {
+                        setCanvascolor(val);
+                    }
+                });
+                put("Width", new Property<Integer>() {
+                    @Override
+                    public Integer get() {
+                        return getWidth();
+                    }
+
+                    @Override
+                    public void set(Integer val) {
+                        setWidth(val);
+                    }
+                });
+                put("Height", new Property<Integer>() {
+                    @Override
+                    public Integer get() {
+                        return getHeight();
+                    }
+
+                    @Override
+                    public void set(Integer val) {
+                        setHeight(val);
+                    }
+                });
+            }
+        };
+    }
+
+    void mirrorX() {
+    }
+
+    void mirrorY() {
+    }
+
+    /**
+     * @return the canvascolor
+     */
+    public Color getCanvascolor() {
+        return canvascolor;
+    }
+
+    /**
+     * @param canvascolor the canvascolor to set
+     */
+    public void setCanvascolor(Color canvascolor) {
+        this.canvascolor = canvascolor;
+    }
 }

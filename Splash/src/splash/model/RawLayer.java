@@ -7,7 +7,7 @@ package splash.model;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import javafx.scene.paint.Color;
+import java.util.HashMap;
 import splash.controller.GUIMgr;
 
 /**
@@ -58,5 +58,10 @@ public class RawLayer extends Layer {
                 setPixel(x, y, argb);//new Color(argb&0xff000000,argb&0xff0000,argb&0xff00,argb&0xff));
             }
         }
+    }
+
+    @Override
+    public HashMap<String, Property> getEditableList() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

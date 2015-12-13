@@ -1,5 +1,6 @@
 package splash.model;
 
+import java.util.HashMap;
 import javafx.scene.paint.Color;
 
 public class ObjectLayer extends Layer {
@@ -111,5 +112,10 @@ public class ObjectLayer extends Layer {
                 setY(getY() - dif);
             }
         }
+    }
+
+    @Override
+    public HashMap<String, Property> getEditableList() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

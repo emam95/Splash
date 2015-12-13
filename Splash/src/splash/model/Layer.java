@@ -7,6 +7,7 @@ package splash.model;
 
 import java.awt.image.BufferedImage;
 import java.awt.Rectangle;
+import java.util.HashMap;
 import javafx.scene.paint.Color;
 import splash.controller.GUIMgr;
 
@@ -164,4 +165,6 @@ public abstract class Layer {
     public void setPixel(int x, int y, int argb) {
         bitmap.setRGB(x, y, argb);
     }
+
+    public abstract HashMap<String, Property> getEditableList();
 }

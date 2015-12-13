@@ -13,14 +13,7 @@ public interface Drawable {
      */
     BufferedImage getBitmap();
 
-    HashMap<String, Object> getEditableList();
-
-    /**
-     *
-     * @param modrec
-     * @return
-     */
-    Error[] updateProperties(HashMap<String, Object> modrec);
+    HashMap<String, Property> getEditableList();
 
     /**
      *

@@ -10,19 +10,6 @@ public abstract class Polygon extends Object2D {
     float[] xs = new float[0];
     float[] ys = new float[0];
     boolean pointschanged = false;
-    private boolean isFilled = true;
-
-    public boolean getIsFilled() {
-        return this.isFilled;
-    }
-
-    /**
-     *
-     * @param isFilled
-     */
-    public void setIsFilled(boolean isFilled) {
-        this.isFilled = isFilled;
-    }
 
     /**
      *
@@ -137,12 +124,8 @@ public abstract class Polygon extends Object2D {
     public void drawToBitmap(BufferedImage target, int x, int y) {
         int w = getWidth(), h = getHeight();
         Graphics2D gpx = target.createGraphics();
-        Color fxcol = getColor();
-        if (fxcol == null) {
-            gpx.setColor(null);
-        } else {            
-            gpx.setColor(new java.awt.Color(Helper.getARGB(fxcol), true));
-        }
+        Color fxcol = getFillColor();
+        Color cancol = getCanvascolor();
         int[] ixs = new int[xs.length];
         int[] iys = new int[ys.length];
         for (int i = 0; i < ixs.length; i++) {
@@ -150,19 +133,18 @@ public abstract class Polygon extends Object2D {
             iys[i] = (int) ys[i];
         }
         if (getIsFilled()) {
+            if (fxcol == null) {
+                gpx.setColor(null);
+            } else {
+                gpx.setColor(new java.awt.Color(Helper.getARGB(fxcol), true));
+            }
             gpx.fillPolygon(ixs, iys, Math.min(xs.length, ys.length));
+            if (cancol != null) {
+                gpx.setColor(new java.awt.Color(Helper.getARGB(cancol), true));
+                gpx.drawPolygon(ixs, iys, Math.min(xs.length, ys.length));
+            }
         } else {
             gpx.drawPolygon(ixs, iys, Math.min(xs.length, ys.length));
         }
-    }
-
-    @Override
-    public HashMap<String, Object> getEditableList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Error[] updateProperties(HashMap<String, Object> modrec) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

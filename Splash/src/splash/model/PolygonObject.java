@@ -17,7 +17,7 @@ public class PolygonObject extends Polygon {
     @Override
     public void primaryKey(Point p, Color col) {
         if (!wasDrawn() && !isdrawing()) {            
-            setColor(col);
+            setFillColor(col);
             addPoint(new Point(0, 0));
             addPoint(new Point(0, 0));
             isdrawing = true;
