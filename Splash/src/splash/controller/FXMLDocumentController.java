@@ -203,6 +203,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void SaveAs(ActionEvent event) {
         GUIMgr.SaveAs();
-        saveMenItem.setDisable(false);
+        if(GUIMgr.getCurrentFile() != null)
+            saveMenItem.setDisable(false);
     }
 }
