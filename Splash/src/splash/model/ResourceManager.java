@@ -23,6 +23,7 @@ public class ResourceManager {
         DrawableFactory.Drawables.put("Triangle", TriangleObject.class);
         DrawableFactory.Drawables.put("Ellipse", Ellipse.class);
         DrawableFactory.Drawables.put("Polygon", PolygonObject.class);
+        DrawableFactory.Drawables.put("RoundRect", RoundedRect.class);
 
         BrushFactory.Brushes.put("Round", RoundBrush.class);
         // External

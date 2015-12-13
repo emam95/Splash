@@ -135,7 +135,7 @@ public abstract class Object2D implements Drawable {
     public HashMap<String, Property> getEditableList() {
         return new HashMap<String, Property>() {
             {
-                put("Fillint", new Property<Integer>() {
+                put("FillColor", new Property<Integer>() {
                     @Override
                     public Integer get() {
                         return getFillcolor();
@@ -146,7 +146,7 @@ public abstract class Object2D implements Drawable {
                         setFillcolor(val);
                     }
                 });
-                put("CanvasInteger", new Property<Integer>() {
+                put("CanvasColor", new Property<Integer>() {
                     @Override
                     public Integer get() {
                         return getCanvascolor();

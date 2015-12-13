@@ -17,7 +17,6 @@ public class Ellipse extends Object2D {
     @Override
     public void mouseMoved(Point newpos) {
         Point p = newpos.subtract(dstart);
-        int nx = 0, ny = 0;
         if (p.getX() < 0) {
             if (parent != null) {
                 parent.adjustX(p.getX());
@@ -50,5 +49,4 @@ public class Ellipse extends Object2D {
             gpx.drawOval(x, y, width, height);
         }
     }
-
 }
