@@ -52,7 +52,7 @@ public abstract class Layer {
     }
 
     public Rectangle getRect() {
-        return new Rectangle(0, 0, getWidth(), getHeight());
+        return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
 
     java.awt.Color getPixel(int sx, int sy) {
