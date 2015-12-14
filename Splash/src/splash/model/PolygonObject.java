@@ -21,13 +21,13 @@ public class PolygonObject extends Polygon {
             addPoint(new Point(0, 0));
             isdrawing = true;
         } else if (isdrawing()) {
-            addPoint(p.subtract(parent.getPos()));
+            addPoint(p.subtract(getParent().getPos()));
         }
     }
     
     @Override
     public void mouseMoved(Point newpos) {
-        Point p = newpos.subtract(parent.getPos());
+        Point p = newpos.subtract(getParent().getPos());
         replaceLastPoint(p);
     }
     
@@ -58,7 +58,7 @@ public class PolygonObject extends Polygon {
         ty[ys.length] = p.getY() + yshift;
         xs = tx;
         ys = ty;
-        parent.transform(-xshift, -yshift);
+        getParent().transform(-xshift, -yshift);
     }
     
     private void replaceLastPoint(Point p) {
@@ -81,6 +81,6 @@ public class PolygonObject extends Polygon {
         }
         xs[xs.length - 1] = p.getX() + xshift;
         ys[ys.length - 1] = p.getY() + yshift;
-        parent.transform(-xshift, -yshift);
+        getParent().transform(-xshift, -yshift);
     }
 }

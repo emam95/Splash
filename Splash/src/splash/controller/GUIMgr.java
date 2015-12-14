@@ -1,5 +1,6 @@
 package splash.controller;
 
+import java.awt.image.BufferedImage;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedOutputStream;
@@ -237,6 +238,10 @@ public class GUIMgr {
 
     public static int getSelectedFillColor() {
         return 0xFF000000;
+    }
+
+    public static BufferedImage getVisibleImage() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

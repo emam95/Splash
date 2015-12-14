@@ -52,19 +52,19 @@ public class Point {
         return x + "," + y;
     }
 
-    PointF toPointF() {
+    public PointF toPointF() {
         return new PointF(x, y);
     }
 
-    Point subtract(Point p) {
+    public Point subtract(Point p) {
         return subtract(p.getX(), p.getY());
     }
 
-    Point add(int x, int y) {
+    public Point add(int x, int y) {
         return new Point(this.x + x, this.y + y);
     }
 
-    Point subtract(int x, int y) {
+    public Point subtract(int x, int y) {
         return new Point(this.x - x, this.y - y);
     }
 }

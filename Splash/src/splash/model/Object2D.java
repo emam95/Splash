@@ -9,9 +9,8 @@ public abstract class Object2D implements Drawable {
     private boolean wasdrawn;
     private int fillcolor;
     private int canvascolor;
-    private boolean isFilled;
-    boolean nullifyfill;
-    ObjectLayer parent;
+    private boolean isFilled;    
+    private ObjectLayer parent;
     int width;
     int height;
 
@@ -65,11 +64,12 @@ public abstract class Object2D implements Drawable {
         return new PointF(getWidth() / 2f, getHeight() / 2f);
     }
 
-    // Realtime drawing
-    Point dstart = null;
-    Point cpos = null;
-    boolean isdrawing = false;
-
+    // Temporary variables
+    public Point dstart = null;
+    public Point cpos = null;
+    public boolean isdrawing = false;
+    public boolean nullifyfill;
+    
     @Override
     public void primaryKey(Point start, Color col) {
         if (isdrawing) {
@@ -94,8 +94,8 @@ public abstract class Object2D implements Drawable {
     public void secKey() {
         isdrawing = false;
         setWasdrawn(true);
-        if (parent != null) {
-            parent.applyAdjustedPos();
+        if (getParent() != null) {
+            getParent().applyAdjustedPos();
         }
     }
 
@@ -236,5 +236,12 @@ public abstract class Object2D implements Drawable {
      */
     public void setFillcolor(int fillcolor) {
         this.fillcolor = fillcolor;
+    }
+
+    /**
+     * @return the parent
+     */
+    public ObjectLayer getParent() {
+        return parent;
     }
 }

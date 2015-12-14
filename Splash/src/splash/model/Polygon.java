@@ -94,13 +94,13 @@ public abstract class Polygon extends Object2D {
         }
         int nx = 0, ny = 0;
         if (p.getX() < 0) {
-            if (parent != null) {
-                parent.adjustX(p.getX());
+            if (getParent() != null) {
+                getParent().adjustX(p.getX());
             }
         }
         if (p.getY() < 0) {
-            if (parent != null) {
-                parent.adjustY(p.getY());
+            if (getParent() != null) {
+                getParent().adjustY(p.getY());
             }
         }
         super.mouseMoved(newpos);

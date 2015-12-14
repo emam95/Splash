@@ -18,13 +18,13 @@ public class Ellipse extends Object2D {
     public void mouseMoved(Point newpos) {
         Point p = newpos.subtract(dstart);
         if (p.getX() < 0) {
-            if (parent != null) {
-                parent.adjustX(p.getX());
+            if (getParent() != null) {
+                getParent().adjustX(p.getX());
             }
         }
         if (p.getY() < 0) {
-            if (parent != null) {
-                parent.adjustY(p.getY());
+            if (getParent() != null) {
+                getParent().adjustY(p.getY());
             }
         }
         super.mouseMoved(newpos);

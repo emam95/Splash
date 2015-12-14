@@ -1,8 +1,19 @@
 package splash.model;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriter;
+import javax.swing.ImageIcon;
+import splash.controller.GUIMgr;
 
 public class ResourceManager {
 
@@ -23,11 +34,33 @@ public class ResourceManager {
         DrawableFactory.Drawables.put("Triangle", TriangleObject.class);
         DrawableFactory.Drawables.put("Ellipse", Ellipse.class);
         DrawableFactory.Drawables.put("Polygon", PolygonObject.class);
-        DrawableFactory.Drawables.put("RoundRect", RoundedRect.class);
 
-        BrushFactory.Brushes.put("Round", RoundBrush.class);
-        // External
-        // TODO: Load external classes
+        String jarpath = getJarPath();
+        File dir = new File(jarpath + path + "/drawables");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                System.out.println("Found class: " + child.getAbsolutePath());
+                try {
+                    // Convert File to a URL
+                    URL url = child.getParentFile().getParentFile().toURI().toURL();
+                    ClassLoader loader = URLClassLoader.newInstance(
+                            new URL[]{url},
+                            Drawable.class.getClassLoader()
+                    );
+                    String cname = child.getName();
+                    if (cname.endsWith(".class")) {
+                        cname = cname.substring(0, cname.length() - 6);
+                    }
+                    Class<?> clazz = Class.forName("drawables." + cname, false, loader);
+                    Class<? extends Drawable> drawable = clazz.asSubclass(Drawable.class);
+                    DrawableFactory.Drawables.put(cname, drawable);
+                    System.out.println("Loaded drawable: " + cname);
+                } catch (Exception e) {
+                    System.out.println("Failed to load class.");
+                }
+            }
+        }
     }
 
     /**
@@ -50,7 +83,6 @@ public class ResourceManager {
         while (itb.hasNext()) {
             tools.add(new BrushTool(itb.next()));
         }
-        // TODO: Include brushes as tools
     }
 
     /**
@@ -58,23 +90,7 @@ public class ResourceManager {
      * @param path
      */
     public static void loadBrushes(String path) {
-        //TODO: load brushes
-    }
-
-    /**
-     *
-     * @param path
-     */
-    public static void saveProject(String path) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     *
-     * @param path
-     */
-    public static void loadProject(String path) {
-        throw new UnsupportedOperationException();
+        BrushFactory.Brushes.put("Round", RoundBrush.class);
     }
 
     /**
@@ -82,7 +98,12 @@ public class ResourceManager {
      * @param path
      */
     public static void exportImage(String path) {
-        throw new UnsupportedOperationException();
+        BufferedImage img = GUIMgr.getVisibleImage();
+        //        ImageIO io = new ImageWriter();
+    }
+
+    private static String getJarPath() {
+        return System.getProperty("user.dir");
     }
 
     /**
