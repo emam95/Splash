@@ -5,6 +5,7 @@
  */
 package splash.controller;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
@@ -29,6 +30,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import splash.model.Helper;
 import splash.model.Layer;
@@ -246,6 +249,11 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void LoadProject(ActionEvent event) {
-        GUIMgr.loadProject("C:\\Users\\Hesham\\Documents\\test");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Project");
+        fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if(selectedFile != null)
+            GUIMgr.loadProject(selectedFile);
     }
 }

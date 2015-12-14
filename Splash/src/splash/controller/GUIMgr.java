@@ -20,8 +20,9 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Pair;
-import javax.swing.JFileChooser;
 import splash.model.*;
 
 public class GUIMgr {
@@ -187,13 +188,15 @@ public class GUIMgr {
 
     public static void SaveAs() {
 
-        JFileChooser chooser = new JFileChooser();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save file");
+        fileChooser.setInitialFileName("New Project");
+        fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
+        File savedFile = fileChooser.showSaveDialog(null);
 
-        chooser.setCurrentDirectory(new File("/home/me/Documents"));
-        int retrival = chooser.showSaveDialog(null);
-        if (retrival == JFileChooser.APPROVE_OPTION) {
+        if (savedFile != null) {
             try {
-                fOutput = new FileOutputStream(chooser.getSelectedFile());
+                fOutput = new FileOutputStream(savedFile);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -205,9 +208,9 @@ public class GUIMgr {
         return fOutput;
     }
 
-    static void loadProject(String filename) {
+    static void loadProject(File file) {
         try {
-            FileInputStream fis = new FileInputStream(filename);
+            FileInputStream fis = new FileInputStream(file);
             XMLDecoder xdec = new XMLDecoder(fis);
             while (true) {
                 try {
