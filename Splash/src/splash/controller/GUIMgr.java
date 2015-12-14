@@ -243,5 +243,20 @@ public class GUIMgr {
     public static BufferedImage getVisibleImage() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public static void GroupLayers()
+    {
+        if(!MultipleSelectionTool.getSelectedLayers().isEmpty())
+        {
+            LayerGroup lg = new LayerGroup();
+            for(Layer l : MultipleSelectionTool.getSelectedLayers())
+            {
+                lg.addLayer(l);
+            }
+            workspace.addLayer(lg);
+            MultipleSelectionTool.ClearSelection();
+            
+        }
+    }
 
 }

@@ -35,6 +35,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import splash.model.Helper;
 import splash.model.Layer;
+import splash.model.MultipleSelectionTool;
 import splash.model.Object2D;
 import splash.model.ObjectLayer;
 import splash.model.Property;
@@ -187,7 +188,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void selectLayer(MouseEvent event) {
         GUIMgr.getWorkSpace().selectLayer(layerSelected());
-        fillTable();
+        //fillTable();
     }
 
     @FXML
@@ -255,5 +256,10 @@ public class FXMLDocumentController implements Initializable {
         File selectedFile = fileChooser.showOpenDialog(null);
         if(selectedFile != null)
             GUIMgr.loadProject(selectedFile);
+    }
+
+    @FXML
+    private void GroupLayers(ActionEvent event) {
+        GUIMgr.GroupLayers();
     }
 }

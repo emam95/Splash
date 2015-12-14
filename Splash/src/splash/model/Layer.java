@@ -165,6 +165,10 @@ public abstract class Layer {
     public void setPixel(int x, int y, int argb) {
         bitmap.setRGB(x, y, argb);
     }
+    
+    public PointF getCenter() {
+        return new PointF(getWidth() / 2f, getHeight() / 2f);
+    }
 
     public abstract HashMap<String, Property> getEditableList();
 }
