@@ -45,7 +45,7 @@ public class WorkSpace {
 
     public void addLayer(Layer layer) {
         layers.addFirst(selectedlayer = layer);
-        redrawRegion(layer.getRect(), null);        
+        redrawRegion(layer.getRect(), null);
     }
 
     public void removeLayer(int id) {
@@ -175,14 +175,14 @@ public class WorkSpace {
                     r = Math.min(255, col.getRed() + r);
                     g = Math.min(255, col.getGreen() + g);
                     b = Math.min(255, col.getBlue() + b);
-                    a = Math.max(1, af / 255f + a / 255f - af / 255 / 255f * a / 255f);
+                    a = af / 255f + a - af / 255f * a;
                     if (a == 1) {
                         break;
                     }
                 }
             }
         }
-
+        a = Math.min(1, a);
         return new Color(r / 255, g / 255, b / 255, a);
     }
 

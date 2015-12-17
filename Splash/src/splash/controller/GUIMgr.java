@@ -237,7 +237,7 @@ public class GUIMgr {
     }
 
     public static int getSelectedFillColor() {
-        return 0xFF000000;
+        return cont.getFillCol();
     }
 
     public static BufferedImage getVisibleImage() {

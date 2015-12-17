@@ -70,7 +70,7 @@ public class ResourceManager {
     public static void loadTools() {
         // Predefined tools
         tools.add(new PointerTool());
-        tools.add(new MarqueTool());
+        tools.add(new FillTool());
         tools.add(new ResizeTool());
         tools.add(new EraserTool());
         tools.add(new IntersectTool());

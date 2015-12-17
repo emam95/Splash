@@ -78,7 +78,7 @@ public abstract class Object2D implements Drawable {
         }
         isdrawing = true;
         dstart = cpos = start;
-        setFillcolor(Helper.getARGB(col));
+        setCanvascolor(Helper.getARGB(col));
     }
 
     @Override

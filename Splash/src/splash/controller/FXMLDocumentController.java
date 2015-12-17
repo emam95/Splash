@@ -53,9 +53,9 @@ import splash.model.Tool;
 public class FXMLDocumentController implements Initializable {
 
     Layer[] layers;
-    
+
     ArrayList<SimpleLayer> spl;
-    
+
     @FXML
     private ColorPicker colorPicker;
     @FXML
@@ -71,17 +71,15 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private MenuItem saveMenItem;
     @FXML
-    private TableView<Map.Entry<String,Property>> propTable;
+    private TableView<Map.Entry<String, Property>> propTable;
     @FXML
-    private TableColumn<Map.Entry<String, Property> ,String> propCol;
+    private TableColumn<Map.Entry<String, Property>, String> propCol;
     @FXML
     private TableColumn<Map.Entry<String, Property>, String> valCol;
-    
 
     private Tool selectedTool;
     private ArrayList<Tool> tools;
     ArrayList<KeyCode> pressedkeys = new ArrayList<>();
-    
 
     boolean iskeyPressed(KeyCode code) {
         return pressedkeys.contains(code);
@@ -108,7 +106,7 @@ public class FXMLDocumentController implements Initializable {
 
         // events
         drawingCanvas.setOnMousePressed(this::canvasMousePressed);
-        drawingCanvas.setOnMouseMoved(this::canvasMouseMoved);                
+        drawingCanvas.setOnMouseMoved(this::canvasMouseMoved);
     }
 
     public void CanvasSize(int width, int height) {
@@ -211,33 +209,32 @@ public class FXMLDocumentController implements Initializable {
     private void Save(ActionEvent event) {
         GUIMgr.Save();
     }
-    
+
     @FXML
     private void SaveAs(ActionEvent event) {
         GUIMgr.SaveAs();
-        if(GUIMgr.getCurrentFile() != null)
+        if (GUIMgr.getCurrentFile() != null) {
             saveMenItem.setDisable(false);
+        }
     }
-    
-    private void fillTable()
-    {
+
+    private void fillTable() {
         Layer selectedLayer = GUIMgr.getWorkSpace().getSelectedLayer();
-        if(selectedLayer instanceof ObjectLayer)
-        {
+        if (selectedLayer instanceof ObjectLayer) {
             Map<String, Property> map = ((ObjectLayer) selectedLayer).getObject().getEditableList();
             propCol = new TableColumn<>("Key");
             propCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Property>, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, Property>, String> p) {
-                return new SimpleStringProperty(p.getValue().getKey());
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, Property>, String> p) {
+                    return new SimpleStringProperty(p.getValue().getKey());
                 }
             });
             valCol = new TableColumn<>("Value");
             valCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Property>, String>, ObservableValue<String>>() {
 
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, Property>, String> p) {
-                return new SimpleStringProperty(p.getValue().getValue().toString());
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, Property>, String> p) {
+                    return new SimpleStringProperty(p.getValue().getValue().toString());
                 }
             });
 
@@ -254,12 +251,17 @@ public class FXMLDocumentController implements Initializable {
         fileChooser.setTitle("Open Project");
         fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
         File selectedFile = fileChooser.showOpenDialog(null);
-        if(selectedFile != null)
+        if (selectedFile != null) {
             GUIMgr.loadProject(selectedFile);
+        }
     }
 
     @FXML
     private void GroupLayers(ActionEvent event) {
         GUIMgr.GroupLayers();
+    }
+
+    int getFillCol() {
+        return Helper.getARGB(colorPicker.getValue());
     }
 }
